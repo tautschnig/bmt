@@ -1,0 +1,6 @@
+BEGIN {foundline = 0; linenr = 0; ORS = "";}
+/VERIFICATION/ {print $2, "\t"; foundline = 1; linenr = NR}
+(foundline == 1) && (NR == linenr + 1) {print $2, $4, $6, $9, $11, " "}
+(foundline == 1) && (NR == linenr + 2) {print $2, " "}
+(foundline == 1) && (NR == linenr + 3) {print $2, "\n"}
+
