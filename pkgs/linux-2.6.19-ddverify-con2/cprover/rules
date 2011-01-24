@@ -5,64 +5,74 @@ ALL_CHECKS= --check-spinlock \
 						--check-tasklet --check-work-queue --check-timer --check-context
 
 COMPILER=goto-cc
+SUFFIX=bin
 # COMPILER=cpp
+# SUFFIX=dir/
 # COMPILER=cil
+# SUFFIX=i
+
+build::
+	test -d cprover
+	ln -sf asm-i386 include/asm
+	$(MAKE) -f cprover/rules cprover/binaries
+	rm include/asm
+
+build/drivers/char/genrtc.$(SUFFIX): DEFINES := -D CONFIG_GEN_RTC_X -D CONFIG_PROC_FS
+build/drivers/char/watchdog/wdt.$(SUFFIX): DEFINES := -D CONFIG_WDT_501
+build/drivers/char/watchdog/wdt_pci.$(SUFFIX): DEFINES := -D CONFIG_WDT_501_PCI
+build/drivers/block/cciss.$(SUFFIX): DEFINES := -D CONFIG_PROC_FS -D CONFIG_X86
+build/drivers/block/cpqarray.$(SUFFIX): DEFINES := -D CONFIG_PROC_FS
+
+build/%.$(SUFFIX): %.c
+	mkdir -p $(dir $@)
+	cd build ; ../cprover/ddverify/ddverify.sh --$(COMPILER) $(ALL_CHECKS) $(DEFINES) ../$^ -o $(basename $<)
+
+CHAR_DRIVERS =  watchdog/machzwd
+## CHAR_DRIVERS= genrtc applicom \
+## 							watchdog/i8xx_tco watchdog/ib700wdt watchdog/machzwd watchdog/mixcomwd \
+## 							watchdog/pcwd watchdog/sbc60xxwdt watchdog/sc1200wdt watchdog/sc520_wdt \
+## 							watchdog/smsc37b787_wdt watchdog/w83877f_wdt watchdog/w83977f_wdt \
+## 							watchdog/wdt watchdog/wdt977 watchdog/wdt_pci
+## 
+## # DAC960 doesn't work with cil
+## BLOCK_DRIVERS= cciss floppy cpqarray DAC960
+
+cprover/binaries: $(addsuffix .$(SUFFIX), $(addprefix build/drivers/char/, $(CHAR_DRIVERS)) $(addprefix build/drivers/block/, $(BLOCK_DRIVERS)))
+	rm -f $@
+	for f in $^ ; do \
+		echo $$f >> $@ ; \
+	done
+
 TOOL=satabs
-# TOOL=cbmc --unwind 5
+TOOL_OPTS=--iterations 20 --32
+# TOOL=cbmc
+# TOOL_OPTS=--unwind 5 --no-unwinding-assertions --32 --bounds-check --div-by-zero-check --pointer-check
+TIMEOUT=1200
 
-build: cprover/binaries
+verify::
+	test -d cprover
+	$(MAKE) -f cprover/rules build
+	$(MAKE) -f cprover/rules cprover/verified
+	## set -e ; cd results ; \
+	## for i in $$(<../cprover/binaries) ; do \
+	## 	../cprover/verify.sh --timeout 5 --$(TOOL) ../$$i -- $(TOOL_OPTS) ; \
+	## done
 
-cprover/binaries:
-	mkdir build
-	
-	cd build ; ../cprover/ddverify/ddverify2.sh --$(COMPILER) $(ALL_CHECKS) -D CONFIG_GEN_RTC_X -D CONFIG_PROC_FS ../drivers/char/genrtc.c
-	cd build ; ../cprover/ddverify/ddverify2.sh --$(COMPILER) $(ALL_CHECKS) ../drivers/char/applicom.c
-	cd build ; ../cprover/ddverify/ddverify2.sh --$(COMPILER) $(ALL_CHECKS) ../drivers/char/watchdog/i8xx_tco.c
-	cd build ; ../cprover/ddverify/ddverify2.sh --$(COMPILER) $(ALL_CHECKS) ../drivers/char/watchdog/ib700wdt.c
-	cd build ; ../cprover/ddverify/ddverify2.sh --$(COMPILER) $(ALL_CHECKS) ../drivers/char/watchdog/machzwd.c
-	cd build ; ../cprover/ddverify/ddverify2.sh --$(COMPILER) $(ALL_CHECKS) ../drivers/char/watchdog/mixcomwd.c
-	cd build ; ../cprover/ddverify/ddverify2.sh --$(COMPILER) $(ALL_CHECKS) ../drivers/char/watchdog/pcwd.c
-	cd build ; ../cprover/ddverify/ddverify2.sh --$(COMPILER) $(ALL_CHECKS) ../drivers/char/watchdog/sbc60xxwdt.c
-	cd build ; ../cprover/ddverify/ddverify2.sh --$(COMPILER) $(ALL_CHECKS) ../drivers/char/watchdog/sc1200wdt.c
-	cd build ; ../cprover/ddverify/ddverify2.sh --$(COMPILER) $(ALL_CHECKS) ../drivers/char/watchdog/sc520_wdt.c
-	cd build ; ../cprover/ddverify/ddverify2.sh --$(COMPILER) $(ALL_CHECKS) ../drivers/char/watchdog/smsc37b787_wdt.c
-	cd build ; ../cprover/ddverify/ddverify2.sh --$(COMPILER) $(ALL_CHECKS) ../drivers/char/watchdog/w83877f_wdt.c
-	cd build ; ../cprover/ddverify/ddverify2.sh --$(COMPILER) $(ALL_CHECKS) ../drivers/char/watchdog/w83977f_wdt.c
-	cd build ; ../cprover/ddverify/ddverify2.sh --$(COMPILER) $(ALL_CHECKS) -D CONFIG_WDT_501 ../drivers/char/watchdog/wdt.c
-	cd build ; ../cprover/ddverify/ddverify2.sh --$(COMPILER) $(ALL_CHECKS) ../drivers/char/watchdog/wdt977.c
-	cd build ; ../cprover/ddverify/ddverify2.sh --$(COMPILER) $(ALL_CHECKS) -D CONFIG_WDT_501_PCI ../drivers/char/watchdog/wdt_pci.c
-	
-	cd build ; ../cprover/ddverify/ddverify2.sh --$(COMPILER) $(ALL_CHECKS) -D CONFIG_PROC_FS -D CONFIG_X86 ../drivers/block/cciss.c
-	cd build ; ../cprover/ddverify/ddverify2.sh --$(COMPILER) $(ALL_CHECKS) ../drivers/block/floppy.c
-	cd build ; ../cprover/ddverify/ddverify2.sh --$(COMPILER) $(ALL_CHECKS) -D CONFIG_PROC_FS ../drivers/block/cpqarray.c
-	# doesn't work with cil
-	cd build ; ../cprover/ddverify/ddverify2.sh --$(COMPILER) $(ALL_CHECKS) ../drivers/block/DAC960.c
+results/%.vr: build/%.$(SUFFIX)
+	mkdir -p $(dir $@)
+	cd results ; ../cprover/verify.sh --timeout $(TIMEOUT) --$(TOOL) ../$< -- $(TOOL_OPTS) > ../$@
 
-verify:
-	mkdir -p results
-	cd results ; ../cprover/ddverify/ddverify.sh --timeout 1200 --$(TOOL) $(ALL_CHECKS) -D CONFIG_GEN_RTC_X -D CONFIG_PROC_FS ../drivers/char/genrtc.c
-	cd results ; ../cprover/ddverify/ddverify.sh --timeout 1200 --$(TOOL) $(ALL_CHECKS) ../drivers/char/applicom.c
-	cd results ; ../cprover/ddverify/ddverify.sh --timeout 1200 --$(TOOL) $(ALL_CHECKS) ../drivers/char/watchdog/i8xx_tco.c
-	cd results ; ../cprover/ddverify/ddverify.sh --timeout 1200 --$(TOOL) $(ALL_CHECKS) ../drivers/char/watchdog/ib700wdt.c
-	cd results ; ../cprover/ddverify/ddverify.sh --timeout 1200 --$(TOOL) $(ALL_CHECKS) ../drivers/char/watchdog/machzwd.c
-	cd results ; ../cprover/ddverify/ddverify.sh --timeout 1200 --$(TOOL) $(ALL_CHECKS) ../drivers/char/watchdog/mixcomwd.c
-	cd results ; ../cprover/ddverify/ddverify.sh --timeout 1200 --$(TOOL) $(ALL_CHECKS) ../drivers/char/watchdog/pcwd.c
-	cd results ; ../cprover/ddverify/ddverify.sh --timeout 1200 --$(TOOL) $(ALL_CHECKS) ../drivers/char/watchdog/sbc60xxwdt.c
-	cd results ; ../cprover/ddverify/ddverify.sh --timeout 1200 --$(TOOL) $(ALL_CHECKS) ../drivers/char/watchdog/sc1200wdt.c
-	cd results ; ../cprover/ddverify/ddverify.sh --timeout 1200 --$(TOOL) $(ALL_CHECKS) ../drivers/char/watchdog/sc520_wdt.c
-	cd results ; ../cprover/ddverify/ddverify.sh --timeout 1200 --$(TOOL) $(ALL_CHECKS) ../drivers/char/watchdog/smsc37b787_wdt.c
-	cd results ; ../cprover/ddverify/ddverify.sh --timeout 1200 --$(TOOL) $(ALL_CHECKS) ../drivers/char/watchdog/w83877f_wdt.c
-	cd results ; ../cprover/ddverify/ddverify.sh --timeout 1200 --$(TOOL) $(ALL_CHECKS) ../drivers/char/watchdog/w83977f_wdt.c
-	cd results ; ../cprover/ddverify/ddverify.sh --timeout 1200 --$(TOOL) $(ALL_CHECKS) -D CONFIG_WDT_501 ../drivers/char/watchdog/wdt.c
-	cd results ; ../cprover/ddverify/ddverify.sh --timeout 1200 --$(TOOL) $(ALL_CHECKS) ../drivers/char/watchdog/wdt977.c
-	cd results ; ../cprover/ddverify/ddverify.sh --timeout 1200 --$(TOOL) $(ALL_CHECKS) -D CONFIG_WDT_501_PCI ../drivers/char/watchdog/wdt_pci.c
-	
-	cd results ; ../cprover/ddverify/ddverify.sh --timeout 1200 --$(TOOL) $(ALL_CHECKS) -D CONFIG_PROC_FS -D CONFIG_X86 ../drivers/block/cciss.c
-	cd results ; ../cprover/ddverify/ddverify.sh --timeout 1200 --$(TOOL) $(ALL_CHECKS) ../drivers/block/floppy.c
-	cd results ; ../cprover/ddverify/ddverify.sh --timeout 1200 --$(TOOL) $(ALL_CHECKS) -D CONFIG_PROC_FS ../drivers/block/cpqarray.c
-	cd results ; ../cprover/ddverify/ddverify.sh --timeout 1200 --$(TOOL) $(ALL_CHECKS) ../drivers/block/DAC960.c
+cprover/verified: $(addsuffix .vr, $(addprefix results/drivers/char/, $(CHAR_DRIVERS)) $(addprefix results/drivers/block/, $(BLOCK_DRIVERS)))
+	echo "TOOL: $(TOOL) $(TOOL_OPTS)" > $@
+	echo "TIMEOUT: $(TIMEOUT)" >> $@
+	echo "RESULTS:" >> $@
+	for f in $^ ; do \
+		cat $$f >> $@ ; \
+	done
 
-clean:
-	rm -r results
+clean::
+	test -d cprover
+	rm -f cprover/binaries cprover/verified
+	rm -rf build results
 
 
