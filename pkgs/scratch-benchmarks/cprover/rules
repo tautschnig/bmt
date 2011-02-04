@@ -1,0 +1,150 @@
+#!/usr/bin/make -f
+
+SUFFIX=bin
+CORRSUFFIX=cbin
+TDMAS=1
+
+build::
+	test -d cprover
+	$(MAKE) -f cprover/rules cprover/binaries
+
+results/1_buf.vr: DEPTH := 100
+
+build/1_buf_IO.$(SUFFIX): TDMAS := 2
+results/1_buf_IO.vr: DEPTH := 109
+
+build/2_buf.$(SUFFIX): TDMAS := 2
+results/2_buf.vr: DEPTH := 87
+build/2_buf.$(CORRSUFFIX): TDMAS := 3
+
+build/2_buf_barrier.$(SUFFIX): TDMAS := 2
+results/2_buf_barrier.vr: DEPTH := 130
+build/2_buf_barrier.$(CORRSUFFIX): TDMAS := 4
+
+build/2_buf_fence.$(SUFFIX): TDMAS := 2
+results/2_buf_fence.vr: DEPTH := 130
+build/2_buf_fence.$(CORRSUFFIX): TDMAS := 4
+
+build/2_buf_IO.$(SUFFIX): TDMAS := 3
+results/2_buf_IO.vr: DEPTH := 137
+build/2_buf_IO.$(CORRSUFFIX): TDMAS := 4
+
+build/3_buf.$(SUFFIX): TDMAS := 3
+results/3_buf_IO.vr: DEPTH := 160
+build/3_buf.$(CORRSUFFIX): TDMAS := 3
+
+build/3_buf_fence.$(SUFFIX): TDMAS := 3
+results/3_buf_fence.vr: DEPTH := 184
+build/3_buf_fence.$(CORRSUFFIX): TDMAS := 5
+
+build/3_buf_IO.$(SUFFIX): TDMAS := 3
+results/3_buf_IO_fence.vr: DEPTH := 160
+build/3_buf_IO.$(CORRSUFFIX): TDMAS := 2
+
+build/3_buf_IO_barrier.$(SUFFIX): TDMAS := 2
+results/3_buf_IO_barrier.vr: DEPTH := 133
+build/3_buf_IO_barrier.$(CORRSUFFIX): TDMAS := 4
+
+build/3_buf_IO_fence.$(SUFFIX): TDMAS := 3
+results/3_buf_IO_fence.vr: DEPTH := 159
+build/3_buf_IO_fence.$(CORRSUFFIX): TDMAS := 4
+
+build/checksum.$(SUFFIX): TDMAS := 4
+results/checksum.vr: DEPTH := 53
+build/checksum.$(CORRSUFFIX): TDMAS := 4
+
+results/cpaudio.vr: DEPTH := 57
+build/cpaudio.$(CORRSUFFIX): TDMAS := 4
+
+build/Euler_complex.$(SUFFIX): TDMAS := 8
+results/Euler_complex.vr: DEPTH := 273
+build/Euler_complex.$(CORRSUFFIX): TDMAS := 10
+
+build/Euler_simple.$(SUFFIX): TDMAS := 3
+results/Euler_simple.vr: DEPTH := 167
+build/Euler_simple.$(CORRSUFFIX): TDMAS := 5
+
+build/Julia_2.$(SUFFIX): DEFINES := -DFIXED_NUM_COLUMNS=2
+build/Julia_2.$(SUFFIX): TDMAS := 32
+results/Julia_2.vr: DEPTH := 1955
+build/Julia_2.$(CORRSUFFIX): DEFINES := -DFIXED_NUM_COLUMNS=2
+build/Julia_2.$(CORRSUFFIX): TDMAS := 3
+
+build/normalize.$(SUFFIX): TDMAS := 12
+results/normalize.vr: DEPTH := 549
+build/normalize.$(CORRSUFFIX): TDMAS := 8
+
+results/race_check_1.vr: DEPTH := 34
+build/race_check_1.$(CORRSUFFIX): TDMAS := 2
+
+build/race_check_2.$(SUFFIX): TDMAS := 3
+results/race_check_2.vr: DEPTH := 65
+build/race_check_2.$(CORRSUFFIX): TDMAS := 4
+
+results/simple_dma.vr: DEPTH := 80
+
+results/sync_atomic_op.vr: DEPTH := 64
+
+results/sync_mutex.vr: DEPTH := 74
+
+build/%.$(SUFFIX):
+	mkdir -p build
+	scratch $(DEFINES) -I ./ spu_mfcio.c --function spu_main $(basename $(notdir $@))/*.c --write-binary $@
+
+build/%.$(CORRSUFFIX):
+	mkdir -p build
+	scratch $(DEFINES) -DCORRECT -I ./ spu_mfcio.c --function spu_main $(basename $(notdir $@))/*.c --tracked-dmas $(TDMAS) --write-binary $@
+
+ALL_BENCHMARKS= 1_buf 1_buf_IO 2_buf 2_buf_barrier 2_buf_fence 2_buf_IO 3_buf \
+								3_buf_fence 3_buf_IO 3_buf_IO_barrier 3_buf_IO_fence checksum \
+								cpaudio Euler_complex Julia_2 normalize \
+								race_check_1 race_check_2 simple_dma sync_atomic_op sync_mutex
+
+# Euler_simple doesn't work because of missing libspe2.h
+
+cprover/binaries: $(addsuffix .$(SUFFIX), $(addprefix build/, $(ALL_BENCHMARKS))) $(addsuffix .$(CORRSUFFIX), $(addprefix build/, $(ALL_BENCHMARKS)))
+	rm -f $@
+	for f in $^ ; do \
+		echo $$f >> $@ ; \
+	done
+
+TOOL1=scratch
+TOOL_OPTS1=
+TOOL2=satabs
+TOOL_OPTS2=--iterations 20
+TOOL3=wolverine
+TOOL_OPTS3=--unwind 5
+
+TOOL=$(TOOL1)
+TOOL_OPTS=--function spu_main $(TOOL_OPTS1)
+TIMEOUT=60
+
+verify:: build
+	test -d cprover
+	$(MAKE) -f cprover/rules cprover/verified
+
+results/%.vr: build/%.$(SUFFIX)
+	mkdir -p results
+ifeq ($(TOOL),scratch)
+	cd results ; verify.sh --timeout $(TIMEOUT) --$(TOOL) ../$< -- $(TOOL_OPTS) --bug-finding --depth $(DEPTH) | tee ../$@
+else
+	cd results ; verify.sh --timeout $(TIMEOUT) --$(TOOL) ../$< -- $(TOOL_OPTS) | tee ../$@
+endif
+
+results/%.cvr: build/%.$(CORRSUFFIX)
+	mkdir -p results
+	cd results ; verify.sh --timeout $(TIMEOUT) --$(TOOL) ../$< -- $(TOOL_OPTS) | tee ../$@
+
+cprover/verified: $(addsuffix .vr, $(addprefix results/, $(ALL_BENCHMARKS))) $(addsuffix .cvr, $(addprefix results/, $(ALL_BENCHMARKS)))
+	echo "TOOL: $(TOOL) $(TOOL_OPTS)" > $@
+	echo "TIMEOUT: $(TIMEOUT)" >> $@
+	echo "RESULTS:" >> $@
+	for f in $^ ; do \
+		cat $$f >> $@ ; \
+	done
+
+clean::
+	test -d cprover
+	rm -rf results build
+	rm -f cprover/binaries cprover/verified
+
