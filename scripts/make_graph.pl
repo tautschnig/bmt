@@ -9,6 +9,8 @@ use strict;
 use warnings FATAL => qw(uninitialized);
 use Getopt::Std;
 
+use File::Basename qw(dirname);
+use lib dirname($0);
 require "parse_results.pl";
 
 sub usage {
@@ -47,7 +49,7 @@ foreach my $f (@ARGV) {
         $global_results{$c}{status} = $ref->{status};
       } else {
         ($ref->{status} eq "--" || $ref->{status} eq $global_results{$c}{status})
-          or die "Tools disagree about verification result for claim $c\n";
+          or warn "Tools disagree about verification result for claim $c\n";
       }
     }
 

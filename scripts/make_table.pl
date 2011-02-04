@@ -8,6 +8,8 @@
 use strict;
 use warnings FATAL => qw(uninitialized);
 
+use File::Basename qw(dirname);
+use lib dirname($0);
 require "parse_results.pl";
 
 sub usage {

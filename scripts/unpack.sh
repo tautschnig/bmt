@@ -73,7 +73,7 @@ PKG_NAME="`basename $BM_PKG | sed 's#\.cprover-bm\.tar\.gz$##'`"
 case $SOURCE in
   *.zip)
     unzip -n -d $TMP_UNPACK $SOURCE
-    [ `find $TMP_UNPACK -maxdepth 1 -type d | wc -l` -eq 2 ] || \ 
+    [ `find $TMP_UNPACK -maxdepth 1 -type d | wc -l` -eq 2 ] || \
       die "Source $SOURCE must contain exactly one directory"
     mv $TMP_UNPACK/* $PKG_NAME
     rmdir $TMP_UNPACK

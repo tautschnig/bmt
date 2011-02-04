@@ -59,18 +59,48 @@ while true ; do
       [ ! -d cprover ] || die "cprover directory already exists"
       [ ! -f $BM_PKG ] || die "$BM_PKG already exists"
       mkdir cprover
-      cat > cprover/rules <<EOF
+      cat > cprover/rules <<"EOF"
 #!/usr/bin/make -f
 
-build:
+# put files for verification in here
+OBJS=
 
+build::
+\ttest -d cprover
+# put your build rules in here
 
-verify:
+TOOL1=cbmc
+TOOL_OPTS1=--unwind 3 --no-unwinding-assertions --32
+TOOL2=satabs
+TOOL_OPTS2=--iterations 20 --32
+TOOL3=wolverine
+TOOL_OPTS3=--unwind 5 --32
 
+TOOL=$(TOOL1)
+TOOL_OPTS=$(TOOL_OPTS1)
+TIMEOUT=60
 
-clean:
+verify:: build
+\ttest -d cprover
+\t$(MAKE) -f cprover/rules cprover/verified
+
+cprover/verified: $(OBJS)
+\tmkdir -p results
+\techo "TOOL: $(TOOL) $(TOOL_OPTS)" > $@
+\techo "TIMEOUT: $(TIMEOUT)" >> $@
+\techo "RESULTS:" >> $@
+\tset -e ; cd results ; for f in $^ ; do \
+\t  verify.sh --timeout $(TIMEOUT) --$(TOOL) ../$$f -- $(TOOL_OPTS) >> ../$@ ; \
+\tdone
+
+clean::
+\ttest -d cprover
+\trm -rf results
+\trm -f cprover/verified
+\trm -f $(OBJS)
 
 EOF
+      sed -i 's/\\t/\t/' cprover/rules
       chmod a+x cprover/rules
       cd ..
       tar czf `basename $BM_PKG` $PKG_NAME/cprover
@@ -112,7 +142,7 @@ TMP_UNPACK="`mktemp -d --tmpdir=../ cproverbm.XXXXXX`"
 case $SOURCE in
   *.zip)
     unzip -n -d $TMP_UNPACK $SOURCE
-    [ `find $TMP_UNPACK -maxdepth 1 -type d | wc -l` -eq 2 ] || \ 
+    [ `find $TMP_UNPACK -maxdepth 1 -type d | wc -l` -eq 2 ] || \
       die "Source $SOURCE must contain exactly one directory"
     mv $TMP_UNPACK/* ${TMP_UNPACK}_
     rmdir $TMP_UNPACK
@@ -142,7 +172,7 @@ patch_tmp="`mktemp cproverbm.XXXXXX`"
 TMP_FILES="$TMP_FILES $patch_tmp"
 if ! diff -urN -xcprover $TMP_UNPACK $PKG_NAME > $patch_tmp ; then
   diff_exit_code=${PIPESTATUS[0]}
-  [ $diff_exit_code -eq 1 ] || die "diff had unexpected exit code $diff_exit_code"
+  [ $diff_exit_code -eq 1 ] || die "diff had unexpected exit code $diff_exit_code -- check for binary files"
   if [ ! -d $PKG_NAME/cprover/patches ] ; then
     mkdir $PKG_NAME/cprover/patches
   fi

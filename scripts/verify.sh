@@ -59,11 +59,12 @@ Usage: $SELF [OPTIONS] SOURCES ... [-- BACKENDOPTS]
     --satabs                            use SATABS as verification tool (default)
     --cbmc                              use CBMC as verification tool
     --wolverine                         use WOLVERINE as verification tool
+    --scratch                           use SCRATCH as verification tool
 
 EOF
 }
 
-read_output_file() {
+read_claims() {
   local ofile=$1
   NUMBER_CLAIMS=0
   local ifs=$IFS
@@ -92,53 +93,52 @@ prove_claims() {
     line_var="CLAIM_${i}_line"
     text_var="CLAIM_${i}_text"
     claim_var="CLAIM_${i}_claim"
-    echo "claim $i of $NUMBER_CLAIMS (${!claim_id_var}) " 1>&2
-    echo -n "claim $i of $NUMBER_CLAIMS (${!claim_id_var}) "
+    echo -n "claim $i of $NUMBER_CLAIMS (${!claim_id_var}) ... "
+    
+    mktemp_local_prefix_suffix time_out stats .stat
+    BENCHMARKING="/usr/bin/time -v -o$time_out"
+    exit_code=0
+    mktemp_local_prefix_suffix claim_out log .err
+    cat > $claim_out <<EOF
+uname -a:
+`uname -a`
+cat /proc/cpuinfo:
+`cat /proc/cpuinfo`
+cat /proc/meminfo:
+`cat /proc/meminfo`
+date:
+`date`
+user:
+$USER
+ulimit -a:
+`ulimit -a`
+timeout:
+$TIMEOUT
+command:
+$TOOL $OPTS --claim ${!claim_id_var} $SOURCES
+###############################################################################
+EOF
     if [ "${!claim_var}" = "TRUE" ] ; then
-      echo "SUCCESSFUL 0 "
+      bash -i -c "$BENCHMARKING echo -e "Trivially true.\nVERIFICATION SUCCESSFUL" >> $claim_out 2>&1" || exit_code=$?
     else
-      exit_code=0
-      mktemp_local_prefix_suffix claim_out claim .txt
-      bash -i -c "$TIMEOUT $BENCHMARKING $TOOL $OPTS --claim ${!claim_id_var} $SOURCES > $claim_out 2>&1" || exit_code=$?
-      case $exit_code in
-        0|10)
-          awk '
-BEGIN {foundline = 0; linenr = 0; ORS = "";}
-/VERIFICATION/ {print $2, "\t"; foundline = 1; linenr = NR}
-(foundline == 1) && (NR == linenr + 1) {print $2, $4, $6, $9, $11, " "}
-(foundline == 1) && (NR == linenr + 2) {print $2, " "}
-(foundline == 1) && (NR == linenr + 3) {print $2, ""}
-          ' $claim_out
-          grep '^#STATS' $claim_out
-          if [ $exit_code -eq 10 ] ; then
-            mv $claim_out cex_log_${!claim_id_var}
-          fi
-          ;;
-        124)
-          echo "TIMEOUT"
-          ;;
-        *)
-          if [ "$TOOL" = "satabs" -a $exit_code -eq 11 ] ; then
-            echo -n "TOO_MANY_ITERATIONS "
-            awk '
-BEGIN {foundline = 0; linenr = 0; ORS = "";}
-/^Too many iterations, giving up.*/ {foundline = 1; linenr = NR}
-(foundline == 1) && (NR == linenr + 2) {print $2, $4, $6, $9, $11, " "}
-(foundline == 1) && (NR == linenr + 3) {print $2, " "}
-(foundline == 1) && (NR == linenr + 4) {print $2, "\n"}
-            ' $claim_out
-          else
-            echo "ERROR (exit code $exit_code)"
-            mv $claim_out err_log_${!claim_id_var}
-          fi
-          ;;
-      esac
+      bash -i -c "$TIMEOUT $BENCHMARKING $TOOL $OPTS --claim ${!claim_id_var} $SOURCES >> $claim_out 2>&1" || exit_code=$?
     fi
+    cat >> $claim_out <<EOF
+###############################################################################
+exit code:
+$exit_code
+statistics:
+`cat $time_out`
+EOF
+    mv $claim_out log_${!claim_id_var}
+
+    echo "done."
+    echo "LOGFILE: $PWD/log_${!claim_id_var}"
   done
 }
 
 run_tool() {
-  echo -n "Running $TOOL .." 1>&2
+  echo -n "Running $TOOL ... "
   mktemp_local_prefix_suffix list_of_claims claims .txt
   exit_code=0
   $TOOL $OPTS --show-claims $SOURCES > $list_of_claims || exit_code=$?
@@ -146,8 +146,8 @@ run_tool() {
     echo
     die "Could not start $TOOL"
   fi
-  echo "." 1>&2
-  echo -n "Parsing $TOOL output .." 1>&2
+  echo "done."
+  echo -n "Parsing $TOOL output ... "
   mktemp_local_prefix_suffix list_of_claims_converted claimsconv .txt
   awk '
 BEGIN {foundclaim = 0;}
@@ -156,9 +156,9 @@ BEGIN {foundclaim = 0;}
 (NR == claim + 2) && (foundclaim == 1) {print substr($0, 3)}		
 (NR == claim + 3) && (foundclaim == 1) {print substr($0, 3) "\n"}
   ' $list_of_claims > $list_of_claims_converted
-  echo "." 1>&2
-  read_output_file $list_of_claims_converted
-  echo "$NUMBER_CLAIMS Claims" 1>&2
+  echo "done."
+  read_claims $list_of_claims_converted
+  echo "$NUMBER_CLAIMS claims"
   prove_claims
 }
 
@@ -172,6 +172,7 @@ opts=`getopt -n "$0" -o "h" --long "\
 	    satabs,\
 	    cbmc,\
       wolverine,\
+      scratch,\
   " -- "$@"`
 eval set -- "$opts"
 
@@ -192,6 +193,7 @@ while true ; do
 	  --satabs) TOOL=satabs ; shift 1;;
 	  --cbmc) TOOL=cbmc ; shift 1;;
 	  --wolverine) TOOL=wolverine ; shift 1;;
+	  --scratch) TOOL=scratch ; shift 1;;
     --) shift ; break ;;
     *) die "Unknown option $1" ;;
   esac
@@ -207,14 +209,16 @@ for o in $@ ; do
       ;;
     *)
       [ -f "$o" ] || die "Source file $o not found"
-      SOURCES="$SOURCES $o"
+      if [ "$TOOL" = "scratch" -a "`file -b $o`" = "data" ] ; then
+        SOURCES="$SOURCES --binary $o"
+      else
+        SOURCES="$SOURCES $o"
+      fi
       shift 1
       ;;
   esac
 done
 [ -n "$SOURCES" ] || die "No source file given"
-
-BENCHMARKING="/usr/bin/time -f '#STATS: cpu=%U wall=%e maxmem=%M'"
 
 run_tool
 
