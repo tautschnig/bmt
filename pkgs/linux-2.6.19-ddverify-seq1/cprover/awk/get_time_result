@@ -1,3 +1,0 @@
-BEGIN {foundline = 0; linenr = 0; ORS = "";}
-/^VERIFICATION SUCCESSFUL*/ {foundline = 1; linenr = NR;}
-(foundline == 1) && (NR == linenr + 1) {print $2}

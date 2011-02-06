@@ -1,0 +1,11 @@
+
+This test suite is from
+http://www.ll.mit.edu/IST/corpora.html
+
+It is described in
+Zitser M., Lippmann R., Leek T.: Testing Static Analysis Tools Using 
+Exploitable Buffer Overflows From Open Source Code. FSE 2004.
+
+The file EXCLUDED contains a list of test cases that were excluded.
+test.pl runs loopfrog for every test case,
+test-noinv.pl runs loopfrog without invariant domains.

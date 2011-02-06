@@ -1,3 +1,0 @@
-BEGIN {}
-/Iterations:/ {print $2}
-(foundline == 1) && (NR == linenr + 1) {print $2}

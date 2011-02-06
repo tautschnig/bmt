@@ -1,0 +1,1412 @@
+diff -urN -xcprover cproverbm.pOi6eu/bind/b1/nxt-bad.c llcorpora-2007-11-06/bind/b1/nxt-bad.c
+--- cproverbm.pOi6eu/bind/b1/nxt-bad.c	2004-07-28 21:09:18.000000000 +0100
++++ llcorpora-2007-11-06/bind/b1/nxt-bad.c	2011-02-06 03:27:13.000000000 +0000
+@@ -402,6 +402,8 @@
+ 
+ 	  printf("Trying to copy dlen-n = %u bytes from cp to cp1!\n", dlen - n);
+ 	  /*BAD*/
++__TESTCLAIM_1:
++          strncat(data, cp, dlen - n);
+ 	  memcpy(cp1, cp, dlen - n);  /* we haven't checked to see if dlen - n
+ 					 bytes can even fit into data buf 
+ 				      */
+diff -urN -xcprover cproverbm.pOi6eu/bind/b1/nxt-ok.c llcorpora-2007-11-06/bind/b1/nxt-ok.c
+--- cproverbm.pOi6eu/bind/b1/nxt-ok.c	2004-02-05 16:47:21.000000000 +0000
++++ llcorpora-2007-11-06/bind/b1/nxt-ok.c	2011-02-06 03:27:13.000000000 +0000
+@@ -452,6 +452,7 @@
+ 		printf("Copying %d bytes from cp to cp1\n", n2);
+ 		printf("Cp1 has room for %d bytes\n", sizeof data - n1);
+ 		/* OK */           
++__TESTCLAIM_0:
+ 		memcpy(cp1, cp, n2);
+ 		cp += n2;
+ 
+diff -urN -xcprover cproverbm.pOi6eu/bind/b2/sig-bad.c llcorpora-2007-11-06/bind/b2/sig-bad.c
+--- cproverbm.pOi6eu/bind/b2/sig-bad.c	2004-07-28 21:36:30.000000000 +0100
++++ llcorpora-2007-11-06/bind/b2/sig-bad.c	2011-02-06 03:27:13.000000000 +0000
+@@ -558,6 +558,7 @@
+ 		printf ("memcpying n=%u bytes \n", (unsigned int) n);
+ 
+ 		/* BAD */		
++__TESTCLAIM_0:
+ 		memcpy(cp1, cp, n);
+ 		cp += n;
+ 		cp1 += n;
+diff -urN -xcprover cproverbm.pOi6eu/bind/b2/sig-ok.c llcorpora-2007-11-06/bind/b2/sig-ok.c
+--- cproverbm.pOi6eu/bind/b2/sig-ok.c	2004-07-28 21:30:07.000000000 +0100
++++ llcorpora-2007-11-06/bind/b2/sig-ok.c	2011-02-06 03:27:13.000000000 +0000
+@@ -535,6 +535,7 @@
+ 		printf("MEMCPY: Copying %u bytes into data buf!\n", n);
+ 
+ 		/* OK */
++__TESTCLAIM_0:
+ 		memcpy(cp1, cp, n);
+ 		cp += n;
+ 		cp1 += n;
+diff -urN -xcprover cproverbm.pOi6eu/bind/b3/iquery-bad.c llcorpora-2007-11-06/bind/b3/iquery-bad.c
+--- cproverbm.pOi6eu/bind/b3/iquery-bad.c	2004-07-28 21:44:55.000000000 +0100
++++ llcorpora-2007-11-06/bind/b3/iquery-bad.c	2011-02-06 03:27:13.000000000 +0000
+@@ -132,6 +132,7 @@
+ 	
+ 	printf("Copying %d bytes from fname to anbuf which can store %d bytes\n", alen, sizeof(anbuf)); 
+ 	/*BAD*/
++__TESTCLAIM_0:
+ 	memcpy(anbuf, fname, alen);
+ 	data = anbuf + alen - dlen;
+ 	*cpp = (u_char *)fname;
+diff -urN -xcprover cproverbm.pOi6eu/bind/b3/iquery-ok.c llcorpora-2007-11-06/bind/b3/iquery-ok.c
+--- cproverbm.pOi6eu/bind/b3/iquery-ok.c	2004-01-05 17:27:40.000000000 +0000
++++ llcorpora-2007-11-06/bind/b3/iquery-ok.c	2011-02-06 03:27:13.000000000 +0000
+@@ -139,6 +139,7 @@
+ 	printf("Copying %d bytes from fname to anbuf which can store %d bytes\n", alen, sizeof(anbuf)); 
+ 
+ 	/*OK*/
++__TESTCLAIM_0:
+ 	memcpy(anbuf, fname, alen);
+ 	data = anbuf + alen - dlen;
+ 	*cpp = (u_char *)fname;
+diff -urN -xcprover cproverbm.pOi6eu/bind/b4/ns-lookup-bad.c llcorpora-2007-11-06/bind/b4/ns-lookup-bad.c
+--- cproverbm.pOi6eu/bind/b4/ns-lookup-bad.c	2004-02-05 15:18:49.000000000 +0000
++++ llcorpora-2007-11-06/bind/b4/ns-lookup-bad.c	2011-02-06 03:27:13.000000000 +0000
+@@ -142,6 +142,7 @@
+                            inet_ntoa(data_inaddr(a_rr->d_data)));
+ 		    
+ 		    /*BAD*/
++        __TESTCLAIM_0:
+ 		    sprintf(buf, "%s: query(%s) %s (%s:%s) learnt (A=%s:NS=%s)",
+ 			    sysloginfo, queryname,
+ 			    complaint, dname,
+diff -urN -xcprover cproverbm.pOi6eu/bind/b4/ns-lookup-ok.c llcorpora-2007-11-06/bind/b4/ns-lookup-ok.c
+--- cproverbm.pOi6eu/bind/b4/ns-lookup-ok.c	2004-02-05 15:18:49.000000000 +0000
++++ llcorpora-2007-11-06/bind/b4/ns-lookup-ok.c	2011-02-06 03:27:13.000000000 +0000
+@@ -151,6 +151,7 @@
+ 		 complaint, dname,
+ 		 inet_ntoa(data_inaddr(a_rr->d_data)));
+ 	  /*OK*/
++	  __TESTCLAIM_0:
+ 	  snprintf(buf, 999, "%s: query(%s) %s (%s:%s)",
+ 		   sysloginfo, queryname,
+ 		   complaint, dname,
+diff -urN -xcprover cproverbm.pOi6eu/sendmail/s1/crackaddr-bad.c llcorpora-2007-11-06/sendmail/s1/crackaddr-bad.c
+--- cproverbm.pOi6eu/sendmail/s1/crackaddr-bad.c	2004-01-05 17:27:48.000000000 +0000
++++ llcorpora-2007-11-06/sendmail/s1/crackaddr-bad.c	2011-02-06 02:56:01.000000000 +0000
+@@ -189,18 +189,19 @@
+ 
+ 	  printf("c = %c\n", c);
+ 
+-		skipping = bp >= buflim;
++	  skipping = (unsigned)(bp >= buflim);
+               
+-		if (copylev > 0 && !skipping)
++		if (copylev > 0 && !(unsigned)skipping)
+ 		      { 
+ 		      /*BAD*/
++		      __TESTCLAIM_1:
+ 		      *bp++ = c;
+ 		      }
+ 		/* check for backslash escapes */
+ 		if (c == '\\')
+ 		{
+ 			/* arrange to quote the address */
+-			if (cmtlev <= 0 && !qmode)
++			if (cmtlev <= 0 && !(unsigned)qmode)
+ 				quoteit = true;
+ 
+ 			if ((c = *p++) == '\0')
+@@ -209,9 +210,10 @@
+ 				p--;
+ 				goto putg;
+ 			}
+-			if (copylev > 0 && !skipping)
++			if (copylev > 0 && !(unsigned)skipping)
+ 			  {  
+ 			    /*BAD*/
++		      __TESTCLAIM_2:
+ 			    *bp++ = c;
+ 			  }
+ 			goto putg;
+@@ -245,10 +247,12 @@
+ 					if (bp != bufhead)
+ 					  {
+ 					    /*BAD*/
++		      __TESTCLAIM_3:
+ 					    *bp++ = ' ';
+ 					  }
+ 				     
+ 					/*BAD*/
++		      __TESTCLAIM_4:
+ 					*bp++ = c;
+ 				}
+ 			}
+@@ -295,13 +299,15 @@
+ 			
+ 			if (*p == ':' || *p == '.')
+ 			{
+-				if (cmtlev <= 0 && !qmode)
++				if (cmtlev <= 0 && !((unsigned)qmode))
+ 					quoteit = true;
+-				if (copylev > 0 && !skipping)
++				if (copylev > 0 && !((unsigned)skipping))
+ 				{
+ 				  /*BAD*/
++		      __TESTCLAIM_5:
+ 				  *bp++ = c;
+ 				  /*BAD*/
++		      __TESTCLAIM_6:
+ 				  *bp++ = *p;
+ 				}
+ 				p++;
+@@ -311,9 +317,10 @@
+ 			gotcolon = true;
+ 
+ 			bp = bufhead;
+-			if (quoteit)
++			if ((unsigned)quoteit)
+ 			{
+ 			  /*BAD*/
++		      __TESTCLAIM_7:
+ 			  *bp++ = '"';
+ 
+ 			  /* back up over the ':' and any spaces */
+@@ -328,30 +335,35 @@
+ 				c = *q++;
+ 				if (bp < buflim)
+ 				{
+-					if (quoteit && c == '"')
++					if ((unsigned)quoteit && c == '"')
+ 					  /*BAD*/	
++		      __TESTCLAIM_8:
+ 					  *bp++ = '\\';
+ 					/*BAD*/
++		      __TESTCLAIM_9:
+ 					*bp++ = c;
+ 				
+ 				}
+ 			}
+-			if (quoteit)
++			if ((unsigned)quoteit)
+ 			{
+ 				if (bp == &bufhead[1])
+ 					bp--;
+ 				else{
+ 				  /*BAD*/
++		      __TESTCLAIM_10:
+ 				  *bp++ = '"';
+ 				}
+ 				while ((c = *p++) != ':')
+ 				  {
+ 				    if (bp < buflim){
+ 				      /*BAD*/
++		      __TESTCLAIM_11:
+ 				      *bp++ = c;
+ 				    }
+ 				  }
+ 				/*BAD*/
++		      __TESTCLAIM_12:
+ 				*bp++ = c;
+ 			}
+ 
+@@ -359,6 +371,7 @@
+ 			while (isascii((int) *p) && isspace((int)*p) && bp < buflim)
+ 			  {
+ 			    /*BAD*/
++		      __TESTCLAIM_13:
+ 			    *bp++ = *p++;
+ 			  }
+ 			copylev = 0;
+@@ -368,10 +381,11 @@
+ 			continue;
+ 		}
+ 
+-		if (c == ';' && copylev <= 0 && !ColonOkInAddr)
++		if (c == ';' && copylev <= 0 && !((unsigned)ColonOkInAddr))
+ 		{
+ 			if (bp < buflim)
+ 			  /*BAD*/
++		      __TESTCLAIM_14:
+ 			  *bp++ = c;
+ 		}
+ 
+@@ -395,19 +409,20 @@
+ 			register char *q;
+ 
+ 			/* assume first of two angles is bogus */
+-			if (gotangle)
++			if ((unsigned)gotangle)
+ 				quoteit = true;
+ 			gotangle = true;
+ 
+ 			/* oops -- have to change our mind */
+ 			anglelev = 1;
+-			if (!skipping)
++			if (!(unsigned)skipping)
+ 				realanglelev = 1;
+ 
+ 			bp = bufhead;
+-			if (quoteit)
++			if ((unsigned)quoteit)
+ 			  {
+ 			    /*BAD*/
++		      __TESTCLAIM_15:
+ 			    *bp++ = '"';
+ 			    
+ 			    /* back up over the '<' and any spaces */
+@@ -421,27 +436,32 @@
+ 				c = *q++;
+ 				if (bp < buflim)
+ 				  {
+-				    if (quoteit && c == '"')
++				    if ((unsigned)quoteit && c == '"')
+ 				      /*BAD*/
++		      __TESTCLAIM_16:
+ 				      *bp++ = '\\';
+ 				    /*BAD*/
++		      __TESTCLAIM_17:
+ 				    *bp++ = c;
+ 				}
+ 			}
+-			if (quoteit)
++			if ((unsigned)quoteit)
+ 			{
+ 			  if (bp == &buf[1])
+ 				  bp--;
+ 				else
+ 				  /*BAD*/
++		      __TESTCLAIM_18:
+ 				  *bp++ = '"';
+ 			  while ((c = *p++) != '<')
+ 			    {
+ 			      if (bp < buflim)
+ 				/*BAD*/
++		      __TESTCLAIM_19:
+ 				*bp++ = c;
+ 			    }
+ 			  /*BAD*/
++		      __TESTCLAIM_20:
+ 			  *bp++ = c;
+ 			}
+ 			copylev = 0;
+@@ -470,20 +490,24 @@
+ 			}
+ 			if (copylev++ <= 0)
+ 			  /*BAD*/
++		      __TESTCLAIM_21:
+ 			  *bp++ = c;
+ 			continue;
+ 		}
+ 
+ 		/* must be a real address character */
+ 	putg:
+-		if (copylev <= 0 && !putgmac)
++		if (copylev <= 0 && !(unsigned)putgmac)
+ 		  {
+ 		    if (bp > bufhead && bp[-1] == ')')
+ 		      /*BAD*/
++		      __TESTCLAIM_22:
+ 		      *bp++ = ' ';
+ 		    /*BAD*/
++		      __TESTCLAIM_23:
+ 		    *bp++ = MACROEXPAND;
+ 		    /*BAD*/
++		    __TESTCLAIM_24:
+ 		    *bp++ = 'g';
+ 		    putgmac = true;
+ 		  }
+@@ -491,16 +515,20 @@
+ 	}
+ 	
+ 	/* repair any syntactic damage */
+-	if (realqmode)
++	if ((unsigned)realqmode)
+ 	  /*BAD*/
++		      __TESTCLAIM_25:
+ 	  *bp++ = '"';
+ 	while (realcmtlev-- > 0)
+ 	  /*BAD*/
++		      __TESTCLAIM_26:
+ 	  *bp++ = ')';
+ 	while (realanglelev-- > 0)
+ 	  /*BAD*/
++		      __TESTCLAIM_27:
+ 	  *bp++ = '>';
+ 	/*BAD*/
++	__TESTCLAIM_28:
+ 	*bp++ = '\0';
+ 	
+ 	printf("test_buf should equal GOOD\n");
+diff -urN -xcprover cproverbm.pOi6eu/sendmail/s1/crackaddr-ok.c llcorpora-2007-11-06/sendmail/s1/crackaddr-ok.c
+--- cproverbm.pOi6eu/sendmail/s1/crackaddr-ok.c	2004-01-05 17:27:48.000000000 +0000
++++ llcorpora-2007-11-06/sendmail/s1/crackaddr-ok.c	2011-02-06 03:14:16.000000000 +0000
+@@ -108,6 +108,19 @@
+ 			goto returng;				\
+ 	} while (0)
+ 
++#define SM_APPEND_CHAR_WITH_ASSERT(c,id)					\
++	do							\
++	{							\
++	 printf ("bp-obp = %d   buflim-obp=%d\n", (bp-obp), (buflim-obp)); \
++		if (SM_HAVE_ROOM)                              \
++               {	                     			\
++                   __TESTCLAIM_##id: \
++		   *bp++ = (c);				\
++	       }                                               \
++	else						       \
++			goto returng;				\
++	} while (0)
++
+ 
+ enum bool {false, true}; 
+ 
+@@ -206,13 +219,13 @@
+               
+ 		if (copylev > 0)
+ 		  /*OK*/
+-		  SM_APPEND_CHAR(c);
++		  SM_APPEND_CHAR_WITH_ASSERT(c,1);
+ 		
+ 		/* check for backslash escapes */
+ 		if (c == '\\')
+ 		{
+ 			/* arrange to quote the address */
+-			if (cmtlev <= 0 && !qmode)
++			if (cmtlev <= 0 && !(unsigned)qmode)
+ 				quoteit = true;
+ 
+ 			if ((c = *p++) == '\0')
+@@ -223,7 +236,7 @@
+ 			}
+ 			if (copylev > 0)
+ 			  /*OK*/
+-			  SM_APPEND_CHAR(c);
++			  SM_APPEND_CHAR_WITH_ASSERT(c,2);
+ 			
+ 			goto putg;
+ 		}
+@@ -260,10 +273,10 @@
+ 				{
+ 				  if (bp != bufhead)
+ 				    /*OK*/
+-				    SM_APPEND_CHAR(' ');
++				    SM_APPEND_CHAR_WITH_ASSERT(' ',3);
+ 				  
+ 				  /*OK*/
+-				  SM_APPEND_CHAR(c);
++				  SM_APPEND_CHAR_WITH_ASSERT(c,4);
+ 				}
+ 			}
+ 		}
+@@ -309,14 +322,14 @@
+ 			
+ 			if (*p == ':' || *p == '.')
+ 			{
+-				if (cmtlev <= 0 && !qmode)
++				if (cmtlev <= 0 && !(unsigned)qmode)
+ 					quoteit = true;
+ 				if (copylev > 0)
+ 				{
+ 				  /*OK*/
+-				  SM_APPEND_CHAR(c); 
++				  SM_APPEND_CHAR_WITH_ASSERT(c,5); 
+ 				  /*OK*/
+-				  SM_APPEND_CHAR(*p);
++				  SM_APPEND_CHAR_WITH_ASSERT(*p,6);
+ 				}
+ 				p++;
+ 				goto putg;
+@@ -325,10 +338,10 @@
+ 			gotcolon = true;
+ 
+ 			bp = bufhead;
+-			if (quoteit)
++			if ((unsigned)quoteit)
+ 			{
+ 			  /*OK*/
+-			  SM_APPEND_CHAR('"');
++			  SM_APPEND_CHAR_WITH_ASSERT('"',7);
+ 
+ 			  /* back up over the ':' and any spaces */
+ 			  --p;
+@@ -340,38 +353,38 @@
+ 			for (q = addrhead; q < p; )
+ 			{
+ 				c = *q++;
+-				if (quoteit && c == '"')
++				if ((unsigned)quoteit && c == '"')
+ 				  {
+ 				    /*OK*/
+-				    SM_APPEND_CHAR('\\');
++				    SM_APPEND_CHAR_WITH_ASSERT('\\',8);
+ 				    /*OK*/
+-				    SM_APPEND_CHAR(c);
++				    SM_APPEND_CHAR_WITH_ASSERT(c,9);
+ 				  }
+ 				else
+ 				  /*OK*/
+-				  SM_APPEND_CHAR(c);
++				  SM_APPEND_CHAR_WITH_ASSERT(c,10);
+ 			}
+-			if (quoteit)
++			if ((unsigned)quoteit)
+ 			{
+ 				if (bp == &bufhead[1])
+ 					bp--;
+ 				else	
+ 				  /*OK*/
+-				  SM_APPEND_CHAR('"');
++				  SM_APPEND_CHAR_WITH_ASSERT('"',11);
+ 				
+ 				while ((c = *p++) != ':')
+ 				  /*OK*/
+-				  SM_APPEND_CHAR(c);
++				  SM_APPEND_CHAR_WITH_ASSERT(c,12);
+ 				
+ 				/*OK*/
+-				SM_APPEND_CHAR(c);
++				SM_APPEND_CHAR_WITH_ASSERT(c,13);
+ 			}
+ 
+ 			/* any trailing white space is part of group: */
+ 			while (isascii((int)*p) && isspace((int)*p))
+ 			  {
+ 			    /*OK*/
+-			    SM_APPEND_CHAR(*p);
++			    SM_APPEND_CHAR_WITH_ASSERT(*p,14);
+ 			    p++;
+ 			  }
+ 			copylev = 0;
+@@ -383,7 +396,7 @@
+ 
+ 		if (c == ';' && copylev <= 0 && !ColonOkInAddr)
+ 		  /*OK*/
+-		  SM_APPEND_CHAR(c);
++		  SM_APPEND_CHAR_WITH_ASSERT(c,15);
+ 
+ 		/* check for characters that may have to be quoted */
+ 		if (strchr(MustQuoteChars, c) != NULL)
+@@ -413,17 +426,17 @@
+ 			anglelev = 1;
+ 			if (SM_HAVE_ROOM)
+ 			  {
+-			    if (!addangle)
++			    if (!(unsigned)addangle)
+ 			      buflim--;
+ 			    addangle = true;
+ 			  }
+ 			    
+ 
+ 			bp = bufhead;
+-			if (quoteit)
++			if ((unsigned)quoteit)
+ 			  {
+ 			    /*OK*/
+-			    SM_APPEND_CHAR('"');
++			    SM_APPEND_CHAR_WITH_ASSERT('"',16);
+ 			    
+ 			    /* back up over the '<' and any spaces */
+ 			    --p;
+@@ -434,16 +447,16 @@
+ 			for (q = addrhead; q < p; )
+ 			  {
+ 				c = *q++;
+-				if (quoteit && c == '"')
++				if ((unsigned)quoteit && c == '"')
+ 				  {
+ 				    /*OK*/
+-				    SM_APPEND_CHAR('\\');
++				    SM_APPEND_CHAR_WITH_ASSERT('\\',17);
+ 				    /*OK*/
+-				    SM_APPEND_CHAR(c);
++				    SM_APPEND_CHAR_WITH_ASSERT(c,18);
+ 				  }
+ 				else
+ 				  /*OK*/
+-				  SM_APPEND_CHAR(c);
++				  SM_APPEND_CHAR_WITH_ASSERT(c,19);
+ 			}
+ 			if (quoteit)
+ 			{
+@@ -451,13 +464,13 @@
+ 			    bp--;
+ 			  else
+ 			    /*OK*/
+-			    SM_APPEND_CHAR('"');
++			    SM_APPEND_CHAR_WITH_ASSERT('"',20);
+ 			  while ((c = *p++) != '<')
+ 			    /*OK*/
+-			    SM_APPEND_CHAR(c);
++			    SM_APPEND_CHAR_WITH_ASSERT(c,21);
+ 			  
+ 			  /*OK*/
+-			  SM_APPEND_CHAR(c);
++			  SM_APPEND_CHAR_WITH_ASSERT(c,22);
+ 			}
+ 			copylev = 0;
+ 			putgmac = quoteit = false;
+@@ -487,36 +500,40 @@
+ 			}
+ 			if (copylev++ <= 0)
+ 			  /*OK*/
+-			  SM_APPEND_CHAR(c);
++			  SM_APPEND_CHAR_WITH_ASSERT(c,23);
+ 			  
+ 			continue;
+ 		}
+ 
+ 		/* must be a real address character */
+ 	putg:
+-		if (copylev <= 0 && !putgmac)
++		if (copylev <= 0 && !(unsigned)putgmac)
+ 		  {
+ 		    if (bp > buf && bp[-1] == ')')
+ 		      /*OK*/
+-		      SM_APPEND_CHAR(' ');
++		      SM_APPEND_CHAR_WITH_ASSERT(' ',24);
+ 		    
+ 		    /*OK*/
+-		    SM_APPEND_CHAR(MACROEXPAND);
++		    SM_APPEND_CHAR_WITH_ASSERT(MACROEXPAND,25);
+ 		    /*OK*/
+-		    SM_APPEND_CHAR('g');
++		    SM_APPEND_CHAR_WITH_ASSERT('g',26);
+ 		    putgmac = true;
+ 		    
+ 		  }
+ 	}
+ 	
+ 	/* repair any syntactic damage */
+-	if (realqmode && bp < bufend)
++	if ((unsigned)realqmode && bp < bufend)
+ 	  /*OK*/
+-	  *bp++ = '"';
++	 SM_APPEND_CHAR_WITH_ASSERT('"',28);
++	//*bp++ = '"';
+ 	while (realcmtlev-- > 0 && bp < bufend)
++	  {
+ 	  /*OK*/
+-	  *bp++ = ')';
+-	if (addangle && bp < bufend)
++	    SM_APPEND_CHAR_WITH_ASSERT(')',27);
++	  //*bp++ = ')';
++	   }
++	if ((unsigned)addangle && bp < bufend)
+ 	  /*OK*/
+ 	  *bp++ = '>';
+ 	
+diff -urN -xcprover cproverbm.pOi6eu/sendmail/s2/util-bad.c llcorpora-2007-11-06/sendmail/s2/util-bad.c
+--- cproverbm.pOi6eu/sendmail/s2/util-bad.c	2004-02-05 15:19:49.000000000 +0000
++++ llcorpora-2007-11-06/sendmail/s2/util-bad.c	2011-02-06 03:25:01.000000000 +0000
+@@ -173,6 +173,7 @@
+ 	      printf ("strlen(bp) = %d strlen(login) = %d\n", 
+ 		      strlen(bp), strlen(login));
+ 	      /*BAD*/
++__TESTCLAIM_1:
+ 	      (void) strcpy(bp, login);
+ 	      *bp = toupper(*bp);
+ 	      while (*bp != '\0')
+@@ -180,6 +181,7 @@
+ 	    }
+ 	  else {
+ 	    /*BAD*/
++		__TESTCLAIM_2:
+ 	    *bp++ = *p;
+ 	    printf ("bp-buf = %d\n", (bp-buf));
+ 	  }	    
+diff -urN -xcprover cproverbm.pOi6eu/sendmail/s2/util-ok.c llcorpora-2007-11-06/sendmail/s2/util-ok.c
+--- cproverbm.pOi6eu/sendmail/s2/util-ok.c	2004-01-05 17:27:42.000000000 +0000
++++ llcorpora-2007-11-06/sendmail/s2/util-ok.c	2011-02-06 03:26:08.000000000 +0000
+@@ -165,7 +165,9 @@
+ 	  printf ("SPACELEFT(buf,bp)=%d\n", SPACELEFT(buf,bp));
+ 	  printf ("strlen(login)=%d\n", strlen(login));
+ 	  /* OK */
+-	  snprintf(bp, SPACELEFT(buf, bp), "%s", login);
++__TESTCLAIM_1:
++	  strncpy(bp, login, SPACELEFT(buf, bp));
++	  //snprintf(bp, SPACELEFT(buf, bp), "%s", login);
+ 	  *bp = toupper(*bp);
+ 	  bp += strlen(bp);
+ 	}
+@@ -173,6 +175,7 @@
+ 	printf ("*bp++=*p\n:");
+ 	printf ("bp-buf=%d\n", (bp-buf));
+ 	/*OK*/
++	__TESTCLAIM_2:
+ 	*bp++ = *p;
+       }
+     }
+diff -urN -xcprover cproverbm.pOi6eu/sendmail/s3/mime1-bad.c llcorpora-2007-11-06/sendmail/s3/mime1-bad.c
+--- cproverbm.pOi6eu/sendmail/s3/mime1-bad.c	2004-02-05 15:19:59.000000000 +0000
++++ llcorpora-2007-11-06/sendmail/s3/mime1-bad.c	2011-02-06 02:46:20.000000000 +0000
+@@ -233,8 +233,8 @@
+ 					break;
+ 
+ 				printf ("1: outfile - ooutfile = %d  <?  MAXLINE=%d\n", (*outfile)-ooutfile, MAXLINE);
+-				assert (*outfile - ooutfile < MAXLINE);
+-				  
++				__TESTCLAIM_1: __CPROVER_assert (*outfile - ooutfile < MAXLINE, "TESTCASE");
++
+ 				/* BAD */
+ 				*(*outfile)++ = c1 << 4 | c2;
+ 			}
+@@ -248,7 +248,7 @@
+ 				break;
+ 
+ 			printf ("2: outfile - ooutfile = %d  <?  MAXLINE=%d\n", (*outfile)-ooutfile, MAXLINE);
+-			assert (*outfile - ooutfile < MAXLINE);
++			__TESTCLAIM_2: __CPROVER_assert (*outfile - ooutfile < MAXLINE, "TESTCASE");
+ 
+ 			/*BAD*/
+ 			*(*outfile)++ = c1;
+@@ -260,7 +260,7 @@
+ 	
+ 
+ 	printf ("3: outfile - ooutfile = %d  <?  MAXLINE=%d\n", (*outfile)-ooutfile, MAXLINE);
+-	assert (*outfile - ooutfile < MAXLINE);
++	__TESTCLAIM_3: __CPROVER_assert (*outfile - ooutfile < MAXLINE, "TESTCASE");
+ 
+ 	/*BAD*/
+ 	*(*outfile)++ = '\0';
+diff -urN -xcprover cproverbm.pOi6eu/sendmail/s3/mime1-ok.c llcorpora-2007-11-06/sendmail/s3/mime1-ok.c
+--- cproverbm.pOi6eu/sendmail/s3/mime1-ok.c	2004-01-05 17:27:43.000000000 +0000
++++ llcorpora-2007-11-06/sendmail/s3/mime1-ok.c	2011-02-06 02:46:52.000000000 +0000
+@@ -235,6 +235,7 @@
+ 					break;
+ 
+ 				/*OK*/
++				__TESTCLAIM_1:
+ 				*(*outfile)++ = c1 << 4 | c2;
+ 			}
+ 		}
+@@ -247,6 +248,7 @@
+ 				break;
+ 
+ 			/*OK*/
++			__TESTCLAIM_2:
+ 			*(*outfile)++ = c1;
+ 
+ 			if (c1 == '\n')
+@@ -255,6 +257,7 @@
+ 	}
+ 	
+ 	/*OK*/
++	__TESTCLAIM_3:
+ 	*(*outfile)++ = '\0';
+ 	return 1;
+ }
+diff -urN -xcprover cproverbm.pOi6eu/sendmail/s4/mime2-bad.c llcorpora-2007-11-06/sendmail/s4/mime2-bad.c
+--- cproverbm.pOi6eu/sendmail/s4/mime2-bad.c	2004-07-28 19:28:18.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s4/mime2-bad.c	2011-02-06 02:35:48.000000000 +0000
+@@ -200,6 +200,7 @@
+ 			
+ 			/*We have read in four characters */
+ 			/*BAD*/
++			__TESTCLAIM_1:
+ 			*fbufp = (c1 << 2) | ((c2 & 0x30) >> 4);              /* Write first char to fbuf */
+ 			
+ 
+@@ -213,6 +214,7 @@
+ 			if (*fbufp++ == '\n' || fbuf >= &fbuf[MAXLINE])   /* it shoud say fbufp >= &fbuf[MAXLINE] */
+ 			{
+ 			  /*BAD*/
++				__TESTCLAIM_2:
+ 			  if (*--fbufp != '\n' || *--fbufp != '\r')          /* possible illegal read *--fbufp != '\r'*/
+ 			    fbufp++;                                         /* if fbufp points to */
+ 			                                                     /* fbuf[0] and first char read in is \n */
+@@ -227,10 +229,12 @@
+ 			c3 = CHAR64(c3);
+ 
+ 			/*BAD*/
++			__TESTCLAIM_3:
+ 			*fbufp = ((c2 & 0x0f) << 4) | ((c3 & 0x3c) >> 2);
+ 			if (*fbufp++ == '\n' || fbuf >= &fbuf[MAXLINE])
+ 			{
+ 			  /*BAD*/
++				__TESTCLAIM_4:
+ 			  if (*--fbufp != '\n' || *--fbufp != '\r')
+ 					fbufp++;
+ 				*fbufp = '\0';
+@@ -243,10 +247,12 @@
+ 			c4 = CHAR64(c4);
+ 
+ 			/*BAD*/
++			__TESTCLAIM_5:
+ 			*fbufp = ((c3 & 0x03) << 6) | c4;
+ 			if (*fbufp++ == '\n' || fbuf >= &fbuf[MAXLINE])
+ 			{
+ 			  /*BAD*/
++			  __TESTCLAIM_6:
+ 			  if (*--fbufp != '\n' || *--fbufp != '\r')
+ 			    fbufp++;
+ 			  *fbufp = '\0';
+@@ -260,6 +266,7 @@
+ 		if (fbufp > fbuf)
+ 		{
+ 		  /*BAD*/
++		__TESTCLAIM_7:
+ 		  *fbufp = '\0';
+ 		  /* putline((char *) fbuf, mci); */
+ 		}
+diff -urN -xcprover cproverbm.pOi6eu/sendmail/s4/mime2-ok.c llcorpora-2007-11-06/sendmail/s4/mime2-ok.c
+--- cproverbm.pOi6eu/sendmail/s4/mime2-ok.c	2004-07-28 19:28:55.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s4/mime2-ok.c	2011-02-06 02:37:08.000000000 +0000
+@@ -200,6 +200,7 @@
+ 			/*We have read in four characters */
+ 			if (fbufp >= &fbuf[MAXLINE]){
+ 			  /*OK*/
++			  __TESTCLAIM_1:
+ 			  *fbufp = '\0';
+ 			  fbufp = fbuf;
+ 			}
+@@ -219,6 +220,7 @@
+ 			 
+ 			  if (fbufp != &fbuf[1]){
+ 			    /*OK*/
++				__TESTCLAIM_2:
+ 			    if (*--fbufp != '\n' || *--fbufp != '\r')          /* fixed possible read below bounds */
+ 			      fbufp++;                        
+ 			  }
+@@ -236,6 +238,7 @@
+ 			if (fbufp >= &fbuf[MAXLINE])
+ 			  {
+ 			    /*OK*/
++				__TESTCLAIM_3:
+ 			    *fbufp = '\0';
+ 			    fbufp = fbuf;
+ 			  }
+@@ -247,6 +250,7 @@
+ 			 
+ 			  if (fbufp != &fbuf[1]){
+ 			    /*OK*/
++				__TESTCLAIM_4:
+ 			    if (*--fbufp != '\n' || *--fbufp != '\r')
+ 			      fbufp++;
+ 			  }
+@@ -263,6 +267,7 @@
+ 			if (fbufp >= &fbuf[MAXLINE])
+ 			  {
+ 			    /*OK*/
++				__TESTCLAIM_5:
+ 			    *fbufp = '\0';
+ 			    fbufp = fbuf;
+ 			  }
+@@ -273,6 +278,7 @@
+ 			{
+ 			  if (fbufp != &fbuf[1]){
+ 			    /*OK*/
++				__TESTCLAIM_6:
+ 			    if (*--fbufp != '\n' || *--fbufp != '\r')
+ 			    fbufp++;
+ 			  }
+@@ -286,6 +292,8 @@
+ 		/* force out partial last line */
+ 		if (fbufp >= fbuf)
+ 		{
++		    /*OK*/ //Was forgotten before (Aliaksei)
++			__TESTCLAIM_7:
+ 			*fbufp = '\0';
+ 			/* putline((char *) fbuf, mci); */
+ 		}
+diff -urN -xcprover cproverbm.pOi6eu/sendmail/s5/prescan-overflow-bad.c llcorpora-2007-11-06/sendmail/s5/prescan-overflow-bad.c
+--- cproverbm.pOi6eu/sendmail/s5/prescan-overflow-bad.c	2004-07-28 19:45:52.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s5/prescan-overflow-bad.c	2011-02-06 02:18:00.000000000 +0000
+@@ -396,6 +396,7 @@
+ 			/* chew up special characters */
+ 			
+                         /*BAD*/  
++			__TESTCLAIM_1:
+                         *q = '\0';
+ 			printf ("canaray=[%s]\n", canary);
+ 			printf ("canary should be 5 bytes, max\n");
+@@ -417,6 +418,7 @@
+ 				{
+ 
+ 				  /*BAD*/	
++				__TESTCLAIM_2:
+ 				  *q++ = '\\';     
+ 				  printf ("canary=[%s]\n", canary);
+ 				  printf ("canary should be 5 bytes, max\n");
+@@ -516,6 +518,7 @@
+ 		{
+ 		        printf("writing null byte\n");
+ 			/*BAD*/
++			__TESTCLAIM_3:
+ 			*q++ = '\0';
+ 			printf ("canary=[%s]\n", canary);
+ 			printf ("canary should be 5 bytes, max\n");
+diff -urN -xcprover cproverbm.pOi6eu/sendmail/s5/prescan-overflow-ok.c llcorpora-2007-11-06/sendmail/s5/prescan-overflow-ok.c
+--- cproverbm.pOi6eu/sendmail/s5/prescan-overflow-ok.c	2004-07-28 19:46:23.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s5/prescan-overflow-ok.c	2011-02-06 02:18:41.000000000 +0000
+@@ -401,6 +401,7 @@
+ 			}
+ 			else
+ 			  /*OK*/
++			__TESTCLAIM_1:
+ 			  *q = '\0';
+ 			printf ("canary=[%s]\n", canary);
+ 			printf ("canary should be 5 bytes, max\n");
+@@ -428,6 +429,7 @@
+ 				  }
+ 				  else
+ 				    /*OK*/
++					__TESTCLAIM_2:
+ 				    *q++ = '\\';     
+ 				  printf ("canary=[%s]\n", canary);
+ 				  printf ("canary should be 5 bytes, max\n");
+@@ -532,6 +534,7 @@
+ 			}
+ 			else
+ 			  /*OK*/
++			__TESTCLAIM_3:
+ 			  *q++ = '\0';
+ 			printf ("canary=[%s]\n", canary);
+ 			printf ("canary should be 5 bytes, max\n");		       
+diff -urN -xcprover cproverbm.pOi6eu/sendmail/s6/tTflag-bad.c llcorpora-2007-11-06/sendmail/s6/tTflag-bad.c
+--- cproverbm.pOi6eu/sendmail/s6/tTflag-bad.c	2004-01-05 17:27:46.000000000 +0000
++++ llcorpora-2007-11-06/sendmail/s6/tTflag-bad.c	2011-02-06 03:27:13.000000000 +0000
+@@ -167,6 +167,7 @@
+ 		{                      /* first is negative and last is positive */
+ 		  printf("index = %d\n", first); 
+ 		  /*BAD*/
++__TESTCLAIM_0:
+ 		  tTvect[first++] = i; /* UNDERFLOW CAN OCCUR HERE. */
+ 		                       /* tTvect can only hold tTsize elements */
+ 		}
+diff -urN -xcprover cproverbm.pOi6eu/sendmail/s6/tTflag-ok.c llcorpora-2007-11-06/sendmail/s6/tTflag-ok.c
+--- cproverbm.pOi6eu/sendmail/s6/tTflag-ok.c	2004-01-05 17:27:46.000000000 +0000
++++ llcorpora-2007-11-06/sendmail/s6/tTflag-ok.c	2011-02-06 03:27:13.000000000 +0000
+@@ -166,6 +166,7 @@
+ 		{                      
+ 		  printf("index = %u\n", first); 
+ 		  /*OK*/
++__TESTCLAIM_0:
+ 		  tTvect[first++] = i; 
+ 		}
+ 		
+diff -urN -xcprover cproverbm.pOi6eu/sendmail/s7/txt-dns-file-bad.c llcorpora-2007-11-06/sendmail/s7/txt-dns-file-bad.c
+--- cproverbm.pOi6eu/sendmail/s7/txt-dns-file-bad.c	2004-01-05 17:27:47.000000000 +0000
++++ llcorpora-2007-11-06/sendmail/s7/txt-dns-file-bad.c	2011-02-06 02:11:08.000000000 +0000
+@@ -325,8 +325,10 @@
+ 	  printf("Copying TXT record!!!\n");
+ 	  printf("Copying %d bytes into a buffer of size %d!!!\n", *p, size+1);
+ 	  /* BAD */
++	  __TESTCLAIM_1:
+ 	  (void) strncpy((*rr)->rr_u.rr_txt, (char*) p + 1, *p);
+ 	  /*BAD*/
++	  __TESTCLAIM_2:
+ 	  (*rr)->rr_u.rr_txt[*p] = 0;
+ 	  break;
+ 
+diff -urN -xcprover cproverbm.pOi6eu/sendmail/s7/txt-dns-file-ok.c llcorpora-2007-11-06/sendmail/s7/txt-dns-file-ok.c
+--- cproverbm.pOi6eu/sendmail/s7/txt-dns-file-ok.c	2004-01-05 17:27:47.000000000 +0000
++++ llcorpora-2007-11-06/sendmail/s7/txt-dns-file-ok.c	2011-02-06 02:21:19.000000000 +0000
+@@ -312,8 +312,10 @@
+  			}
+ 			
+ 			/* OK */
++			__TESTCLAIM_1:
+ 			(void) strncpy((*rr)->rr_u.rr_txt, (char*) p + 1, *p);  /* this should be safe */
+ 			/*OK*/
++			__TESTCLAIM_2:
+ 			(*rr)->rr_u.rr_txt[*p] = 0;
+ 			break;
+ 
+diff -urN -xcprover cproverbm.pOi6eu/wu-ftpd/f1/mapped-path-bad.c llcorpora-2007-11-06/wu-ftpd/f1/mapped-path-bad.c
+--- cproverbm.pOi6eu/wu-ftpd/f1/mapped-path-bad.c	2004-01-05 17:27:52.000000000 +0000
++++ llcorpora-2007-11-06/wu-ftpd/f1/mapped-path-bad.c	2011-02-06 01:16:53.000000000 +0000
+@@ -104,6 +104,7 @@
+   printf("Copying %d chars into buffer path[] whose size = %d\n", strlen(mapped_path) + 1, MAXPATHLEN + 1); 
+   
+   /* BAD */
++__TESTCLAIM_1:
+   strcpy( path, mapped_path );    /* copies mapped_path to path without doing a size check */
+   return path;
+ }
+@@ -142,10 +143,14 @@
+       
+       /* append the dir part with a / unless at root */
+       if( !(mapped_path[0] == '/' && mapped_path[1] == '\0') )
++	  {
+ 	/* BAD */
++	__TESTCLAIM_2:
+ 	strcat( mapped_path, "/" );                                /* no bounds checking is done */
++	}
+       /* We do not check to see if there is room in mapped_path for dir */
+       /* BAD */ 
++__TESTCLAIM_3:
+       strcat( mapped_path, dir );     /* no bounds checking is done */
+ }
+ 
+@@ -166,6 +171,7 @@
+       path = &pathspace[0];
+       
+       /* BAD */
++__TESTCLAIM_4:
+       strcpy( path, orig_path );                /* suppose path = orig_path = /x/xx/xxx/xxxx/... */
+       printf("Copying orig_path to path....max strlen(path) = %d. strlen(path) = %d\n", MAXPATHLEN - 1, strlen(path));
+       if (strlen(path) >= MAXPATHLEN){
+diff -urN -xcprover cproverbm.pOi6eu/wu-ftpd/f1/mapped-path-ok.c llcorpora-2007-11-06/wu-ftpd/f1/mapped-path-ok.c
+--- cproverbm.pOi6eu/wu-ftpd/f1/mapped-path-ok.c	2004-02-05 15:21:24.000000000 +0000
++++ llcorpora-2007-11-06/wu-ftpd/f1/mapped-path-ok.c	2011-02-06 01:18:31.000000000 +0000
+@@ -99,6 +99,7 @@
+   printf("Copying at most %d chars into buffer path[] whose size = %d\n", size, MAXPATHLEN + 1);
+ 
+   /* OK */
++__TESTCLAIM_1:
+   strncpy(path, mapped_path, size);
+   path[size-1] = '\0';
+   return path;
+@@ -140,12 +141,18 @@
+       /* append the dir part with a leading / unless at root */
+       if( !(mapped_path[0] == '/' && mapped_path[1] == '\0') )
+         if (strlen(mapped_path) < sizeof(mapped_path) - 1)       /* NEW */
++		{
+ 	  /*OK*/
++	  	__TESTCLAIM_2:
+ 	  strcat(mapped_path, "/");
++        }
+       
+       if (sizeof(mapped_path) - strlen(mapped_path) > 1)     /* NEW */
++	  {
+ 	/*OK*/
++	__TESTCLAIM_3:
+ 	strncat(mapped_path, dir, sizeof(mapped_path) - strlen(mapped_path) - 1);  /* NEW */
++	}
+ }
+ 
+ 
+@@ -168,7 +175,10 @@
+       printf ("strlen(orig_path) = %d \t orig_path=%s\n", strlen (orig_path), orig_path);
+ 
+       if (strlen (path) >0) 
++	  {
++__TESTCLAIM_4:
+ 	strcpy( path, orig_path );
++		}
+ 
+       /* / at start of path, set the start of the mapped_path to / */
+       if( path[0] == '/' ){
+diff -urN -xcprover cproverbm.pOi6eu/wu-ftpd/f2/realpath-bad.c llcorpora-2007-11-06/wu-ftpd/f2/realpath-bad.c
+--- cproverbm.pOi6eu/wu-ftpd/f2/realpath-bad.c	2004-07-28 17:05:31.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f2/realpath-bad.c	2011-02-06 03:27:13.000000000 +0000
+@@ -472,6 +472,7 @@
+       printf ("resolved=%s  len=%d \n", resolved, strlen(resolved));
+       printf ("wbuf=%s  len=%d \n", wbuf, strlen(wbuf));
+       /* BAD */                            
++__TESTCLAIM_2:
+       (void) strcat(resolved, wbuf);     /* resolved becomes /home/misha/docs.txt + null terminator => MAXPATHLEN + 1 bytes */ 
+       printf("after strcat, resolved = %s, strlen(resolved) = %d\n", resolved, strlen(resolved));      
+       if ((strlen(resolved)+1) > MAXPATHLEN) 
+diff -urN -xcprover cproverbm.pOi6eu/wu-ftpd/f2/realpath-ok.c llcorpora-2007-11-06/wu-ftpd/f2/realpath-ok.c
+--- cproverbm.pOi6eu/wu-ftpd/f2/realpath-ok.c	2004-07-28 17:05:34.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f2/realpath-ok.c	2011-02-06 03:27:13.000000000 +0000
+@@ -465,6 +465,7 @@
+       if (rootd == 0)
+ 	(void) strcat(resolved, "/");    
+       /* OK */                            
++__TESTCLAIM_2:
+       (void) strcat(resolved, wbuf);     /* this should be fine*/
+       printf("after strcat, resolved = %s, strlen(resolved) = %d\n", resolved, strlen(resolved));
+   }                                    
+diff -urN -xcprover cproverbm.pOi6eu/wu-ftpd/f3/realpath-2.4.2-bad.c llcorpora-2007-11-06/wu-ftpd/f3/realpath-2.4.2-bad.c
+--- cproverbm.pOi6eu/wu-ftpd/f3/realpath-2.4.2-bad.c	2004-07-29 16:27:58.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/realpath-2.4.2-bad.c	2011-02-06 02:29:17.000000000 +0000
+@@ -192,6 +192,7 @@
+   printf("strcpy(curpath, pathname):Copying %d bytes into an array of size %d\n", 
+ 	 strlen(pathname), sizeof(curpath));
+   /* BAD */
++  __TESTCLAIM_1:
+   strcpy(curpath, pathname);                /* could overflow curpath.. pathname is tainted */
+   printf ("canary=[%s]\n", canary);
+   
+@@ -262,10 +263,12 @@
+ 	  continue;
+         if ((last == namebuf) || (*--last != '/')) {	   
+ 	  /* BAD */	  
++	  __TESTCLAIM_2:	  
+ 	  strcat(namebuf, "/");                     /* append slash to cwd.. dangerous.. could be an off-by-one overflow */
+ 	  printf ("canary=[%s]\n", canary);
+ 	}
+ 	/* BAD */
++	  __TESTCLAIM_3:
+ 	strcat(namebuf, where);
+ 	printf ("canary=[%s]\n", canary);
+ 	  
+@@ -281,16 +284,19 @@
+ 	if (resultcode == -1) {
+ 	  if (chroot_path == NULL){
+ 	    /* BAD */
++	      __TESTCLAIM_4:
+ 	    strcpy(result, namebuf);
+ 	    printf ("canary=[%s]\n", canary);
+ 	  }
+ 	  else {
+ 	    /*BAD*/
++	      __TESTCLAIM_5:
+ 	    strcpy(result, chroot_path);
+ 	    printf ("canary=[%s]\n", canary);
+ 	    if (namebuf[0]!='/')
+ 	      {
+ 		/*BAD*/
++		  __TESTCLAIM_6:
+ 		strcat(result, namebuf);
+ 		printf ("canary=[%s]\n", canary);
+ 	      }
+@@ -298,11 +304,13 @@
+ 	      for (ptr=result; *ptr!= '\0'; ptr++);
+ 	      if (ptr==result || *--ptr != '/') {
+ 		/* BAD */
++		  __TESTCLAIM_7:
+ 		strcat(result, namebuf);
+ 		printf ("canary=[%s]\n", canary);
+ 	      }
+ 	      else {
+ 		/*BAD*/
++		  __TESTCLAIM_8:
+ 		strcat(result, &namebuf[1]);
+ 		printf ("canary=[%s]\n", canary);
+ 	      }
+@@ -322,15 +330,18 @@
+ 	  if (len == 0) {
+ 	    if (chroot_path == NULL) {
+ 	      /* BAD */
++	      __TESTCLAIM_9:
+ 	      strcpy(result, namebuf);
+ 	      printf ("canary=[%s]\n", canary);
+ 	    }
+ 	    else {
+               /*BAD*/
++         __TESTCLAIM_10:
+ 	      strcpy(result, chroot_path);  
+ 	      printf ("canary=[%s]\n", canary);
+ 	      if (namebuf[0]!='/') {
+ 		/* BAD */
++  __TESTCLAIM_11:
+ 		strcat(result, namebuf);
+ 		printf ("canary=[%s]\n", canary);
+ 	      }
+@@ -338,11 +349,13 @@
+ 		for (ptr=result; *ptr!= '\0'; ptr++);
+ 		if (ptr==result || *--ptr != '/') {
+ 		  /* BAD */
++		    __TESTCLAIM_12:
+ 		  strcat(result, namebuf);
+ 		  printf ("canary=[%s]\n", canary);
+ 		}
+ 		else {
+ 		  /* BAD */
++		    __TESTCLAIM_13:
+ 		  strcat(result, &namebuf[1]);
+ 		  printf ("canary=[%s]\n", canary);
+ 		}
+@@ -356,14 +369,17 @@
+ 	    *workpath = '\0';
+ 	  if (*where) {
+ 	    /* BAD */
++	      __TESTCLAIM_14:
+ 	    strcat(linkpath, "/");
+ 	    printf ("canary=[%s]\n", canary);
+ 	    /* BAD */
++	      __TESTCLAIM_15:
+ 	    strcat(linkpath, where);
+ 	    printf ("canary=[%s]\n", canary);
+ 	  }
+ 	  
+ 	  /*BAD*/
++	    __TESTCLAIM_16:
+ 	  strcpy(curpath, linkpath);
+ 	  printf ("canary=[%s]\n", canary);
+ 	  
+@@ -376,6 +392,7 @@
+ #endif
+ 	if ((sbuf.st_mode & S_IFDIR) == S_IFDIR) {
+ 	  /* BAD */
++	    __TESTCLAIM_17:
+ 	  strcpy(workpath, namebuf);
+ 	  printf ("canary=[%s]\n", canary);
+ 	  continue;
+@@ -383,6 +400,7 @@
+ 	if (*where) {
+ 	  if (chroot_path == NULL) {
+ 	    /* BAD */
++	    __TESTCLAIM_18:
+ 	    strcpy(result, namebuf);
+ 	    printf ("canary=[%s]\n", canary);
+ 	  }
+@@ -390,6 +408,7 @@
+ 	    strcpy(result, chroot_path);
+ 	    if (namebuf[0]!='/') {
+ 	      /* BAD */
++	        __TESTCLAIM_19:
+ 	      strcat(result, namebuf);
+ 	      printf ("canary=[%s]\n", canary);
+ 	    }
+@@ -397,11 +416,13 @@
+ 	      for (ptr=result; *ptr!= '\0'; ptr++);
+ 	      if (ptr==result || *--ptr != '/') {
+ 		/* BAD */
++		  __TESTCLAIM_20:
+ 		strcat(result, namebuf);
+ 		printf ("canary=[%s]\n", canary);
+ 	      }
+  	      else {
+ 		/* BAD */
++		  __TESTCLAIM_21:
+ 		strcat(result, &namebuf[1]);
+ 		printf ("canary=[%s]\n", canary);
+ 	      }
+@@ -410,21 +431,25 @@
+ 	  return (NULL);      /* path/notadir/morepath */
+ 	} else {
+ 	  /* BAD */
++	    __TESTCLAIM_22:
+ 	  strcpy(workpath, namebuf);
+ 	  printf ("canary=[%s]\n", canary);
+ 	}
+       }
+       if (chroot_path == NULL) {
+ 	/* BAD */
++	  __TESTCLAIM_23:
+ 	strcpy(result, workpath);
+ 	printf ("canary=[%s]\n", canary);
+       }
+       else {
+ 	/*BAD*/
++	  __TESTCLAIM_24:
+ 	strcpy(result, chroot_path);
+ 	printf ("canary=[%s]\n", canary);
+ 	if (workpath[0]!='/') {
+ 	  /* BAD */
++	    __TESTCLAIM_25:
+ 	  strcat(result, workpath);
+ 	  printf ("canary=[%s]\n", canary);
+ 	}
+@@ -432,11 +457,13 @@
+ 	  for (ptr=result; *ptr!= '\0'; ptr++);
+ 	  if (ptr==result || *--ptr != '/') {
+ 	    /* BAD */
++	      __TESTCLAIM_26:
+ 	    strcat(result, workpath);
+ 	    printf ("canary=[%s]\n", canary);
+ 	  }
+ 	  else {
+ 	    /* BAD */
++	      __TESTCLAIM_27:
+ 	    strcat(result, &workpath[1]);
+ 	    printf ("canary=[%s]\n", canary);
+ 	  }
+diff -urN -xcprover cproverbm.pOi6eu/wu-ftpd/f3/realpath-2.4.2-ok.c llcorpora-2007-11-06/wu-ftpd/f3/realpath-2.4.2-ok.c
+--- cproverbm.pOi6eu/wu-ftpd/f3/realpath-2.4.2-ok.c	2004-07-29 16:36:32.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/realpath-2.4.2-ok.c	2011-02-06 02:33:03.000000000 +0000
+@@ -189,6 +189,7 @@
+   
+ 
+   /* OK */
++  __TESTCLAIM_1:
+   strncpy(curpath, pathname,MAXPATHLEN);
+   printf ("canary=[%s]\n", canary);
+ 
+@@ -267,10 +268,12 @@
+ 	  continue;
+ 	if ((last == namebuf) || (*--last != '/')) {
+ 	  /* OK */	  
++	    __TESTCLAIM_2:	  
+ 	  strncat(namebuf, "/",MAXPATHLEN-strlen(namebuf)-1);
+ 	  printf ("canary=[%s]\n", canary);
+ 	}	
+ 	/* OK */
++	  __TESTCLAIM_3:
+ 	strncat(namebuf, where,MAXPATHLEN-strlen(namebuf)-1);
+ 	printf ("canary=[%s]\n", canary);
+ 	
+@@ -298,6 +301,7 @@
+ 	      }
+ 	    else {
+ 	      /* OK */
++	        __TESTCLAIM_4:
+ 	      strcpy(result, namebuf);
+ 	      printf ("canary=[%s]\n", canary);
+ 	    }
+@@ -309,6 +313,7 @@
+ 	    }
+ 	    else{
+ 	      /* OK */
++	        __TESTCLAIM_5:
+ 	      strcpy(result, chroot_path);
+ 	      printf ("canary=[%s]\n", canary);
+ 	      
+@@ -320,6 +325,7 @@
+ 		  }
+ 		  else {
+ 		    /*OK*/
++		      __TESTCLAIM_6:
+ 		    strcat(result, namebuf);
+ 		    printf ("canary=[%s]\n", canary);
+ 
+@@ -336,6 +342,7 @@
+ 		      }
+ 		    else {
+ 		      /*OK*/
++		        __TESTCLAIM_7:
+ 		      strcat(result, namebuf);
+ 		      printf ("canary=[%s]\n", canary);
+ 		    }
+@@ -348,6 +355,7 @@
+ 		    }
+ 		  else {
+ 		    /*OK*/
++		      __TESTCLAIM_8:
+ 		    strcat(result, &namebuf[1]);
+ 		    printf ("canary=[%s]\n", canary);
+ 		  }
+@@ -377,6 +385,7 @@
+ 		}
+ 		else {
+ 		  /* OK */
++		    __TESTCLAIM_9:
+ 		  strcpy(result, namebuf);
+ 		  printf ("canary=[%s]\n", canary);
+ 		}
+@@ -390,6 +399,7 @@
+ 		}
+ 	      else {
+ 		/*OK*/
++		  __TESTCLAIM_10:
+ 		strcpy(result, chroot_path);  
+ 		printf ("canary=[%s]\n", canary);
+   
+@@ -400,6 +410,7 @@
+ 		    return NULL;
+ 		  else {
+ 		    /* OK */
++		      __TESTCLAIM_11:
+ 		    strcat(result, namebuf);
+ 		    printf ("canary=[%s]\n", canary);
+ 
+@@ -413,6 +424,7 @@
+ 		      return NULL;
+ 		    else {
+ 		      /* OK */
++		        __TESTCLAIM_12:
+ 		      strcat(result, namebuf);
+ 		      printf ("canary=[%s]\n", canary);
+ 		    }
+@@ -423,6 +435,7 @@
+ 		      return NULL;
+ 		    else {
+ 		      /* OK */
++		        __TESTCLAIM_13:
+ 		      strcat(result, &namebuf[1]);
+ 		      printf ("canary=[%s]\n", canary);
+ 		    }
+@@ -437,6 +450,7 @@
+ 	    *workpath = '\0';
+ 	  if (*where) {
+ 	    /* OK */
++	      __TESTCLAIM_14:
+ 	    strncat(linkpath, "/",MAXPATHLEN-strlen(linkpath)-1);
+ 	    printf ("canary=[%s]\n", canary);
+ 	    
+@@ -447,6 +461,7 @@
+ 	      }
+ 	    
+ 	    /* OK */
++	      __TESTCLAIM_15:
+ 	    strncat(linkpath, where, MAXPATHLEN-strlen(linkpath)- 1);
+ 	    printf ("canary=[%s]\n", canary);
+ 	  }
+@@ -458,6 +473,7 @@
+ 	    }
+ 	  
+ 	  /*OK*/
++	    __TESTCLAIM_16:
+ 	  strcpy(curpath, linkpath);
+ 	  printf ("canary=[%s]\n", canary);
+ 	  
+@@ -480,6 +496,7 @@
+ 	    }
+ 	  else {
+ 	    /*OK*/
++	      __TESTCLAIM_17:
+ 	    strcpy(workpath, namebuf);
+ 	    printf ("canary=[%s]\n", canary);
+ 	  }	  
+@@ -494,6 +511,7 @@
+ 		return NULL;
+ 	      }
+ 	      /*OK*/
++	        __TESTCLAIM_18:
+ 	      strcpy(result, namebuf);
+ 	      printf ("canary=[%s]\n", canary);
+ 	    }
+@@ -515,6 +533,7 @@
+ 		  }
+ 		
+ 		/* OK */
++		  __TESTCLAIM_19:
+ 		strcat(result, namebuf);
+ 		printf ("canary=[%s]\n", canary);
+ 	      }
+@@ -529,6 +548,7 @@
+ 		      }
+ 		    
+ 		    /* OK */
++		      __TESTCLAIM_20:
+ 		    strcat(result, namebuf);
+ 		    printf ("canary=[%s]\n", canary);
+ 		  }
+@@ -541,6 +561,7 @@
+ 		    }
+ 		  
+ 		  /* OK */
++		    __TESTCLAIM_21:
+ 		  strcat(result, &namebuf[1]);
+ 		  printf ("canary=[%s]\n", canary);
+ 		  }
+@@ -557,6 +578,7 @@
+ 	    }
+ 	  
+ 	  /* OK */
++	    __TESTCLAIM_22:
+ 	  strcpy(workpath, namebuf);
+ 	  printf ("canary=[%s]\n", canary);
+ 	}
+@@ -569,6 +591,7 @@
+ 	}
+ 	
+ 	/* OK */
++	  __TESTCLAIM_23:
+ 	strcpy(result, workpath);
+ 	printf ("canary=[%s]\n", canary);
+       }
+@@ -578,6 +601,7 @@
+ 	  return NULL;
+ 	}
+ 	  /*OK*/
++	    __TESTCLAIM_24:
+ 	strcpy(result, chroot_path);
+ 	printf ("canary=[%s]\n", canary);
+ 	
+@@ -589,6 +613,7 @@
+ 		return NULL;
+ 	      }
+ 	    /* OK */
++	      __TESTCLAIM_25:
+ 	    strcat(result, workpath);
+ 	    printf ("canary=[%s]\n", canary);
+ 	  }
+@@ -602,6 +627,7 @@
+ 		  return NULL;
+ 		}
+ 	      /* OK */
++	        __TESTCLAIM_26:
+ 	      strcat(result, workpath);
+ 	      printf ("canary=[%s]\n", canary);
+ 	    }
+@@ -612,6 +638,7 @@
+ 		return NULL;
+ 	      }
+ 	    /* OK */
++	      __TESTCLAIM_27:
+ 	    strcat(result, &workpath[1]);
+ 	    printf ("canary=[%s]\n", canary);
+ 	  }
+

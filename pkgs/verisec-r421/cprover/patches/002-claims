@@ -1,0 +1,1465 @@
+diff -urN -xcprover cproverbm.v6zlY3/lib/stubs.c verisec-r421/lib/stubs.c
+--- cproverbm.v6zlY3/lib/stubs.c	2007-07-06 00:40:16.000000000 +0100
++++ verisec-r421/lib/stubs.c	2008-01-26 01:30:30.000000000 +0000
+@@ -28,6 +28,7 @@
+ 
+   /* strcat man page says that strcat null-terminates dest */
+   /* r_strcat RELEVANT */
++__TESTCLAIM_1:
+   dest[i] = EOS;
+ 
+   return dest;
+@@ -50,6 +51,7 @@
+ 
+   /* strncat man page says that strcat null-terminates dest */
+   /* r_strncat RELEVANT */
++__TESTCLAIM_1:
+   dest[i] = EOS;
+ 
+   return dest;
+@@ -62,6 +64,7 @@
+   int i;
+ 
+   /* r_memcpy RELEVANT */
++__TESTCLAIM_1:
+   dest[n-1];
+ 
+   for (i = n-1; i >= 0; i--) {
+@@ -77,6 +80,7 @@
+   /* r_strncpy RELEVANT */
+   if(n>0)
+   {
++__TESTCLAIM_1:
+     dest[n-1];
+   }
+ 
+@@ -95,6 +99,7 @@
+   for (i = 0; ; i++) {
+     tmp = src[i];
+     /* r_strcpy RELEVANT */
++__TESTCLAIM_1:
+     dest[i] = tmp; // DO NOT CHANGE THE POSITION OF THIS LINE
+     if (src[i] == EOS)
+       break;
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/apache/CVE-2004-0940/get_tag/iter1_prefixLong_arr_bad.c verisec-r421/programs/apps/apache/CVE-2004-0940/get_tag/iter1_prefixLong_arr_bad.c
+--- cproverbm.v6zlY3/programs/apps/apache/CVE-2004-0940/get_tag/iter1_prefixLong_arr_bad.c	2007-07-06 00:40:16.000000000 +0100
++++ verisec-r421/programs/apps/apache/CVE-2004-0940/get_tag/iter1_prefixLong_arr_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -82,6 +82,7 @@
+                          * So the bounds check (t == tagbuf_len) will fail */
+   }
+   /* BAD */
++__TESTCLAIM_1:
+   tag[t] = EOS;
+ 
+   return tag;
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/apache/CVE-2004-0940/get_tag/iter1_prefixLong_arr_ok.c verisec-r421/programs/apps/apache/CVE-2004-0940/get_tag/iter1_prefixLong_arr_ok.c
+--- cproverbm.v6zlY3/programs/apps/apache/CVE-2004-0940/get_tag/iter1_prefixLong_arr_ok.c	2007-07-06 00:40:16.000000000 +0100
++++ verisec-r421/programs/apps/apache/CVE-2004-0940/get_tag/iter1_prefixLong_arr_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -84,6 +84,7 @@
+     }
+ 
+     /* OK */
++__TESTCLAIM_1:
+     tag[t] = c;    
+     t++;                /* Now t == tagbuf_len + 1 
+                          * So the bounds check (t == tagbuf_len) will fail */
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/apache/CVE-2004-0940/get_tag/iter1_prefixLong_ptr_bad.c verisec-r421/programs/apps/apache/CVE-2004-0940/get_tag/iter1_prefixLong_ptr_bad.c
+--- cproverbm.v6zlY3/programs/apps/apache/CVE-2004-0940/get_tag/iter1_prefixLong_ptr_bad.c	2007-07-06 00:40:16.000000000 +0100
++++ verisec-r421/programs/apps/apache/CVE-2004-0940/get_tag/iter1_prefixLong_ptr_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -82,6 +82,7 @@
+                          * So the bounds check (t == tag + tagbuf_len) will fail */
+   }
+   /* BAD */
++__TESTCLAIM_1:
+   *t = EOS;
+ 
+   return tag;
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/apache/CVE-2004-0940/get_tag/iter1_prefixLong_ptr_ok.c verisec-r421/programs/apps/apache/CVE-2004-0940/get_tag/iter1_prefixLong_ptr_ok.c
+--- cproverbm.v6zlY3/programs/apps/apache/CVE-2004-0940/get_tag/iter1_prefixLong_ptr_ok.c	2007-07-06 00:40:16.000000000 +0100
++++ verisec-r421/programs/apps/apache/CVE-2004-0940/get_tag/iter1_prefixLong_ptr_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -84,6 +84,7 @@
+     }
+ 
+     /* OK */
++__TESTCLAIM_1:
+     *t = c;    
+     t++;                /* Now t == tag + tagbuf_len + 1 
+                          * So the bounds check (t == tag + tagbuf_len) will fail */
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/apache/CVE-2004-0940/get_tag/iter1_prefixShort_arr_bad.c verisec-r421/programs/apps/apache/CVE-2004-0940/get_tag/iter1_prefixShort_arr_bad.c
+--- cproverbm.v6zlY3/programs/apps/apache/CVE-2004-0940/get_tag/iter1_prefixShort_arr_bad.c	2007-07-06 00:40:16.000000000 +0100
++++ verisec-r421/programs/apps/apache/CVE-2004-0940/get_tag/iter1_prefixShort_arr_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -41,6 +41,7 @@
+                          * So the bounds check (t == tagbuf_len) will fail */
+   }
+   /* BAD */
++__TESTCLAIM_1:
+   tag[t] = EOS;
+ 
+   return tag;
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/apache/CVE-2004-0940/get_tag/iter1_prefixShort_arr_ok.c verisec-r421/programs/apps/apache/CVE-2004-0940/get_tag/iter1_prefixShort_arr_ok.c
+--- cproverbm.v6zlY3/programs/apps/apache/CVE-2004-0940/get_tag/iter1_prefixShort_arr_ok.c	2007-07-06 00:40:16.000000000 +0100
++++ verisec-r421/programs/apps/apache/CVE-2004-0940/get_tag/iter1_prefixShort_arr_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -33,6 +33,7 @@
+         t++;
+         if (t == tagbuf_len) {
+           /* OK */
++__TESTCLAIM_1:
+           tag[t] = EOS;
+           return NULL;
+         }
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/apache/CVE-2004-0940/get_tag/iter1_prefixShort_ptr_bad.c verisec-r421/programs/apps/apache/CVE-2004-0940/get_tag/iter1_prefixShort_ptr_bad.c
+--- cproverbm.v6zlY3/programs/apps/apache/CVE-2004-0940/get_tag/iter1_prefixShort_ptr_bad.c	2007-07-06 00:40:16.000000000 +0100
++++ verisec-r421/programs/apps/apache/CVE-2004-0940/get_tag/iter1_prefixShort_ptr_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -41,6 +41,7 @@
+                          * So the bounds check (t == tag + tagbuf_len) will fail */
+   }
+   /* BAD */
++__TESTCLAIM_1:
+   *t = EOS;
+ 
+   return tag;
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/apache/CVE-2004-0940/get_tag/iter1_prefixShort_ptr_ok.c verisec-r421/programs/apps/apache/CVE-2004-0940/get_tag/iter1_prefixShort_ptr_ok.c
+--- cproverbm.v6zlY3/programs/apps/apache/CVE-2004-0940/get_tag/iter1_prefixShort_ptr_ok.c	2007-07-06 00:40:16.000000000 +0100
++++ verisec-r421/programs/apps/apache/CVE-2004-0940/get_tag/iter1_prefixShort_ptr_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -43,6 +43,7 @@
+     }
+ 
+     /* OK */
++__TESTCLAIM_1:
+     *t = c;
+     t++;                /* Now t == tag + tagbuf_len + 1 
+                          * So the bounds check (t == tag + tagbuf_len) will fail */
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/apache/CVE-2004-0940/get_tag/iter2_prefixLong_arr_bad.c verisec-r421/programs/apps/apache/CVE-2004-0940/get_tag/iter2_prefixLong_arr_bad.c
+--- cproverbm.v6zlY3/programs/apps/apache/CVE-2004-0940/get_tag/iter2_prefixLong_arr_bad.c	2007-07-06 00:40:16.000000000 +0100
++++ verisec-r421/programs/apps/apache/CVE-2004-0940/get_tag/iter2_prefixLong_arr_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -87,6 +87,7 @@
+                          * So the bounds check (t == tagbuf_len) will fail */
+   }
+   /* BAD */
++__TESTCLAIM_1:
+   tag[t] = EOS;
+ 
+   return tag;
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/apache/CVE-2004-0940/get_tag/iter2_prefixLong_ptr_bad.c verisec-r421/programs/apps/apache/CVE-2004-0940/get_tag/iter2_prefixLong_ptr_bad.c
+--- cproverbm.v6zlY3/programs/apps/apache/CVE-2004-0940/get_tag/iter2_prefixLong_ptr_bad.c	2007-07-06 00:40:16.000000000 +0100
++++ verisec-r421/programs/apps/apache/CVE-2004-0940/get_tag/iter2_prefixLong_ptr_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -87,6 +87,7 @@
+                          * So the bounds check (t == tag + tagbuf_len) will fail */
+   }
+   /* BAD */
++__TESTCLAIM_1:
+   *t = EOS;
+ 
+   return tag;
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/apache/CVE-2004-0940/get_tag/iter2_prefixShort_arr_bad.c verisec-r421/programs/apps/apache/CVE-2004-0940/get_tag/iter2_prefixShort_arr_bad.c
+--- cproverbm.v6zlY3/programs/apps/apache/CVE-2004-0940/get_tag/iter2_prefixShort_arr_bad.c	2007-07-06 00:40:16.000000000 +0100
++++ verisec-r421/programs/apps/apache/CVE-2004-0940/get_tag/iter2_prefixShort_arr_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -44,6 +44,7 @@
+                          * So the bounds check (t == tagbuf_len) will fail */
+   }
+   /* BAD */
++__TESTCLAIM_1:
+   tag[t] = EOS;
+ 
+   return tag;
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/apache/CVE-2004-0940/get_tag/iter2_prefixShort_ptr_bad.c verisec-r421/programs/apps/apache/CVE-2004-0940/get_tag/iter2_prefixShort_ptr_bad.c
+--- cproverbm.v6zlY3/programs/apps/apache/CVE-2004-0940/get_tag/iter2_prefixShort_ptr_bad.c	2007-07-06 00:40:16.000000000 +0100
++++ verisec-r421/programs/apps/apache/CVE-2004-0940/get_tag/iter2_prefixShort_ptr_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -44,6 +44,7 @@
+                          * So the bounds check (t == tag + tagbuf_len) will fail */
+   }
+   /* BAD */
++__TESTCLAIM_1:
+   *t = EOS;
+ 
+   return tag;
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/apache/CVE-2006-3747/escape_absolute_uri/full_bad.c verisec-r421/programs/apps/apache/CVE-2006-3747/escape_absolute_uri/full_bad.c
+--- cproverbm.v6zlY3/programs/apps/apache/CVE-2006-3747/escape_absolute_uri/full_bad.c	2007-07-06 00:40:16.000000000 +0100
++++ verisec-r421/programs/apps/apache/CVE-2006-3747/escape_absolute_uri/full_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -32,6 +32,7 @@
+         if (uri[cp] == '?') {
+           ++c;
+           /* BAD */
++__TESTCLAIM_1:
+           token[c] = uri + cp + 1;
+           uri[cp] = EOS;
+         }
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/apache/CVE-2006-3747/escape_absolute_uri/full_ok.c verisec-r421/programs/apps/apache/CVE-2006-3747/escape_absolute_uri/full_ok.c
+--- cproverbm.v6zlY3/programs/apps/apache/CVE-2006-3747/escape_absolute_uri/full_ok.c	2007-07-06 00:40:16.000000000 +0100
++++ verisec-r421/programs/apps/apache/CVE-2006-3747/escape_absolute_uri/full_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -32,6 +32,7 @@
+         if (uri[cp] == '?') {
+           ++c;
+           /* OK */
++__TESTCLAIM_1:
+           token[c] = uri + cp + 1;
+           uri[cp] = EOS;
+         }
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/apache/CVE-2006-3747/escape_absolute_uri/full_ptr_bad.c verisec-r421/programs/apps/apache/CVE-2006-3747/escape_absolute_uri/full_ptr_bad.c
+--- cproverbm.v6zlY3/programs/apps/apache/CVE-2006-3747/escape_absolute_uri/full_ptr_bad.c	2007-07-06 00:40:16.000000000 +0100
++++ verisec-r421/programs/apps/apache/CVE-2006-3747/escape_absolute_uri/full_ptr_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -31,6 +31,7 @@
+         if (*cp == '?') {
+           ++c;
+           /* BAD */
++__TESTCLAIM_1:
+           token[c] = cp + 1;
+           *cp = EOS;
+         }
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/apache/CVE-2006-3747/escape_absolute_uri/full_ptr_ok.c verisec-r421/programs/apps/apache/CVE-2006-3747/escape_absolute_uri/full_ptr_ok.c
+--- cproverbm.v6zlY3/programs/apps/apache/CVE-2006-3747/escape_absolute_uri/full_ptr_ok.c	2007-07-06 00:40:16.000000000 +0100
++++ verisec-r421/programs/apps/apache/CVE-2006-3747/escape_absolute_uri/full_ptr_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -31,6 +31,7 @@
+         if (*cp == '?') {
+           ++c;
+           /* OK */
++__TESTCLAIM_1:
+           token[c] = cp + 1;
+           *cp = EOS;
+         }
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/apache/CVE-2006-3747/escape_absolute_uri/simp1_bad.c verisec-r421/programs/apps/apache/CVE-2006-3747/escape_absolute_uri/simp1_bad.c
+--- cproverbm.v6zlY3/programs/apps/apache/CVE-2006-3747/escape_absolute_uri/simp1_bad.c	2007-07-06 00:40:16.000000000 +0100
++++ verisec-r421/programs/apps/apache/CVE-2006-3747/escape_absolute_uri/simp1_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -15,6 +15,7 @@
+     if (uri[cp] == '?') {
+       ++c;
+       /* BAD */
++__TESTCLAIM_1:
+       token[c] = uri + cp + 1;
+       uri[cp] = EOS;
+     }
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/apache/CVE-2006-3747/escape_absolute_uri/simp1_ok.c verisec-r421/programs/apps/apache/CVE-2006-3747/escape_absolute_uri/simp1_ok.c
+--- cproverbm.v6zlY3/programs/apps/apache/CVE-2006-3747/escape_absolute_uri/simp1_ok.c	2007-07-06 00:40:16.000000000 +0100
++++ verisec-r421/programs/apps/apache/CVE-2006-3747/escape_absolute_uri/simp1_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -15,6 +15,7 @@
+     if (uri[cp] == '?') {
+       ++c;
+       /* OK */
++__TESTCLAIM_1:
+       token[c] = uri + cp + 1;
+       uri[cp] = EOS;
+     }
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/apache/CVE-2006-3747/escape_absolute_uri/simp2_bad.c verisec-r421/programs/apps/apache/CVE-2006-3747/escape_absolute_uri/simp2_bad.c
+--- cproverbm.v6zlY3/programs/apps/apache/CVE-2006-3747/escape_absolute_uri/simp2_bad.c	2007-07-06 00:40:16.000000000 +0100
++++ verisec-r421/programs/apps/apache/CVE-2006-3747/escape_absolute_uri/simp2_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -20,6 +20,7 @@
+     if (uri[cp] == '?') {
+       ++c;
+       /* BAD */
++__TESTCLAIM_1:
+       token[c] = uri + cp + 1;
+       uri[cp] = EOS;
+     }
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/apache/CVE-2006-3747/escape_absolute_uri/simp2_ok.c verisec-r421/programs/apps/apache/CVE-2006-3747/escape_absolute_uri/simp2_ok.c
+--- cproverbm.v6zlY3/programs/apps/apache/CVE-2006-3747/escape_absolute_uri/simp2_ok.c	2007-07-06 00:40:16.000000000 +0100
++++ verisec-r421/programs/apps/apache/CVE-2006-3747/escape_absolute_uri/simp2_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -20,6 +20,7 @@
+     if (uri[cp] == '?') {
+       ++c;
+       /* OK */
++__TESTCLAIM_1:
+       token[c] = uri + cp + 1;
+       uri[cp] = EOS;
+     }
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/apache/CVE-2006-3747/escape_absolute_uri/simp3_bad.c verisec-r421/programs/apps/apache/CVE-2006-3747/escape_absolute_uri/simp3_bad.c
+--- cproverbm.v6zlY3/programs/apps/apache/CVE-2006-3747/escape_absolute_uri/simp3_bad.c	2007-07-06 00:40:16.000000000 +0100
++++ verisec-r421/programs/apps/apache/CVE-2006-3747/escape_absolute_uri/simp3_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -31,6 +31,7 @@
+       if (uri[cp] == '?') {
+         ++c;
+         /* BAD */
++__TESTCLAIM_1:
+         token[c] = uri + cp + 1;
+         uri[cp] = EOS;
+       }
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/apache/CVE-2006-3747/escape_absolute_uri/simp3_ok.c verisec-r421/programs/apps/apache/CVE-2006-3747/escape_absolute_uri/simp3_ok.c
+--- cproverbm.v6zlY3/programs/apps/apache/CVE-2006-3747/escape_absolute_uri/simp3_ok.c	2007-07-06 00:40:16.000000000 +0100
++++ verisec-r421/programs/apps/apache/CVE-2006-3747/escape_absolute_uri/simp3_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -31,6 +31,7 @@
+       if (uri[cp] == '?') {
+         ++c;
+         /* OK */
++__TESTCLAIM_1:
+         token[c] = uri + cp + 1;
+         uri[cp] = EOS;
+       }
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/apache/CVE-2006-3747/escape_absolute_uri/strncmp_bad.c verisec-r421/programs/apps/apache/CVE-2006-3747/escape_absolute_uri/strncmp_bad.c
+--- cproverbm.v6zlY3/programs/apps/apache/CVE-2006-3747/escape_absolute_uri/strncmp_bad.c	2007-07-06 00:40:16.000000000 +0100
++++ verisec-r421/programs/apps/apache/CVE-2006-3747/escape_absolute_uri/strncmp_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -16,6 +16,7 @@
+       if (uri[cp] == '?') {
+         ++c;
+         /* BAD */
++__TESTCLAIM_1:
+         token[c] = uri + cp + 1;
+         uri[cp] = EOS;
+       }
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/apache/CVE-2006-3747/escape_absolute_uri/strncmp_ok.c verisec-r421/programs/apps/apache/CVE-2006-3747/escape_absolute_uri/strncmp_ok.c
+--- cproverbm.v6zlY3/programs/apps/apache/CVE-2006-3747/escape_absolute_uri/strncmp_ok.c	2007-07-06 00:40:16.000000000 +0100
++++ verisec-r421/programs/apps/apache/CVE-2006-3747/escape_absolute_uri/strncmp_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -16,6 +16,7 @@
+       if (uri[cp] == '?') {
+         ++c;
+         /* OK */
++__TESTCLAIM_1:
+         token[c] = uri + cp + 1;
+         uri[cp] = EOS;
+       }
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/bind/CA-1999-14/rrextract-sig/simp_bad.c verisec-r421/programs/apps/bind/CA-1999-14/rrextract-sig/simp_bad.c
+--- cproverbm.v6zlY3/programs/apps/bind/CA-1999-14/rrextract-sig/simp_bad.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/bind/CA-1999-14/rrextract-sig/simp_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -49,6 +49,8 @@
+   if (n > (int)(sizeof data) - (cp1 - (u_char *)data)) {
+     return (-1);  /* out of room! */
+   }
++ 
++  __TESTCLAIM_1:
+   /* BAD */
+   r_memcpy(cp1, cp, n);
+
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/libgd/CVE-2007-0455/gdImageStringFTEx/gd_full_bad.c verisec-r421/programs/apps/libgd/CVE-2007-0455/gdImageStringFTEx/gd_full_bad.c
+--- cproverbm.v6zlY3/programs/apps/libgd/CVE-2007-0455/gdImageStringFTEx/gd_full_bad.c	2007-07-06 00:40:17.000000000 +0100
++++ verisec-r421/programs/apps/libgd/CVE-2007-0455/gdImageStringFTEx/gd_full_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -146,6 +146,7 @@
+   next = 0;
+   /* Unsafe read -- next can be out of bounds. */
+   /* BAD */
++__TESTCLAIM_1:
+   for (i=0; string[next] != EOS; i++)
+     {
+       /* grabbing a character and storing it in an int
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/libgd/CVE-2007-0455/gdImageStringFTEx/gd_full_ok.c verisec-r421/programs/apps/libgd/CVE-2007-0455/gdImageStringFTEx/gd_full_ok.c
+--- cproverbm.v6zlY3/programs/apps/libgd/CVE-2007-0455/gdImageStringFTEx/gd_full_ok.c	2007-07-06 00:40:17.000000000 +0100
++++ verisec-r421/programs/apps/libgd/CVE-2007-0455/gdImageStringFTEx/gd_full_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -145,6 +145,7 @@
+ 
+   next = 0;
+   /* OK */
++__TESTCLAIM_1:
+   for (i=0; string[next] != EOS; i++)
+     {
+       /* grabbing a character and storing it in an int
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/libgd/CVE-2007-0455/gdImageStringFTEx/gd_no_entities_bad.c verisec-r421/programs/apps/libgd/CVE-2007-0455/gdImageStringFTEx/gd_no_entities_bad.c
+--- cproverbm.v6zlY3/programs/apps/libgd/CVE-2007-0455/gdImageStringFTEx/gd_no_entities_bad.c	2007-07-06 00:40:17.000000000 +0100
++++ verisec-r421/programs/apps/libgd/CVE-2007-0455/gdImageStringFTEx/gd_no_entities_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -46,6 +46,7 @@
+   next = 0;
+   /* Unsafe read -- next can be out of bounds. */
+   /* BAD */
++__TESTCLAIM_1:
+   for (i=0; string[next] != EOS; i++)
+     {
+       /* grabbing a character and storing it in an int
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/libgd/CVE-2007-0455/gdImageStringFTEx/gd_no_entities_ok.c verisec-r421/programs/apps/libgd/CVE-2007-0455/gdImageStringFTEx/gd_no_entities_ok.c
+--- cproverbm.v6zlY3/programs/apps/libgd/CVE-2007-0455/gdImageStringFTEx/gd_no_entities_ok.c	2007-07-06 00:40:17.000000000 +0100
++++ verisec-r421/programs/apps/libgd/CVE-2007-0455/gdImageStringFTEx/gd_no_entities_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -45,6 +45,7 @@
+ 
+   next = 0;
+   /* OK */
++__TESTCLAIM_1:
+   for (i=0; string[next] != EOS; i++)
+     {
+       /* grabbing a character and storing it in an int
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/libgd/CVE-2007-0455/gdImageStringFTEx/gd_simp_bad.c verisec-r421/programs/apps/libgd/CVE-2007-0455/gdImageStringFTEx/gd_simp_bad.c
+--- cproverbm.v6zlY3/programs/apps/libgd/CVE-2007-0455/gdImageStringFTEx/gd_simp_bad.c	2007-07-06 00:40:17.000000000 +0100
++++ verisec-r421/programs/apps/libgd/CVE-2007-0455/gdImageStringFTEx/gd_simp_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -23,6 +23,7 @@
+   next = 0;
+   /* Unsafe read -- next can be out of bounds. */
+   /* BAD */
++__TESTCLAIM_1:
+   for (i=0; string[next] != EOS; i++)
+     {
+       /* grabbing a character and storing it in an int
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/libgd/CVE-2007-0455/gdImageStringFTEx/gd_simp_ok.c verisec-r421/programs/apps/libgd/CVE-2007-0455/gdImageStringFTEx/gd_simp_ok.c
+--- cproverbm.v6zlY3/programs/apps/libgd/CVE-2007-0455/gdImageStringFTEx/gd_simp_ok.c	2007-07-06 00:40:17.000000000 +0100
++++ verisec-r421/programs/apps/libgd/CVE-2007-0455/gdImageStringFTEx/gd_simp_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -22,6 +22,7 @@
+ 
+   next = 0;
+   /* OK */
++__TESTCLAIM_1:
+   for (i=0; string[next] != EOS; i++)
+     {
+       /* grabbing a character and storing it in an int
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/libgd/CVE-2007-0455/gdImageStringFTEx/gd_some_entities_bad.c verisec-r421/programs/apps/libgd/CVE-2007-0455/gdImageStringFTEx/gd_some_entities_bad.c
+--- cproverbm.v6zlY3/programs/apps/libgd/CVE-2007-0455/gdImageStringFTEx/gd_some_entities_bad.c	2007-07-06 00:40:17.000000000 +0100
++++ verisec-r421/programs/apps/libgd/CVE-2007-0455/gdImageStringFTEx/gd_some_entities_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -94,6 +94,7 @@
+   next = 0;
+   /* Unsafe read -- next can be out of bounds. */
+   /* BAD */
++__TESTCLAIM_1:
+   for (i=0; string[next] != EOS; i++)
+     {
+       /* grabbing a character and storing it in an int
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/libgd/CVE-2007-0455/gdImageStringFTEx/gd_some_entities_ok.c verisec-r421/programs/apps/libgd/CVE-2007-0455/gdImageStringFTEx/gd_some_entities_ok.c
+--- cproverbm.v6zlY3/programs/apps/libgd/CVE-2007-0455/gdImageStringFTEx/gd_some_entities_ok.c	2007-07-06 00:40:17.000000000 +0100
++++ verisec-r421/programs/apps/libgd/CVE-2007-0455/gdImageStringFTEx/gd_some_entities_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -93,6 +93,7 @@
+ 
+   next = 0;
+   /* OK */
++__TESTCLAIM_1:
+   for (i=0; string[next] != EOS; i++)
+     {
+       /* grabbing a character and storing it in an int
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/MADWiFi/CVE-2006-6332/encode_ie/interproc_bad.c verisec-r421/programs/apps/MADWiFi/CVE-2006-6332/encode_ie/interproc_bad.c
+--- cproverbm.v6zlY3/programs/apps/MADWiFi/CVE-2006-6332/encode_ie/interproc_bad.c	2007-07-06 00:40:16.000000000 +0100
++++ verisec-r421/programs/apps/MADWiFi/CVE-2006-6332/encode_ie/interproc_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -29,6 +29,7 @@
+     /* BAD */
+     *p = 'x';
+     /* BAD. */
++__TESTCLAIM_1:
+     *(p+1) = 'x';
+     p += 2;
+   }
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/MADWiFi/CVE-2006-6332/encode_ie/interproc_ok.c verisec-r421/programs/apps/MADWiFi/CVE-2006-6332/encode_ie/interproc_ok.c
+--- cproverbm.v6zlY3/programs/apps/MADWiFi/CVE-2006-6332/encode_ie/interproc_ok.c	2007-07-06 00:40:16.000000000 +0100
++++ verisec-r421/programs/apps/MADWiFi/CVE-2006-6332/encode_ie/interproc_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -33,6 +33,7 @@
+     /* OK */
+     *p = 'x';
+     /* OK. */
++__TESTCLAIM_1:
+     *(p+1) = 'x';
+     p += 2;
+   }
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/MADWiFi/CVE-2006-6332/encode_ie/no_sprintf_bad.c verisec-r421/programs/apps/MADWiFi/CVE-2006-6332/encode_ie/no_sprintf_bad.c
+--- cproverbm.v6zlY3/programs/apps/MADWiFi/CVE-2006-6332/encode_ie/no_sprintf_bad.c	2007-07-06 00:40:16.000000000 +0100
++++ verisec-r421/programs/apps/MADWiFi/CVE-2006-6332/encode_ie/no_sprintf_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -29,6 +29,7 @@
+     /* BAD */
+     *p = 'x';
+     /* BAD. */
++__TESTCLAIM_1:
+     *(p+1) = 'x';
+     p += 2;
+   }
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/MADWiFi/CVE-2006-6332/encode_ie/no_sprintf_ok.c verisec-r421/programs/apps/MADWiFi/CVE-2006-6332/encode_ie/no_sprintf_ok.c
+--- cproverbm.v6zlY3/programs/apps/MADWiFi/CVE-2006-6332/encode_ie/no_sprintf_ok.c	2007-07-06 00:40:16.000000000 +0100
++++ verisec-r421/programs/apps/MADWiFi/CVE-2006-6332/encode_ie/no_sprintf_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -33,6 +33,7 @@
+     /* OK */
+     *p = 'x';
+     /* OK. */
++__TESTCLAIM_1:
+     *(p+1) = 'x';
+     p += 2;
+   }
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/NetBSD-libc/CVE-2006-6652/glob1/bounds_bad.c verisec-r421/programs/apps/NetBSD-libc/CVE-2006-6652/glob1/bounds_bad.c
+--- cproverbm.v6zlY3/programs/apps/NetBSD-libc/CVE-2006-6652/glob1/bounds_bad.c	2007-07-06 00:40:17.000000000 +0100
++++ verisec-r421/programs/apps/NetBSD-libc/CVE-2006-6652/glob1/bounds_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -12,6 +12,7 @@
+    * correctly *before* passing it to glob2().
+    */
+   /* BAD */
++__TESTCLAIM_1:
+   *bound = 10;
+   return 0;
+ }
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/NetBSD-libc/CVE-2006-6652/glob1/bounds_ok.c verisec-r421/programs/apps/NetBSD-libc/CVE-2006-6652/glob1/bounds_ok.c
+--- cproverbm.v6zlY3/programs/apps/NetBSD-libc/CVE-2006-6652/glob1/bounds_ok.c	2007-07-06 00:40:17.000000000 +0100
++++ verisec-r421/programs/apps/NetBSD-libc/CVE-2006-6652/glob1/bounds_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -12,6 +12,7 @@
+    * correctly *before* passing it to glob2().
+    */
+   /* OK */
++__TESTCLAIM_1:
+   *bound = 10;
+   return 0;
+ }
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/anyMeta_int_bad.c verisec-r421/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/anyMeta_int_bad.c
+--- cproverbm.v6zlY3/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/anyMeta_int_bad.c	2007-07-06 00:40:17.000000000 +0100
++++ verisec-r421/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/anyMeta_int_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -19,6 +19,7 @@
+         return 1;
+       tmp = pattern[i];
+       /* BAD */
++__TESTCLAIM_1:
+       pathend[i] = tmp;
+       i++;
+     }
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/anyMeta_int_ok.c verisec-r421/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/anyMeta_int_ok.c
+--- cproverbm.v6zlY3/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/anyMeta_int_ok.c	2007-07-06 00:40:17.000000000 +0100
++++ verisec-r421/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/anyMeta_int_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -19,6 +19,7 @@
+         return 1;
+       tmp = pattern[i];
+       /* OK */
++__TESTCLAIM_1:
+       pathend[i] = tmp;
+       i++;
+     }
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/anyMeta_ptr_bad.c verisec-r421/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/anyMeta_ptr_bad.c
+--- cproverbm.v6zlY3/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/anyMeta_ptr_bad.c	2007-07-06 00:40:17.000000000 +0100
++++ verisec-r421/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/anyMeta_ptr_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -20,6 +20,7 @@
+         return 1;
+       tmp = *p;
+       /* BAD */
++__TESTCLAIM_1:
+       *q = tmp;
+       q++;
+       p++;
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/anyMeta_ptr_ok.c verisec-r421/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/anyMeta_ptr_ok.c
+--- cproverbm.v6zlY3/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/anyMeta_ptr_ok.c	2007-07-06 00:40:17.000000000 +0100
++++ verisec-r421/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/anyMeta_ptr_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -20,6 +20,7 @@
+         return 1;
+       tmp = *p;
+       /* OK */
++__TESTCLAIM_1:
+       *q = tmp;
+       q++;
+       p++;
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/glob2_int_bad.c verisec-r421/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/glob2_int_bad.c
+--- cproverbm.v6zlY3/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/glob2_int_bad.c	2007-07-06 00:40:17.000000000 +0100
++++ verisec-r421/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/glob2_int_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -58,6 +58,7 @@
+           return 1;
+         tmp = *pattern;
+         /* BAD */
++__TESTCLAIM_1:
+         *pathend = tmp;
+         pathend++;
+         pattern++;
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/glob2_int_ok.c verisec-r421/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/glob2_int_ok.c
+--- cproverbm.v6zlY3/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/glob2_int_ok.c	2007-07-06 00:40:17.000000000 +0100
++++ verisec-r421/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/glob2_int_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -58,6 +58,7 @@
+           return 1;
+         tmp = *pattern;
+         /* OK */
++__TESTCLAIM_1:
+         *pathend = tmp;
+         pathend++;
+         pattern++;
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/glob2_ptr_bad.c verisec-r421/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/glob2_ptr_bad.c
+--- cproverbm.v6zlY3/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/glob2_ptr_bad.c	2007-07-06 00:40:17.000000000 +0100
++++ verisec-r421/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/glob2_ptr_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -59,6 +59,7 @@
+           return 1;
+         tmp = *pattern;
+         /* BAD */
++__TESTCLAIM_1:
+         *pathend = tmp;
+         pathend++;
+         pattern++;
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/glob2_ptr_ok.c verisec-r421/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/glob2_ptr_ok.c
+--- cproverbm.v6zlY3/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/glob2_ptr_ok.c	2007-07-06 00:40:17.000000000 +0100
++++ verisec-r421/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/glob2_ptr_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -59,6 +59,7 @@
+           return 1;
+         tmp = *pattern;
+         /* OK */
++__TESTCLAIM_1:
+         *pathend = tmp;
+         pathend++;
+         pattern++;
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/loop_bad.c verisec-r421/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/loop_bad.c
+--- cproverbm.v6zlY3/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/loop_bad.c	2007-07-06 00:40:17.000000000 +0100
++++ verisec-r421/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/loop_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -6,6 +6,7 @@
+ 
+   for (p = pathbuf; p <= pathlim; p++) {
+     /* BAD */
++__TESTCLAIM_1:
+     *p = 1;
+   }
+ 
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/loop_ok.c verisec-r421/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/loop_ok.c
+--- cproverbm.v6zlY3/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/loop_ok.c	2007-07-06 00:40:17.000000000 +0100
++++ verisec-r421/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/loop_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -6,6 +6,7 @@
+ 
+   for (p = pathbuf; p <= pathlim; p++) {
+     /* OK */
++__TESTCLAIM_1:
+     *p = 1;
+   }
+ 
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/noAnyMeta_int_bad.c verisec-r421/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/noAnyMeta_int_bad.c
+--- cproverbm.v6zlY3/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/noAnyMeta_int_bad.c	2007-07-06 00:40:17.000000000 +0100
++++ verisec-r421/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/noAnyMeta_int_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -12,6 +12,7 @@
+         return 1;
+       tmp = pattern[i];
+       /* BAD */
++__TESTCLAIM_1:
+       pathend[i] = tmp;
+       i++;
+     }
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/noAnyMeta_int_ok.c verisec-r421/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/noAnyMeta_int_ok.c
+--- cproverbm.v6zlY3/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/noAnyMeta_int_ok.c	2007-07-06 00:40:17.000000000 +0100
++++ verisec-r421/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/noAnyMeta_int_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -12,6 +12,7 @@
+         return 1;
+       tmp = pattern[i];
+       /* OK */
++__TESTCLAIM_1:
+       pathend[i] = tmp;
+       i++;
+     }
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/noAnyMeta_ptr_bad.c verisec-r421/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/noAnyMeta_ptr_bad.c
+--- cproverbm.v6zlY3/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/noAnyMeta_ptr_bad.c	2007-07-06 00:40:17.000000000 +0100
++++ verisec-r421/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/noAnyMeta_ptr_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -13,6 +13,7 @@
+         return 1;
+       tmp = *p;
+       /* BAD */
++__TESTCLAIM_1:
+       *q = tmp;
+       q++;
+       p++;
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/noAnyMeta_ptr_ok.c verisec-r421/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/noAnyMeta_ptr_ok.c
+--- cproverbm.v6zlY3/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/noAnyMeta_ptr_ok.c	2007-07-06 00:40:17.000000000 +0100
++++ verisec-r421/programs/apps/NetBSD-libc/CVE-2006-6652/glob2/noAnyMeta_ptr_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -13,6 +13,7 @@
+         return 1;
+       tmp = *p;
+       /* OK */
++__TESTCLAIM_1:
+       *q = tmp;
+       q++;
+       p++;
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/NetBSD-libc/CVE-2006-6652/glob3/glob3_int_bad.c verisec-r421/programs/apps/NetBSD-libc/CVE-2006-6652/glob3/glob3_int_bad.c
+--- cproverbm.v6zlY3/programs/apps/NetBSD-libc/CVE-2006-6652/glob3/glob3_int_bad.c	2007-07-06 00:40:17.000000000 +0100
++++ verisec-r421/programs/apps/NetBSD-libc/CVE-2006-6652/glob3/glob3_int_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -90,6 +90,7 @@
+      * is *after* the overflow. */
+     if (/*!match(pathend, pattern, restpattern)*/nondet_int()) {
+       /* BAD */
++__TESTCLAIM_1:
+       pathend[i] = EOS;
+       continue;
+     }
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/NetBSD-libc/CVE-2006-6652/glob3/glob3_int_ok.c verisec-r421/programs/apps/NetBSD-libc/CVE-2006-6652/glob3/glob3_int_ok.c
+--- cproverbm.v6zlY3/programs/apps/NetBSD-libc/CVE-2006-6652/glob3/glob3_int_ok.c	2007-07-06 00:40:17.000000000 +0100
++++ verisec-r421/programs/apps/NetBSD-libc/CVE-2006-6652/glob3/glob3_int_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -90,6 +90,7 @@
+      * is *after* the overflow. */
+     if (/*!match(pathend, pattern, restpattern)*/nondet_int()) {
+       /* OK */
++__TESTCLAIM_1:
+       pathend[i] = EOS;
+       continue;
+     }
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/NetBSD-libc/CVE-2006-6652/glob3/glob3_ptr_bad.c verisec-r421/programs/apps/NetBSD-libc/CVE-2006-6652/glob3/glob3_ptr_bad.c
+--- cproverbm.v6zlY3/programs/apps/NetBSD-libc/CVE-2006-6652/glob3/glob3_ptr_bad.c	2007-07-06 00:40:17.000000000 +0100
++++ verisec-r421/programs/apps/NetBSD-libc/CVE-2006-6652/glob3/glob3_ptr_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -88,6 +88,7 @@
+     /* match is scary */
+     if (/*!match(pathend, pattern, restpattern)*/nondet_int()) {
+       /* BAD */
++__TESTCLAIM:
+       *pathend = EOS;
+       continue;
+     }/*
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/NetBSD-libc/CVE-2006-6652/glob3/glob3_ptr_ok.c verisec-r421/programs/apps/NetBSD-libc/CVE-2006-6652/glob3/glob3_ptr_ok.c
+--- cproverbm.v6zlY3/programs/apps/NetBSD-libc/CVE-2006-6652/glob3/glob3_ptr_ok.c	2007-07-06 00:40:17.000000000 +0100
++++ verisec-r421/programs/apps/NetBSD-libc/CVE-2006-6652/glob3/glob3_ptr_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -88,6 +88,7 @@
+     /* match is scary */
+     if (/*!match(pathend, pattern, restpattern)*/nondet_int()) {
+       /* OK */
++__TESTCLAIM_1:
+       *pathend = EOS;
+       continue;
+     }/*
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/NetBSD-libc/CVE-2006-6652/glob3/loop_int_bad.c verisec-r421/programs/apps/NetBSD-libc/CVE-2006-6652/glob3/loop_int_bad.c
+--- cproverbm.v6zlY3/programs/apps/NetBSD-libc/CVE-2006-6652/glob3/loop_int_bad.c	2007-07-06 00:40:17.000000000 +0100
++++ verisec-r421/programs/apps/NetBSD-libc/CVE-2006-6652/glob3/loop_int_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -11,6 +11,7 @@
+       pathend[dc] = 1;
+       dc++;
+       /* BAD */
++__TESTCLAIM_1:
+       if (pathend[dc] == EOS) break;
+     }
+ 
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/NetBSD-libc/CVE-2006-6652/glob3/loop_int_ok.c verisec-r421/programs/apps/NetBSD-libc/CVE-2006-6652/glob3/loop_int_ok.c
+--- cproverbm.v6zlY3/programs/apps/NetBSD-libc/CVE-2006-6652/glob3/loop_int_ok.c	2007-07-06 00:40:17.000000000 +0100
++++ verisec-r421/programs/apps/NetBSD-libc/CVE-2006-6652/glob3/loop_int_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -11,6 +11,7 @@
+       pathend[dc] = 1;
+       dc++;
+       /* OK */
++__TESTCLAIM_1:
+       if (pathend[dc] == EOS) break;
+     }
+ 
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/NetBSD-libc/CVE-2006-6652/glob3/loop_ptr_bad.c verisec-r421/programs/apps/NetBSD-libc/CVE-2006-6652/glob3/loop_ptr_bad.c
+--- cproverbm.v6zlY3/programs/apps/NetBSD-libc/CVE-2006-6652/glob3/loop_ptr_bad.c	2007-07-06 00:40:17.000000000 +0100
++++ verisec-r421/programs/apps/NetBSD-libc/CVE-2006-6652/glob3/loop_ptr_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -11,6 +11,7 @@
+       *dc = 1;
+       dc++;
+       /* BAD */
++__TESTCLAIM_1:
+       if (*dc == EOS) break;
+     }
+ 
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/OpenSER/CVE-2006-6749/complete/parse_config_bad.c verisec-r421/programs/apps/OpenSER/CVE-2006-6749/complete/parse_config_bad.c
+--- cproverbm.v6zlY3/programs/apps/OpenSER/CVE-2006-6749/complete/parse_config_bad.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/OpenSER/CVE-2006-6749/complete/parse_config_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -40,6 +40,7 @@
+         assert (j-start+1 < EXPRESSION_LENGTH);
+         strncpy(str2, str+start, j-start+1);
+         /* BAD */
++__TESTCLAIM_1:
+         str2[j-start+1] = EOS;
+       } else {
+         /* parsing error */
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/NetBSD-libc/CVE-2006-6652/glob3/loop_ptr_ok.c verisec-r421/programs/apps/NetBSD-libc/CVE-2006-6652/glob3/loop_ptr_ok.c
+--- cproverbm.v6zlY3/programs/apps/NetBSD-libc/CVE-2006-6652/glob3/loop_ptr_ok.c	2007-07-06 00:40:17.000000000 +0100
++++ verisec-r421/programs/apps/NetBSD-libc/CVE-2006-6652/glob3/loop_ptr_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -11,6 +11,7 @@
+       *dc = 1;
+       dc++;
+       /* OK */
++__TESTCLAIM_1:
+       if (*dc == EOS) break;
+     }
+ 
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/complete/mime2-bad.c verisec-r421/programs/apps/sendmail/CVE-1999-0047/complete/mime2-bad.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/complete/mime2-bad.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-1999-0047/complete/mime2-bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -260,6 +260,7 @@
+ 		if (fbufp > fbuf)
+ 		{
+ 		  /*BAD*/
++__TESTCLAIM_1:
+ 		  *fbufp = '\0';
+ 		  /* putline((char *) fbuf, mci); */
+ 		}
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_one_char_heavy_test_bad.c verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_one_char_heavy_test_bad.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_one_char_heavy_test_bad.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_one_char_heavy_test_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -41,6 +41,7 @@
+   if (fb > 0)
+   {
+     /* BAD */
++__TESTCLAIM_1:
+     fbuf[fb] = 0;
+   }
+ 
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_one_char_heavy_test_ok.c verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_one_char_heavy_test_ok.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_one_char_heavy_test_ok.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_one_char_heavy_test_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -18,6 +18,7 @@
+       continue;
+ 
+     /* OK */
++__TESTCLAIM_1:
+     fbuf[fb] = c1;
+ 
+     /* OK */
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_one_char_med_test_bad.c verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_one_char_med_test_bad.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_one_char_med_test_bad.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_one_char_med_test_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -39,6 +39,7 @@
+   if (fb > 0)
+   {
+     /* BAD */
++__TESTCLAIM_1:
+     fbuf[fb] = 0;
+   }
+ 
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_one_char_med_test_ok.c verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_one_char_med_test_ok.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_one_char_med_test_ok.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_one_char_med_test_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -16,6 +16,7 @@
+       continue;
+ 
+     /* OK */
++__TESTCLAIM_1:
+     fbuf[fb] = c1;
+ 
+     /* OK */
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_one_char_no_test_bad.c verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_one_char_no_test_bad.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_one_char_no_test_bad.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_one_char_no_test_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -22,6 +22,7 @@
+   if (fb > 0)
+   {
+     /* BAD */
++__TESTCLAIM_1:
+     fbuf[fb] = EOS;
+   }
+ 
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_one_char_no_test_ok.c verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_one_char_no_test_ok.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_one_char_no_test_ok.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_one_char_no_test_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -14,6 +14,7 @@
+   while ((c1 = nondet_int ()) != EOF)
+   {
+     /* OK */
++__TESTCLAIM_1:
+     fbuf[fb] = c1;
+     fb++;
+     if (fb >= MAXLINE)
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_three_chars_heavy_test_bad.c verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_three_chars_heavy_test_bad.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_three_chars_heavy_test_bad.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_three_chars_heavy_test_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -96,6 +96,7 @@
+   if (fb > 0)
+   {
+     /* BAD */
++__TESTCLAIM_1:
+     fbuf[fb] = EOS;
+   }
+ 
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_three_chars_heavy_test_ok.c verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_three_chars_heavy_test_ok.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_three_chars_heavy_test_ok.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_three_chars_heavy_test_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -33,6 +33,7 @@
+       continue;
+ 
+     /* OK */
++__TESTCLAIM_1:
+     fbuf[fb] = c1;
+ 
+     /* OK */
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_three_chars_med_test_bad.c verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_three_chars_med_test_bad.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_three_chars_med_test_bad.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_three_chars_med_test_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -87,6 +87,7 @@
+   if (fb > 0)
+   {
+     /* BAD */
++__TESTCLAIM_1:
+     fbuf[fb] = EOS;
+   }
+ 
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_three_chars_med_test_ok.c verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_three_chars_med_test_ok.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_three_chars_med_test_ok.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_three_chars_med_test_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -24,6 +24,7 @@
+       continue;
+ 
+     /* OK */
++__TESTCLAIM_1:
+     fbuf[fb] = c1;
+ 
+     /* OK */
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_three_chars_no_test_bad.c verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_three_chars_no_test_bad.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_three_chars_no_test_bad.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_three_chars_no_test_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -37,6 +37,7 @@
+   if (fb > 0)
+   {
+     /* BAD */
++__TESTCLAIM_1:
+     fbuf[fb] = EOS;
+   }
+ 
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_three_chars_no_test_ok.c verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_three_chars_no_test_ok.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_three_chars_no_test_ok.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_three_chars_no_test_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -21,6 +21,7 @@
+       break;
+ 
+     /* OK */
++__TESTCLAIM_1:
+     fbuf[fb] = c1;
+     fb++;
+     if (fb >= MAXLINE)
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_two_chars_heavy_test_bad.c verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_two_chars_heavy_test_bad.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_two_chars_heavy_test_bad.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_two_chars_heavy_test_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -68,6 +68,7 @@
+   if (fb > 0)
+   {
+     /* BAD */
++__TESTCLAIM_1:
+     fbuf[fb] = EOS;
+   }
+ 
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_two_chars_heavy_test_ok.c verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_two_chars_heavy_test_ok.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_two_chars_heavy_test_ok.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_two_chars_heavy_test_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -26,6 +26,7 @@
+       continue;
+ 
+     /* OK */
++__TESTCLAIM_1:
+     fbuf[fb] = c1;
+ 
+     /* OK */
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_two_chars_med_test_bad.c verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_two_chars_med_test_bad.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_two_chars_med_test_bad.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_two_chars_med_test_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -62,6 +62,7 @@
+   if (fb > 0)
+   {
+     /* BAD */
++__TESTCLAIM_1:
+     fbuf[fb] = EOS;
+   }
+ 
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_two_chars_med_test_ok.c verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_two_chars_med_test_ok.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_two_chars_med_test_ok.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_two_chars_med_test_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -20,6 +20,7 @@
+       continue;
+ 
+     /* OK */
++__TESTCLAIM_1:
+     fbuf[fb] = c1;
+ 
+     /* OK */
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_two_chars_no_test_bad.c verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_two_chars_no_test_bad.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_two_chars_no_test_bad.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_two_chars_no_test_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -29,6 +29,7 @@
+   if (fb > 0)
+   {
+     /* BAD */
++__TESTCLAIM_1:
+     fbuf[fb] = EOS;
+   }
+ 
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_two_chars_no_test_ok.c verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_two_chars_no_test_ok.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_two_chars_no_test_ok.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_arr_two_chars_no_test_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -17,6 +17,7 @@
+       break;
+ 
+     /* OK */
++__TESTCLAIM_1:
+     fbuf[fb] = c1;
+     fb++;
+     if (fb >= MAXLINE)
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_one_char_heavy_test_bad.c verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_one_char_heavy_test_bad.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_one_char_heavy_test_bad.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_one_char_heavy_test_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -39,6 +39,7 @@
+   if (fbufp > fbuf)
+   {
+     /* BAD */
++__TESTCLAIM_1:
+     *fbufp = EOS;
+   }
+ 
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_one_char_heavy_test_ok.c verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_one_char_heavy_test_ok.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_one_char_heavy_test_ok.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_one_char_heavy_test_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -19,6 +19,7 @@
+       continue;
+ 
+     /* OK */
++__TESTCLAIM_1:
+     *fbufp = c1;
+ 
+     /* OK */
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_one_char_med_test_bad.c verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_one_char_med_test_bad.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_one_char_med_test_bad.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_one_char_med_test_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -37,6 +37,7 @@
+   if (fbufp > fbuf)
+   {
+     /* BAD */
++__TESTCLAIM_1:
+     *fbufp = EOS;
+   }
+ 
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_one_char_med_test_ok.c verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_one_char_med_test_ok.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_one_char_med_test_ok.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_one_char_med_test_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -17,6 +17,7 @@
+       continue;
+ 
+     /* OK */
++__TESTCLAIM_1:
+     *fbufp = c1;
+ 
+     /* OK */
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_one_char_no_test_bad.c verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_one_char_no_test_bad.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_one_char_no_test_bad.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_one_char_no_test_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -21,6 +21,7 @@
+   if (fbufp > fbuf)
+   {
+     /* BAD */
++__TESTCLAIM_1:
+     *fbufp = EOS;
+   }
+ 
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_one_char_no_test_ok.c verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_one_char_no_test_ok.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_one_char_no_test_ok.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_one_char_no_test_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -14,6 +14,7 @@
+   while ((c1 = nondet_int ()) != EOF)
+   {
+     /* OK */
++__TESTCLAIM_1:
+     *fbufp++ = c1;
+     if (fbufp >= &fbuf[MAXLINE])
+       fbufp = fbuf;
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_three_chars_heavy_test_bad.c verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_three_chars_heavy_test_bad.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_three_chars_heavy_test_bad.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_three_chars_heavy_test_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -87,6 +87,7 @@
+   if (fbufp > fbuf)
+   {
+     /* BAD */
++__TESTCLAIM_1:
+     *fbufp = EOS;
+   }
+ 
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_three_chars_heavy_test_ok.c verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_three_chars_heavy_test_ok.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_three_chars_heavy_test_ok.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_three_chars_heavy_test_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -34,6 +34,7 @@
+       continue;
+ 
+     /* OK */
++__TESTCLAIM_1:
+     *fbufp = c1;
+ 
+     /* OK */
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_three_chars_med_test_bad.c verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_three_chars_med_test_bad.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_three_chars_med_test_bad.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_three_chars_med_test_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -79,6 +79,7 @@
+   if (fbufp > fbuf)
+   {
+     /* BAD */
++__TESTCLAIM_1:
+     *fbufp = EOS;
+   }
+ 
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_three_chars_med_test_ok.c verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_three_chars_med_test_ok.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_three_chars_med_test_ok.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_three_chars_med_test_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -25,6 +25,7 @@
+       continue;
+ 
+     /* OK */
++__TESTCLAIM_1:
+     *fbufp = c1;
+ 
+     /* OK */
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_three_chars_no_test_bad.c verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_three_chars_no_test_bad.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_three_chars_no_test_bad.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_three_chars_no_test_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -35,6 +35,7 @@
+   if (fbufp > fbuf)
+   {
+     /* BAD */
++__TESTCLAIM_1:
+     *fbufp = EOS;
+   }
+ 
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_three_chars_no_test_ok.c verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_three_chars_no_test_ok.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_three_chars_no_test_ok.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_three_chars_no_test_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -22,6 +22,7 @@
+       break;
+ 
+     /* OK */
++__TESTCLAIM_1:
+     *fbufp++ = c1;
+     if (fbufp >= &fbuf[MAXLINE])
+       fbufp = fbuf;
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_two_chars_heavy_test_bad.c verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_two_chars_heavy_test_bad.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_two_chars_heavy_test_bad.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_two_chars_heavy_test_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -62,6 +62,7 @@
+   if (fbufp > fbuf)
+   {
+     /* BAD */
++__TESTCLAIM_1:
+     *fbufp = EOS;
+   }
+ 
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_two_chars_heavy_test_ok.c verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_two_chars_heavy_test_ok.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_two_chars_heavy_test_ok.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_two_chars_heavy_test_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -27,6 +27,7 @@
+       continue;
+ 
+     /* OK */
++__TESTCLAIM_1:
+     *fbufp = c1;
+ 
+     /* OK */
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_two_chars_med_test_bad.c verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_two_chars_med_test_bad.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_two_chars_med_test_bad.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_two_chars_med_test_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -57,6 +57,7 @@
+   if (fbufp > fbuf)
+   {
+     /* BAD */
++__TESTCLAIM_1:
+     *fbufp = EOS;
+   }
+ 
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_two_chars_med_test_ok.c verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_two_chars_med_test_ok.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_two_chars_med_test_ok.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_two_chars_med_test_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -21,6 +21,7 @@
+       continue;
+ 
+     /* OK */
++__TESTCLAIM_1:
+     *fbufp = c1;
+ 
+     /* OK */
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_two_chars_no_test_bad.c verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_two_chars_no_test_bad.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_two_chars_no_test_bad.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_two_chars_no_test_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -28,6 +28,7 @@
+   if (fbufp > fbuf)
+   {
+     /* BAD */
++__TESTCLAIM_1:
+     *fbufp = EOS;
+   }
+ 
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_two_chars_no_test_ok.c verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_two_chars_no_test_ok.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_two_chars_no_test_ok.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-1999-0047/mime7to8/mime7to8_ptr_two_chars_no_test_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -18,6 +18,7 @@
+       break;
+ 
+     /* OK */
++__TESTCLAIM_1:
+     *fbufp++ = c1;
+     if (fbufp >= &fbuf[MAXLINE])
+       fbufp = fbuf;
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0206/mime_fromqp/mime_fromqp_arr_bad.c verisec-r421/programs/apps/sendmail/CVE-1999-0206/mime_fromqp/mime_fromqp_arr_bad.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0206/mime_fromqp/mime_fromqp_arr_bad.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-1999-0206/mime_fromqp/mime_fromqp_arr_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -68,6 +68,7 @@
+   }
+ 
+   /* BAD */
++__TESTCLAIM_1:
+   outfile[out] = EOS;
+   out++;
+   return 0;
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0206/mime_fromqp/mime_fromqp_arr_ok.c verisec-r421/programs/apps/sendmail/CVE-1999-0206/mime_fromqp/mime_fromqp_arr_ok.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0206/mime_fromqp/mime_fromqp_arr_ok.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-1999-0206/mime_fromqp/mime_fromqp_arr_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -47,6 +47,7 @@
+ 	  break;
+ 
+ 	/* OK */
++__TESTCLAIM_1:
+ 	outfile[out] = c1;
+ 	out++;
+       }
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0206/mime_fromqp/mime_fromqp_ptr_bad.c verisec-r421/programs/apps/sendmail/CVE-1999-0206/mime_fromqp/mime_fromqp_ptr_bad.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0206/mime_fromqp/mime_fromqp_ptr_bad.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-1999-0206/mime_fromqp/mime_fromqp_ptr_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -65,6 +65,7 @@
+   }
+ 
+   /* BAD */
++__TESTCLAIM_1:
+   *outp++ = EOS;
+   return 0;
+ }
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0206/mime_fromqp/mime_fromqp_ptr_ok.c verisec-r421/programs/apps/sendmail/CVE-1999-0206/mime_fromqp/mime_fromqp_ptr_ok.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-1999-0206/mime_fromqp/mime_fromqp_ptr_ok.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-1999-0206/mime_fromqp/mime_fromqp_ptr_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -46,6 +46,7 @@
+ 	  break;
+ 
+ 	/* OK */
++__TESTCLAIM_1:
+ 	*outp++ = c1;
+       }
+     }
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-2001-0653/complete/tTflag-bad.c verisec-r421/programs/apps/sendmail/CVE-2001-0653/complete/tTflag-bad.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-2001-0653/complete/tTflag-bad.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-2001-0653/complete/tTflag-bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -169,6 +169,7 @@
+ 		{                      /* first is negative and last is positive */
+ 		  printf("index = %d\n", first); 
+ 		  /*BAD*/
++__TESTCLAIM:
+ 		  tTvect[first++] = i; /* UNDERFLOW CAN OCCUR HERE. */
+ 		                       /* tTvect can only hold tTsize elements */
+ 		}
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-2001-0653/complete/tTflag-ok.c verisec-r421/programs/apps/sendmail/CVE-2001-0653/complete/tTflag-ok.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-2001-0653/complete/tTflag-ok.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-2001-0653/complete/tTflag-ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -166,6 +166,7 @@
+ 		{                      
+ 		  printf("index = %u\n", first); 
+ 		  /*OK*/
++__TESTCLAIM_1:
+ 		  tTvect[first++] = i; 
+ 		}
+ 		
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-2001-0653/tTflag/tTflag_arr_two_loops_bad.c verisec-r421/programs/apps/sendmail/CVE-2001-0653/tTflag/tTflag_arr_two_loops_bad.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-2001-0653/tTflag/tTflag_arr_two_loops_bad.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-2001-0653/tTflag/tTflag_arr_two_loops_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -56,6 +56,7 @@
+   while (first <= last)
+   {
+     /* BAD */
++__TESTCLAIM:
+     buf[first] = 'a'; /* possibly first < 0, cast to uint is huuuuge */
+     first++; /* signed int arithmetic */
+   }
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-2001-0653/tTflag/tTflag_arr_one_loop_bad.c verisec-r421/programs/apps/sendmail/CVE-2001-0653/tTflag/tTflag_arr_one_loop_bad.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-2001-0653/tTflag/tTflag_arr_one_loop_bad.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-2001-0653/tTflag/tTflag_arr_one_loop_bad.c	2008-01-26 02:28:26.000000000 +0000
+@@ -18,6 +18,7 @@
+     c = in[idx_in];
+   }
+   /* BAD */
+-  assert (i >= 0);
++  __TESTCLAIM:
++  __CPROVER_assert (i >= 0, "user supplied");
+   return 0;
+ }
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-2001-0653/tTflag/tTflag_arr_one_loop_ok.c verisec-r421/programs/apps/sendmail/CVE-2001-0653/tTflag/tTflag_arr_one_loop_ok.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-2001-0653/tTflag/tTflag_arr_one_loop_ok.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-2001-0653/tTflag/tTflag_arr_one_loop_ok.c	2008-01-26 02:28:46.000000000 +0000
+@@ -18,6 +18,7 @@
+     c = in[idx_in];
+   }
+   /* OK */
+-  assert (i >= 0);
++  __TESTCLAIM:
++  __CPROVER_assert (i >= 0, "user supplied");
+   return 0;
+ }
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-2001-0653/tTflag/tTflag_arr_two_loops_ok.c verisec-r421/programs/apps/sendmail/CVE-2001-0653/tTflag/tTflag_arr_two_loops_ok.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-2001-0653/tTflag/tTflag_arr_two_loops_ok.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-2001-0653/tTflag/tTflag_arr_two_loops_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -56,6 +56,7 @@
+   while (first <= last)
+   {
+     /* OK */
++__TESTCLAIM:
+     buf[first] = 'a'; /* possibly first < 0, cast to uint is huuuuge */
+     first++; /* signed int arithmetic */
+   }
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-2002-0906/parse_dns_reply/parse_dns_reply_cast_bad.c verisec-r421/programs/apps/sendmail/CVE-2002-0906/parse_dns_reply/parse_dns_reply_cast_bad.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-2002-0906/parse_dns_reply/parse_dns_reply_cast_bad.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-2002-0906/parse_dns_reply/parse_dns_reply_cast_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -20,5 +20,6 @@
+   /* BAD */
+   strncpy (rr_txt, (char *) p + 1, *p);
+   /* BAD */
++__TESTCLAIM_3:
+   rr_txt[*p] = 0;
+ }
+ 
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-2002-0906/parse_dns_reply/parse_dns_reply_no_cast_bad.c verisec-r421/programs/apps/sendmail/CVE-2002-0906/parse_dns_reply/parse_dns_reply_no_cast_bad.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-2002-0906/parse_dns_reply/parse_dns_reply_no_cast_bad.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-2002-0906/parse_dns_reply/parse_dns_reply_no_cast_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -19,5 +19,6 @@
+   /* BAD */
+   strncpy (rr_txt, (char *) p + 1, *p);
+   /* BAD */
++__TESTCLAIM_1:
+   rr_txt[*p] = 0;
+ }
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-2002-1337/close_angle/close-angle_ptr_no_test_bad.c verisec-r421/programs/apps/sendmail/CVE-2002-1337/close_angle/close-angle_ptr_no_test_bad.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-2002-1337/close_angle/close-angle_ptr_no_test_bad.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-2002-1337/close_angle/close-angle_ptr_no_test_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -38,6 +38,7 @@
+   buf++;
+ 
+   /* BAD */
++__TESTCLAIM_1:
+   *buf = EOS;
+   buf++;
+ 
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-2002-1337/close_angle/close-angle_ptr_no_test_ok.c verisec-r421/programs/apps/sendmail/CVE-2002-1337/close_angle/close-angle_ptr_no_test_ok.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-2002-1337/close_angle/close-angle_ptr_no_test_ok.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-2002-1337/close_angle/close-angle_ptr_no_test_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -37,6 +37,7 @@
+   buf++;
+ 
+   /* OK */
++__TESTCLAIM_1:
+   *buf = EOS;
+   buf++;
+ 
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-2002-1337/close_angle/close-angle_ptr_one_test_bad.c verisec-r421/programs/apps/sendmail/CVE-2002-1337/close_angle/close-angle_ptr_one_test_bad.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-2002-1337/close_angle/close-angle_ptr_one_test_bad.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-2002-1337/close_angle/close-angle_ptr_one_test_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -50,6 +50,7 @@
+   }
+ 
+   /* BAD */
++__TESTCLAIM_1:
+   *buf = EOS;
+   buf++;
+ 
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-2002-1337/close_angle/close-angle_ptr_one_test_ok.c verisec-r421/programs/apps/sendmail/CVE-2002-1337/close_angle/close-angle_ptr_one_test_ok.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-2002-1337/close_angle/close-angle_ptr_one_test_ok.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-2002-1337/close_angle/close-angle_ptr_one_test_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -50,6 +50,7 @@
+   }
+ 
+   /* OK */
++__TESTCLAIM_1:
+   *buf = 0;
+   buf++;
+ 
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-2002-1337/close_angle/close-angle_ptr_two_tests_bad.c verisec-r421/programs/apps/sendmail/CVE-2002-1337/close_angle/close-angle_ptr_two_tests_bad.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-2002-1337/close_angle/close-angle_ptr_two_tests_bad.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-2002-1337/close_angle/close-angle_ptr_two_tests_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -57,6 +57,7 @@
+   }
+ 
+   /* BAD */
++__TESTCLAIM_1:
+   *buf = EOS;
+   buf++;
+ 
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-2002-1337/close_angle/close-angle_ptr_two_tests_ok.c verisec-r421/programs/apps/sendmail/CVE-2002-1337/close_angle/close-angle_ptr_two_tests_ok.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-2002-1337/close_angle/close-angle_ptr_two_tests_ok.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-2002-1337/close_angle/close-angle_ptr_two_tests_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -57,6 +57,7 @@
+   }
+ 
+   /* OK */
++__TESTCLAIM_1:
+   *buf = EOS;
+   buf++;
+ 
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-2002-1337/complete/crackaddr_bad.c verisec-r421/programs/apps/sendmail/CVE-2002-1337/complete/crackaddr_bad.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-2002-1337/complete/crackaddr_bad.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-2002-1337/complete/crackaddr_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -345,6 +345,7 @@
+ 					bp--;
+ 				else{
+ 				  /*BAD*/
++__TESTCLAIM_1:
+ 				  *bp++ = '"';
+ 				}
+ 				while ((c = *p++) != ':')
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-2003-0161/prescan/prescan_arr_med_test_bad.c verisec-r421/programs/apps/sendmail/CVE-2003-0161/prescan/prescan_arr_med_test_bad.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-2003-0161/prescan/prescan_arr_med_test_bad.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-2003-0161/prescan/prescan_arr_med_test_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -75,6 +75,7 @@
+   {
+     //assert (q < pvpbuf_end);
+     /* BAD */
++__TESTCLAIM_1:
+     pvpbuf[q] = 0;
+     q++;
+ 
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-2003-0161/prescan/prescan_arr_med_test_ok.c verisec-r421/programs/apps/sendmail/CVE-2003-0161/prescan/prescan_arr_med_test_ok.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-2003-0161/prescan/prescan_arr_med_test_ok.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-2003-0161/prescan/prescan_arr_med_test_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -47,6 +47,7 @@
+ 
+     //assert (q < pvpbuf_end);
+     /* OK */  
++__TESTCLAIM_1:
+     pvpbuf[q] = EOS; // precautiously write EOS to dest
+ 
+     if (bslashmode)
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-2003-0161/prescan/prescan_arr_min_test_bad.c verisec-r421/programs/apps/sendmail/CVE-2003-0161/prescan/prescan_arr_min_test_bad.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-2003-0161/prescan/prescan_arr_min_test_bad.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-2003-0161/prescan/prescan_arr_min_test_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -72,6 +72,7 @@
+   {
+     //assert (q < pvpbuf_end);
+     /*BAD*/
++__TESTCLAIM_1:
+     pvpbuf[q] = 0;
+     q++;
+ 
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-2003-0161/prescan/prescan_arr_min_test_ok.c verisec-r421/programs/apps/sendmail/CVE-2003-0161/prescan/prescan_arr_min_test_ok.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-2003-0161/prescan/prescan_arr_min_test_ok.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-2003-0161/prescan/prescan_arr_min_test_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -56,6 +56,7 @@
+ 
+     //assert (q < pvpbuf_end);
+     /* OK */  
++__TESTCLAIM_1:
+     pvpbuf[q] = EOS; // precautiously write EOS to dest
+ 
+     if (bslashmode)
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-2003-0681/buildfname/buildfname_arr_one_gecos_bad.c verisec-r421/programs/apps/sendmail/CVE-2003-0681/buildfname/buildfname_arr_one_gecos_bad.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-2003-0681/buildfname/buildfname_arr_one_gecos_bad.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-2003-0681/buildfname/buildfname_arr_one_gecos_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -36,6 +36,7 @@
+     else
+     {
+       /* BAD */
++__TESTCLAIM_1:
+       buf[j] = c;
+       j++;
+     }	    
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-2003-0681/buildfname/buildfname_arr_one_gecos_ok.c verisec-r421/programs/apps/sendmail/CVE-2003-0681/buildfname/buildfname_arr_one_gecos_ok.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-2003-0681/buildfname/buildfname_arr_one_gecos_ok.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-2003-0681/buildfname/buildfname_arr_one_gecos_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -31,6 +31,7 @@
+     if (c == '&')
+     {
+       /* OK */
++__TESTCLAIM_1:
+       (void) strncpy (buf + j, login, sizeof (buf) - j);
+       while (buf[j] != EOS)
+ 	j++;
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-2003-0681/buildfname/buildfname_arr_two_gecos_bad.c verisec-r421/programs/apps/sendmail/CVE-2003-0681/buildfname/buildfname_arr_two_gecos_bad.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-2003-0681/buildfname/buildfname_arr_two_gecos_bad.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-2003-0681/buildfname/buildfname_arr_two_gecos_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -36,6 +36,7 @@
+     else
+     {
+       /* BAD */
++__TESTCLAIM_1:
+       buf[j] = c;
+       j++;
+     }	    
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-2003-0681/buildfname/buildfname_arr_two_gecos_ok.c verisec-r421/programs/apps/sendmail/CVE-2003-0681/buildfname/buildfname_arr_two_gecos_ok.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-2003-0681/buildfname/buildfname_arr_two_gecos_ok.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-2003-0681/buildfname/buildfname_arr_two_gecos_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -29,6 +29,7 @@
+     if (c == '&')
+     {
+       /* OK */
++__TESTCLAIM_3:
+       (void) strncpy (buf + j, login, sizeof (buf) - j);
+       while (buf[j] != EOS)
+ 	j++;
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/sendmail/CVE-2003-0681/complete/util-bad.c verisec-r421/programs/apps/sendmail/CVE-2003-0681/complete/util-bad.c
+--- cproverbm.v6zlY3/programs/apps/sendmail/CVE-2003-0681/complete/util-bad.c	2007-07-06 00:40:18.000000000 +0100
++++ verisec-r421/programs/apps/sendmail/CVE-2003-0681/complete/util-bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -125,6 +125,7 @@
+     }
+     else {
+       /*BAD*/
++__TESTCLAIM_1:
+       *bp++ = *p;
+       // printf ("bp-buf = %d\n", (bp-buf));
+     }	    
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/SpamAssassin/BID-6679/message_write/loop_bad.c verisec-r421/programs/apps/SpamAssassin/BID-6679/message_write/loop_bad.c
+--- cproverbm.v6zlY3/programs/apps/SpamAssassin/BID-6679/message_write/loop_bad.c	2007-07-06 00:40:17.000000000 +0100
++++ verisec-r421/programs/apps/SpamAssassin/BID-6679/message_write/loop_bad.c	2011-02-05 14:55:58.000000000 +0000
+@@ -20,6 +20,7 @@
+         j++;
+         i++;
+         /* BAD */
++__TESTCLAIM_1:
+         buffer[j] = '.';    /* Now j == limit + 1 = sizeof(buffer) */
+         j++;
+       } else {
+diff -urN -xcprover cproverbm.v6zlY3/programs/apps/SpamAssassin/BID-6679/message_write/loop_ok.c verisec-r421/programs/apps/SpamAssassin/BID-6679/message_write/loop_ok.c
+--- cproverbm.v6zlY3/programs/apps/SpamAssassin/BID-6679/message_write/loop_ok.c	2007-07-06 00:40:17.000000000 +0100
++++ verisec-r421/programs/apps/SpamAssassin/BID-6679/message_write/loop_ok.c	2011-02-05 14:55:58.000000000 +0000
+@@ -20,6 +20,7 @@
+         j++;
+         i++;
+         /* OK */
++__TESTCLAIM_1:
+         buffer[j] = '.';
+         j++;
+       } else {
+
