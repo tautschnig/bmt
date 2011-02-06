@@ -17,13 +17,15 @@ die() {
 checked_patch() {
   patch=$1
   [ -f $patch ] || die "Patch file $patch not found" 
+  echo -n "Checking patch `basename $patch` ... "
   lc=`patch -f -p1 --dry-run < $patch 2>&1 | egrep -v "^patching file" | wc -l`
   if [ $lc -ne 0 ] ; then
+    echo "clean application failed:"
     patch -f -p1 --dry-run < $patch || true
     die "Failed to apply patch `basename $patch`"
   fi
     
-  echo "Applying patch `basename $patch`"
+  echo "patch ok, applying"
   patch -p1 < $patch
 }
 
@@ -62,48 +64,75 @@ while true ; do
       cat > cprover/rules <<"EOF"
 #!/usr/bin/make -f
 
-# put files for verification in here
-OBJS=
+BENCHMARKS = XXX
+
+TIMEOUT = 60
+MAXMEM = 3500
+CONFIG = XXX
+# CONFIG = loopfrog.no-inv
+# CONFIG = cbmc.u5-nua
+
+TOOL_OPTS = --32
+cprover/verified.cbmc.u5-nua: TOOL_OPTS += --unwind 5 --no-unwinding-assertions
+cprover/verified.loopfrog.no-inv: TOOL_OPTS += --no-invariants
+cprover/verified.satabs: TOOL_OPTS += --iterations 20
+cprover/verified.scratch.bf: TOOL_OPTS += --bug-finding
+cprover/verified.wolverine.u5: TOOL_OPTS += --unwind 5
+
+
+# building the source code
+COMPILER = goto-cc --32
+SUFFIX = bin
 
 build::
 \ttest -d cprover
-# put your build rules in here
+\t$(MAKE) -f cprover/rules cprover/binaries
 
-TOOL1=cbmc
-TOOL_OPTS1=--unwind 3 --no-unwinding-assertions --32
-TOOL2=satabs
-TOOL_OPTS2=--iterations 20 --32
-TOOL3=wolverine
-TOOL_OPTS3=--unwind 5 --32
-
-TOOL=$(TOOL1)
-TOOL_OPTS=$(TOOL_OPTS1)
-TIMEOUT=60
-
-verify:: build
-\ttest -d cprover
-\t$(MAKE) -f cprover/rules cprover/verified
-
-cprover/verified: $(OBJS)
-\tmkdir -p results
-\techo "TOOL: $(TOOL) $(TOOL_OPTS)" > $@
-\techo "TIMEOUT: $(TIMEOUT)" >> $@
-\techo "RESULTS:" >> $@
-\tset -e ; cd results ; for f in $^ ; do \
-\t  verify.sh --timeout $(TIMEOUT) --$(TOOL) ../$$f -- $(TOOL_OPTS) >> ../$@ ; \
+cprover/binaries: $(addsuffix .$(SUFFIX), $(addprefix build/, $(BENCHMARKS)))
+\trm -f $@
+\tfor f in $^ ; do \
+\t  echo $$f >> $@ ; \
 \tdone
 
+build/%.$(SUFFIX): %.c
+\tmkdir -p $(dir $@)
+\tcd $(dir $<) ; $(COMPILER) -o $(abspath $@) $(realpath $<)
+
+
+# verification rules
+verify:: build
+\ttest -d cprover
+\t$(MAKE) -f cprover/rules cprover/verified.$(CONFIG)
+
+cprover/verified.$(CONFIG): TOOL ?= $(basename $(CONFIG))
+
+cprover/verified.$(CONFIG): $(addsuffix .vr, $(addprefix results.$(CONFIG)/, $(BENCHMARKS)))
+\tcat $^ > $@
+
+results.$(CONFIG)/%vr: build/%$(SUFFIX)
+\tmkdir -p $(dir $@)
+\tset -e ; cd $(dir $@) ; \
+\tclaims=`list_claims.sh --$(TOOL) $(realpath $<) -- $(TOOL_OPTS)` ; \
+\tfor c in $$claims ; do \
+\t  cl=`echo $$c | cut -f1 -d:` ; \
+\t  st=`echo $$c | cut -f2 -d:` ; \
+\t  if [ "$$st" = "TRUE" ] ; then st="--valid" ; else st="--unknown" ; fi ; \
+\t  verify.sh --claim $$cl $$st --timeout $(TIMEOUT) --maxmem $(MAXMEM) --$(TOOL) $(realpath  $<) -- $(TOOL_OPTS) ; \
+\tdone | tee $(abspath $@) ; \
+\texit $${PIPESTATUS[0]}
+
+
+# cleanup
 clean::
 \ttest -d cprover
-\trm -rf results
-\trm -f cprover/verified
-\trm -f $(OBJS)
+\trm -rf results.* build
+\trm -f cprover/binaries cprover/verified.*
 
 EOF
-      sed -i 's/\\t/\t/' cprover/rules
+      sed -i 's/^\\t/\t/' cprover/rules
       chmod a+x cprover/rules
       cd ..
-      tar czf `basename $BM_PKG` $PKG_NAME/cprover
+      tar czf `basename $BM_PKG` --exclude-vcs $PKG_NAME/cprover
       cd $PKG_NAME
       shift 1;;
     --) shift ; break ;;
@@ -148,7 +177,7 @@ case $SOURCE in
     rmdir $TMP_UNPACK
     mv ${TMP_UNPACK}_ $TMP_UNPACK
     ;;
-  *.tar.gz)
+  *.tar.gz|*.tgz)
     tar xz --no-same-owner --no-overwrite-dir --strip-components=1 -f $SOURCE -C $TMP_UNPACK
     ;;
   *.tar.bz2)
@@ -170,9 +199,12 @@ cd ..
 TMP_UNPACK="`basename $TMP_UNPACK`"
 patch_tmp="`mktemp cproverbm.XXXXXX`"
 TMP_FILES="$TMP_FILES $patch_tmp"
-if ! diff -urN -xcprover $TMP_UNPACK $PKG_NAME > $patch_tmp ; then
+if ! diff -urN -xCVS -x.svn -xcprover $TMP_UNPACK $PKG_NAME > $patch_tmp ; then
   diff_exit_code=${PIPESTATUS[0]}
-  [ $diff_exit_code -eq 1 ] || die "diff had unexpected exit code $diff_exit_code -- check for binary files"
+  if [ $diff_exit_code -ne 1 ] ; then
+    cat $patch_tmp | egrep -v '^(-|\+|@| |diff -urN)' 1>&2
+    die "diff had error exit code $diff_exit_code -- check for binary files"
+  fi
   if [ ! -d $PKG_NAME/cprover/patches ] ; then
     mkdir $PKG_NAME/cprover/patches
   fi
@@ -185,5 +217,5 @@ if ! diff -urN -xcprover $TMP_UNPACK $PKG_NAME > $patch_tmp ; then
   echo "`basename $new_patch`" >> $PKG_NAME/cprover/patches/series
 fi
   
-tar czf `basename $BM_PKG` $PKG_NAME/cprover
+tar czf `basename $BM_PKG` --exclude-vcs $PKG_NAME/cprover
 
