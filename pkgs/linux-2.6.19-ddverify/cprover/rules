@@ -1,0 +1,92 @@
+#!/usr/bin/make -f
+
+CHAR_DRIVERS =  watchdog/machzwd
+## CHAR_DRIVERS= genrtc applicom \
+## 							watchdog/i8xx_tco watchdog/ib700wdt watchdog/machzwd watchdog/mixcomwd \
+## 							watchdog/pcwd watchdog/sbc60xxwdt watchdog/sc1200wdt watchdog/sc520_wdt \
+## 							watchdog/smsc37b787_wdt watchdog/w83877f_wdt watchdog/w83977f_wdt \
+## 							watchdog/wdt watchdog/wdt977 watchdog/wdt_pci
+## 
+## # DAC960 doesn't work with cil
+## BLOCK_DRIVERS= cciss floppy cpqarray DAC960
+
+TIMEOUT = 1200
+MAXMEM = 3500
+CONFIG = satabs.dfl
+# CONFIG = cbmc.u5-nua
+# CONFIG = wolverine.u5
+
+TOOL_OPTS = --32
+cprover/verified.cbmc.u5-nua: TOOL_OPTS += --unwind 5 --no-unwinding-assertions
+cprover/verified.satabs.dfl: TOOL_OPTS += --iterations 20
+cprover/verified.satabs.bc.dz.pc: TOOL_OPTS += --iterations 20 --bounds-check --div-by-zero-check --pointer-check
+cprover/verified.wolverine.u5: TOOL_OPTS += --unwind 5
+
+DDV_CHECKS = --check-spinlock \
+						 --check-semaphore --check-mutex --check-io --check-wait-queue \
+						 --check-tasklet --check-work-queue --check-timer --check-context
+
+
+# building the source code
+COMPILER = goto-cc
+SUFFIX = bin
+# COMPILER=cpp
+# SUFFIX=dir/
+# COMPILER=cil
+# SUFFIX=i
+DEFINES =
+# sequential version:
+# DEFINES = -D MODEL_TYPE_SEQUENTIAL1
+
+build/drivers/char/genrtc.$(SUFFIX): DEFINES += -D CONFIG_GEN_RTC_X -D CONFIG_PROC_FS
+build/drivers/char/watchdog/wdt.$(SUFFIX): DEFINES += -D CONFIG_WDT_501
+build/drivers/char/watchdog/wdt_pci.$(SUFFIX): DEFINES += -D CONFIG_WDT_501_PCI
+build/drivers/block/cciss.$(SUFFIX): DEFINES += -D CONFIG_PROC_FS -D CONFIG_X86
+build/drivers/block/cpqarray.$(SUFFIX): DEFINES += -D CONFIG_PROC_FS
+
+build::
+	test -d cprover
+	ln -snf asm-i386 include/asm
+	$(MAKE) -f cprover/rules cprover/binaries
+	rm include/asm
+
+cprover/binaries: $(addsuffix .$(SUFFIX), $(addprefix build/drivers/char/, $(CHAR_DRIVERS)) $(addprefix build/drivers/block/, $(BLOCK_DRIVERS)))
+	rm -f $@
+	for f in $^ ; do \
+	  echo $$f >> $@ ; \
+	done
+
+build/%.$(SUFFIX): %.c
+	mkdir -p $(dir $@)
+	cprover/ddverify/ddverify.sh --$(COMPILER) $(DDV_CHECKS) $(DEFINES) $^ -o $@
+
+
+# verification rules
+verify:: build
+	test -d cprover
+	$(MAKE) -f cprover/rules cprover/verified.$(CONFIG)
+
+cprover/verified.$(CONFIG): TOOL ?= $(basename $(CONFIG))
+
+cprover/verified.$(CONFIG): $(addsuffix .vr, $(addprefix results.$(CONFIG)/drivers/char/, $(CHAR_DRIVERS)) $(addprefix results.$(CONFIG)/drivers/block/, $(BLOCK_DRIVERS)))
+	cat $^ > $@
+
+results.$(CONFIG)/%vr: build/%$(SUFFIX)
+	mkdir -p $(dir $@)
+	set -e ; cd $(dir $@) ; \
+	claims=`list_claims.sh --$(TOOL) $(realpath $<) -- $(TOOL_OPTS)` ; \
+	for c in $$claims ; do \
+		cl=`echo $$c | cut -f1 -d:` ; \
+		st=`echo $$c | cut -f2 -d:` ; \
+		if [ "$$st" = "TRUE" ] ; then st="--valid" ; else st="--unknown" ; fi ; \
+		verify.sh --claim $$cl $$st --timeout $(TIMEOUT) --maxmem $(MAXMEM) --$(TOOL) $(realpath  $<) -- $(TOOL_OPTS) ; \
+	done | tee $(abspath $@) ; \
+	exit $${PIPESTATUS[0]}
+
+
+# cleanup
+clean::
+	test -d cprover
+	rm -rf results.* build
+	rm -f cprover/binaries cprover/verified.*
+

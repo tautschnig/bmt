@@ -1,0 +1,5 @@
+BEGIN {foundclaim = 0;}
+/^Claim*/ {foundclaim = 1; claim = NR; n = length($2) - 1; str = substr($2, 1, n); print str}
+(NR == claim + 1) && (foundclaim == 1) {print $2 "\n" $4}
+(NR == claim + 2) && (foundclaim == 1) {print substr($0, 3)}		
+(NR == claim + 3) && (foundclaim == 1) {print substr($0, 3) "\n"}
