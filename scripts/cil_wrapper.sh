@@ -90,6 +90,7 @@ Usage: $SELF [OPTIONS] SOURCES ...
   Options:                              Purpose:
     -h|--help                           show help
     --no-cleanup                        don't remove generated files
+    --blast                             translate __CPROVER_assert to ERROR labels
     -D macro                            define preprocessor macro
     -I path                             add to preprocessor search path
     -o file                             file name of resulting output (defaults to first SOURCE.i)
@@ -99,15 +100,16 @@ EOF
 
 SELF=$0
 
-opts=`getopt -n "$0" -o "hD:I:o:" --long "help,no-cleanup" -- "$@"`
+opts=`getopt -n "$0" -o "hD:I:o:" --long "help,no-cleanup,blast" -- "$@"`
 eval set -- "$opts"
 
-unset DEFINES INCLUDES OUTPUT 
+unset DEFINES INCLUDES OUTPUT BLAST
 
 while true ; do
   case "$1" in
     -h|--help) usage ; exit 0;;
     --no-cleanup) NO_CLEANUP=1 ; shift 1;;
+    --blast) BLAST=1 ; shift 1;;
     -D) DEFINES="$DEFINES -D$2" ; shift 2;;
     -I) INCLUDES="$INCLUDES -I$2" ; shift 2;;
     -o) OUTPUT="$2" ; shift 2;;
@@ -137,7 +139,18 @@ for f in $MAIN_SOURCE $OTHER_SOURCES ; do
   cd $d
   mktemp_local_prefix_suffix preproc_src preproc .i
   cd ..
-  gcc -E -D__CPROVER__ $DEFINES $INCLUDES $f -o $d/$preproc_src
+  if [ -n "$BLAST" ] ; then
+    cat > $d/$preproc_src <<EOF
+void __CPROVER_assert(int a, char * b) {
+  if(a) { 
+    ERROR:
+      (void)0; 
+    goto ERROR;
+  }
+}
+EOF
+  fi
+  gcc -E -D__CPROVER__ $DEFINES $INCLUDES $f >> $d/$preproc_src
   preproc_files="$preproc_files $preproc_src"
 done
 

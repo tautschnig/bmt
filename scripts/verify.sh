@@ -111,12 +111,24 @@ run_tool() {
   BENCHMARKING="/usr/bin/time -v -o$time_out"
   exit_code=0
   tmp_files=$TMP_FILES
-  mktemp_local_prefix_suffix claim_out $CLAIM .log
+  mktemp_local_prefix_suffix claim_out "`basename $MAIN_SOURCE`_${CLAIM}_`date +%Y-%m-%d_%H%M%S`" .log
   # we want to keep this file
   TMP_FILES=$tmp_files
  
   echo "SOURCES: $SOURCES"
   echo "CLAIM: $CLAIM"
+
+  case "$TOOL" in
+    *pblast.opt)
+      version_info=`$TOOL 2>&1 | grep ^BLAST`
+      ;;
+    *cpa.sh)
+      version_info="no info"
+      ;;
+    *)
+      version_info=`$TOOL --version`
+      ;;
+  esac
   
   cat > $claim_out <<EOF
 ### uname -a:
@@ -133,8 +145,8 @@ $USER
 `ulimit -a`
 ### timeout:
 $TIMEOUT
-### tool version:
-`$TOOL --version`
+### tool version info:
+$version_info
 ### command:
 $TOOL $OPTS $CLAIM_CMD $SOURCES
 ### expected verification result:
@@ -208,7 +220,7 @@ else
   CLAIM="ALL_CLAIMS"
 fi
 
-unset SOURCES OPTS
+unset MAIN_SOURCE OTHER_SOURCES OPTS
 for o in $@ ; do
   case "$o" in
     -*)
@@ -225,11 +237,14 @@ for o in $@ ; do
       else
         SOURCES="$SOURCES $o"
       fi
+      if [ -z "$MAIN_SOURCE" ] ; then
+        MAIN_SOURCE=$o
+      fi
       shift 1
       ;;
   esac
 done
-[ -n "$SOURCES" ] || die "No source file given"
+[ -n "$MAIN_SOURCE" ] || die "No source file given"
 
 run_tool
 

@@ -8,6 +8,7 @@ CONFIG = XXX
 # CONFIG = loopfrog.no-inv
 # CONFIG = cbmc.u5-nua
 # CONFIG = cpachecker.explicit
+# CONFIG = blast.dfl
 
 cprover/verified.cbmc.u5-nua: TOOL_OPTS := --32 --unwind 5 --no-unwinding-assertions
 cprover/verified.loopfrog.no-inv: TOOL_OPTS := --32 --no-invariants
@@ -21,13 +22,21 @@ cprover/verified.cpachecker.%: TOOL_OPTS += -setprop output.disable=true -spec $
 cprover/verified.cpachecker.explicit: TOOL_OPTS += -config $(CPACHECKER_HOME)/test/config/explicitAnalysisInf.properties
 cprover/verified.cpachecker.symbpredabsCPA: TOOL_OPTS += -config $(CPACHECKER_HOME)/test/config/symbpredabsCPA.properties
 
+cprover/verified.blast.%: TOOL := pblast.opt
+cprover/verified.blast.dfl: TOOL_OPTS += 
+
 
 # building the source code
 COMPILER = goto-cc --32
 SUFFIX = bin
 
-ifeq ($(filter cpachecker.%,$(CONFIG)),$(CONFIG))
+ifeq ($(filter-out cpachecker.%,$(CONFIG)),)
   COMPILER = cil_wrapper.sh -D__CPROVER_assert=__assert_fail -Dassert=__assert_fail
+  SUFFIX = i
+endif
+
+ifeq ($(filter-out blast.%,$(CONFIG)),)
+  COMPILER = cil_wrapper.sh --blast
   SUFFIX = i
 endif
 
@@ -51,20 +60,19 @@ verify:: build
 	test -d cprover
 	$(MAKE) -f cprover/rules cprover/verified.$(CONFIG)
 
-cprover/verified.$(CONFIG): TOOL ?= $(basename $(CONFIG))
-
 cprover/verified.$(CONFIG): $(addsuffix .vr, $(addprefix results.$(CONFIG)/, $(BENCHMARKS)))
 	cat $^ > $@
 
 results.$(CONFIG)/%vr: build/%$(SUFFIX)
 	mkdir -p $(dir $@)
 	set -e ; cd $(dir $@) ; \
-	claims=`list_claims.sh --cmd $(TOOL) $(realpath $<) -- $(TOOL_OPTS)` ; \
+	tool="$(TOOL)" ; if [ "x$$tool" = "x" ] ; then tool="$(basename $(CONFIG))" ; fi ; \
+	claims=`list_claims.sh --cmd $$tool $(realpath $<) -- $(TOOL_OPTS)` ; \
 	for c in $$claims ; do \
 	  cl=`echo $$c | cut -f1 -d:` ; \
 	  st=`echo $$c | cut -f2 -d:` ; \
 	  if [ "$$st" = "TRUE" ] ; then st="--valid" ; else st="--unknown" ; fi ; \
-	  verify.sh --claim $$cl $$st --timeout $(TIMEOUT) --maxmem $(MAXMEM) --cmd $(TOOL) $(realpath  $<) -- $(TOOL_OPTS) ; \
+	  verify.sh --claim $$cl $$st --timeout $(TIMEOUT) --maxmem $(MAXMEM) --cmd $$tool $(realpath  $<) -- $(TOOL_OPTS) ; \
 	done | tee $(abspath $@) ; \
 	exit $${PIPESTATUS[0]}
 
