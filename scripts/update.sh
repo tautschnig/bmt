@@ -239,7 +239,7 @@ if ! diff -urN -xCVS -x.svn -xcprover $TMP_UNPACK $PKG_NAME > $patch_tmp ; then
   diff_exit_code=${PIPESTATUS[0]}
   if [ $diff_exit_code -ne 1 ] ; then
     cat $patch_tmp | egrep -v '^(-|\+|@| |diff -urN)' 1>&2
-    die "diff had error exit code $diff_exit_code -- check for binary files"
+    die "diff had error exit code $diff_exit_code -- check for binary files as listed above"
   fi
   if [ ! -d $PKG_NAME/cprover/patches ] ; then
     mkdir $PKG_NAME/cprover/patches
@@ -251,6 +251,8 @@ if ! diff -urN -xCVS -x.svn -xcprover $TMP_UNPACK $PKG_NAME > $patch_tmp ; then
   new_patch="`mktemp --tmpdir=$PKG_NAME/cprover/patches "$patch_idx-new_patch.XXX"`"
   mv $patch_tmp $new_patch
   echo "`basename $new_patch`" >> $PKG_NAME/cprover/patches/series
+  echo "Added patch $new_patch to record the following changes:"
+  diffstat $new_patch
 fi
   
 tar czf `basename $BM_PKG` --exclude-vcs $PKG_NAME/cprover
