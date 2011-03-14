@@ -147,7 +147,9 @@ $USER
 $TIMEOUT
 ### tool version info:
 $version_info
-### command:
+### tool command:
+$TOOL $OPTS
+### full command line:
 $TOOL $OPTS $CLAIM_CMD $SOURCES
 ### expected verification result:
 $EXPECT_RESULT

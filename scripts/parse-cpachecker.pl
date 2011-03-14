@@ -39,76 +39,35 @@
 # THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-# build a LaTeX table of results
+# parse the CPAchecker specific part of a benchmark log file
 
 use strict;
 use warnings FATAL => qw(uninitialized);
 
-sub usage {
-  print <<"EOF";
-Usage: $0 CSV column-headers ...
-  where CSV is a comma-separated data file as built by make_csv.pl and
-  column-headers is a list of one or more column names the data of which should
-  be used for the resulting LaTeX table
+sub parse_log {
+  my ($LOG, $hash) = @_;
 
-EOF
-}
+  while (<$LOG>) {
+    chomp;
+    return 1 if (/^###############################################################################$/);
 
-if (scalar(@ARGV) < 2) {
-  usage;
-  exit 1;
-}
-
-my $file = $ARGV[0];
-shift @ARGV;
-open my $CSV, "<$file" or die "File $file not found\n";
-
-print <<'EOF';
-% requires booktabs package
-\begin{table}
-  \centering
-EOF
-print '  \begin{tabular}{' . "l" x scalar(@ARGV) . "}\n";
-print "  \\toprule\n";
-print join(" & ", @ARGV) . "\\\\ \\midrule\n";
-
-my %globals = ();
-
-use Text::CSV;
-my $csv = Text::CSV->new();
-my $arref = $csv->getline($CSV);
-defined($arref) or die "Failed to parse headers\n";
-$csv->column_names(@$arref);
-
-while (my $row = $csv->getline_hr($CSV)) {
-  foreach (qw(command timeout uname cpuinfo meminfo memlimit)) {
-    defined($row->{$_}) or die "No $_ data in table\n";
-    defined($globals{$_}) or $globals{$_} = ();
-    $globals{$_}{$row->{$_}} = 1;
+    if (/^No error locations reachable from main, analysis not necessary\./) {
+      $hash->{Result} = "ERROR_TRIV_UNREACHABLE";
+    } elsif (/^Given specification violated\? YES/) {
+      $hash->{Result} = "FAILED";
+    } elsif (/^Given specification violated\? NO/) {
+      $hash->{Result} = "SUCCESS";
+    } elsif (/^Number of refinements:\s+(\d+)$/) {
+      $hash->{refinements} = $1;
+    } elsif (/^Size of reached set:\s+(\d+)$/) {
+      $hash->{reached} = $1;
+    } elsif (/^Number of abstractions:\s+(\d+)\s+/) {
+      $hash->{abstractions} = $1;
+    } elsif (/^Max ABE block size:\s+(\d+)$/) {
+      $hash->{blocksize} = $1;
+    }
   }
-  
-  my @data = ();
-  push @data, defined($row->{$_}) ? $row->{$_} : "n/a" foreach (@ARGV);
-  print join(" & ", @data) . "\\\\\n";
 }
 
-close $CSV;
-
-print <<"EOF";
-  \\bottomrule
-  \\end{tabular}
-EOF
-print '\\caption{Benchmarks obtained using ' .
-  join(';', keys %{ $globals{command} }) . ' with a timeout of ' .
-  join(';', keys %{ $globals{timeout} }) . ' and a memory limit of ' .
-  join(';', keys %{ $globals{memlimit} }) . "}\n";
-print <<"EOF";
-  \\label{tab:some-results}
-\\end{table}
-EOF
-
-print 'The benchmarks were run on a ' .
-  join(';', keys %{ $globals{uname} }) . ' ' .
-  join(';', keys %{ $globals{cpuinfo} }) . ' system equipped with ' .
-  join(';', keys %{ $globals{meminfo} }) . " RAM.\n";
+return 1;
 
