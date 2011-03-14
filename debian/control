@@ -10,9 +10,9 @@ Homepage: http://www.cprover.org/benchmarks
 
 Package: cpbm
 Architecture: all
-Depends: ${misc:Depends}, gcc, make
+Depends: ${misc:Depends}, gcc, make, libtext-csv-perl
 Recommends: wget
-Suggests: ocaml-cil
+Suggests: ocaml-cil, gnuplot
 Description: CPROVER benchmarking framework
  The CPROVER benchmarking framework is a collection of scripts that manage,
  execute, and evaluate benchmarks for software analysis tools. The management
