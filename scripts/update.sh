@@ -202,7 +202,7 @@ cleanup() {
 
 trap 'cleanup' ERR EXIT
 
-TMP_UNPACK="`mktemp -d --tmpdir=../ cproverbm.XXXXXX`"
+TMP_UNPACK="`TMPDIR=../ mktemp -d -t cproverbm.XXXXXX`"
 
 case $SOURCE in
   *.zip)
@@ -248,7 +248,7 @@ if ! diff -urN -xCVS -x.svn -xcprover $TMP_UNPACK $PKG_NAME > $patch_tmp ; then
     touch $PKG_NAME/cprover/patches/series
   fi
   patch_idx="`printf "%03d" \`ls $PKG_NAME/cprover/patches | wc -l\``"
-  new_patch="`mktemp --tmpdir=$PKG_NAME/cprover/patches "$patch_idx-new_patch.XXX"`"
+  new_patch="`TMPDIR=$PKG_NAME/cprover/patches mktemp -t "$patch_idx-new_patch.XXXXXX"`"
   mv $patch_tmp $new_patch
   echo "`basename $new_patch`" >> $PKG_NAME/cprover/patches/series
   echo "Added patch $new_patch to record the following changes:"

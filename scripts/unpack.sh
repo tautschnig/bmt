@@ -102,7 +102,7 @@ cleanup() {
 
 trap 'cleanup' ERR EXIT
 
-TMP_UNPACK="`mktemp -d --tmpdir=. cproverbm.XXXXXX`"
+TMP_UNPACK="`TMPDIR=. mktemp -d -t cproverbm.XXXXXX`"
 PKG_NAME="`basename $BM_PKG | sed 's#\.cprover-bm\.tar\.gz$##'`"
 [ -d $PKG_NAME ] && die "Target directory $PKG_NAME already exists"
 

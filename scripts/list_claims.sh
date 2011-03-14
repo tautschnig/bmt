@@ -68,7 +68,7 @@ mktemp_local_prefix_suffix() {
   local varname=$1
   local prefix=$2
   local suffix=$3
-  local tmpf="`mktemp --tmpdir=. $prefix.XXX`"
+  local tmpf="`TMPDIR=. mktemp -t $prefix.XXXXXX`"
   TMP_FILES="$TMP_FILES $tmpf"
   local rand="`echo $tmpf | sed "s#^./$prefix\\\.##"`"
   eval $varname=\"${prefix}_$rand$suffix\"
