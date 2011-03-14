@@ -202,7 +202,7 @@ EOF
       ;;
     cil) 
       cat >> $OUTPUT_COMPILE_FILE <<EOF
-cil_wrapper.sh -D__CPROVER__ \
+cpbm cillify -D__CPROVER__ \
   -DDDV_MODULE_INIT=`echo $MODULE_INIT | sed 's/&//'` \
   -DDDV_MODULE_EXIT=`echo $MODULE_EXIT | sed 's/&//'` \
   $preproc $all_src -o $OUTPUT
@@ -210,7 +210,7 @@ EOF
       ;;
     cil-blast) 
       cat >> $OUTPUT_COMPILE_FILE <<EOF
-cil_wrapper.sh --blast -D__CPROVER__ \
+cpbm cillify --blast -D__CPROVER__ \
   -DDDV_MODULE_INIT=`echo $MODULE_INIT | sed 's/&//'` \
   -DDDV_MODULE_EXIT=`echo $MODULE_EXIT | sed 's/&//'` \
   -D_Bool=int \
