@@ -24,11 +24,14 @@ cprover/verified.satabs.dfl: TOOL_OPTS := --iterations 20
 cprover/verified.satabs.bc.dz.pc: TOOL_OPTS := --iterations 20 --bounds-check --div-by-zero-check --pointer-check
 cprover/verified.wolverine.u5: TOOL_OPTS := --unwind 5
 
-CPACHECKER_HOME = /some/path
+CPACHECKER_HOME = /home/scratch/mictau/cpachecker/trunk
 cprover/verified.cpachecker.%: TOOL := $(CPACHECKER_HOME)/scripts/cpa.sh
 cprover/verified.cpachecker.%: TOOL_OPTS += -setprop output.disable=true -spec $(CPACHECKER_HOME)/test/config/automata/ErrorLocationAutomaton.txt
 cprover/verified.cpachecker.explicit: TOOL_OPTS += -config $(CPACHECKER_HOME)/test/config/explicitAnalysisInf.properties
 cprover/verified.cpachecker.symbpredabsCPA: TOOL_OPTS += -config $(CPACHECKER_HOME)/test/config/symbpredabsCPA.properties
+
+cprover/verified.blast.%: TOOL := pblast.opt
+cprover/verified.blast.dfl: TOOL_OPTS += 
 
 DDV_CHECKS = --check-spinlock \
 						 --check-semaphore --check-mutex --check-io --check-wait-queue \
@@ -41,15 +44,22 @@ SUFFIX = bin
 # COMPILER=cpp
 # SUFFIX=dir/
 
-ifeq ($(filter cpachecker.%,$(CONFIG)),$(CONFIG))
+ifeq ($(filter-out cpachecker.%,$(CONFIG)),)
   COMPILER = cil
   SUFFIX = i
 endif
+
+ifeq ($(filter-out blast.%,$(CONFIG)),)
+  COMPILER = cil-blast
+  SUFFIX = i
+endif
+
 
 # sequential version:
 cprover/binaries.cbmc.%: DEFINES += -D MODEL_TYPE_SEQUENTIAL1
 cprover/binaries.wolverine.%: DEFINES += -D MODEL_TYPE_SEQUENTIAL1
 cprover/binaries.cpachecker.%: DEFINES += -D MODEL_TYPE_SEQUENTIAL1 -D __CPROVER_assert=__assert_fail
+cprover/binaries.blast.%: DEFINES += -D MODEL_TYPE_SEQUENTIAL1
 
 build/drivers/char/genrtc.$(SUFFIX): DEFINES += -D CONFIG_GEN_RTC_X -D CONFIG_PROC_FS
 build/drivers/char/watchdog/wdt.$(SUFFIX): DEFINES += -D CONFIG_WDT_501
@@ -79,20 +89,19 @@ verify:: build
 	test -d cprover
 	$(MAKE) -f cprover/rules cprover/verified.$(CONFIG)
 
-cprover/verified.$(CONFIG): TOOL ?= $(basename $(CONFIG))
-
 cprover/verified.$(CONFIG): $(addsuffix .vr, $(addprefix results.$(CONFIG)/, $(BENCHMARKS)))
 	cat $^ > $@
 
 results.$(CONFIG)/%vr: build/%$(SUFFIX)
 	mkdir -p $(dir $@)
 	set -e ; cd $(dir $@) ; \
-	claims=`list_claims.sh --cmd $(TOOL) $(realpath $<) -- $(TOOL_OPTS)` ; \
+	tool="$(TOOL)" ; if [ "x$$tool" = "x" ] ; then tool="$(basename $(CONFIG))" ; fi ; \
+	claims=`list_claims.sh --cmd $$tool $(realpath $<) -- $(TOOL_OPTS)` ; \
 	for c in $$claims ; do \
 	  cl=`echo $$c | cut -f1 -d:` ; \
 	  st=`echo $$c | cut -f2 -d:` ; \
 	  if [ "$$st" = "TRUE" ] ; then st="--valid" ; else st="--unknown" ; fi ; \
-	  verify.sh --claim $$cl $$st --timeout $(TIMEOUT) --maxmem $(MAXMEM) --cmd $(TOOL) $(realpath  $<) -- $(TOOL_OPTS) ; \
+	  verify.sh --claim $$cl $$st --timeout $(TIMEOUT) --maxmem $(MAXMEM) --cmd $$tool $(realpath  $<) -- $(TOOL_OPTS) ; \
 	done | tee $(abspath $@) ; \
 	exit $${PIPESTATUS[0]}
 

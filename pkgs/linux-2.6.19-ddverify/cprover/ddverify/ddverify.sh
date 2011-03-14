@@ -77,6 +77,7 @@ Usage: $SELF [OPTIONS] SOURCES ...
   Compiler selection:
     --goto-cc                           compile using goto-cc (creates binary)
     --cil                               compile using CIL (creates preprocessed source)
+    --cil-blast                         compile using CIL (creates preprocessed source) and include ERROR labels
     --cpp                               compile using gcc -E (creates directory with preprocessed files)
   Driver description:
     --module-init <func>                set module initalization function to <func>, otherwise extracted from SOURCE
@@ -207,6 +208,15 @@ cil_wrapper.sh -D__CPROVER__ \
   $preproc $all_src -o $OUTPUT
 EOF
       ;;
+    cil-blast) 
+      cat >> $OUTPUT_COMPILE_FILE <<EOF
+cil_wrapper.sh --blast -D__CPROVER__ \
+  -DDDV_MODULE_INIT=`echo $MODULE_INIT | sed 's/&//'` \
+  -DDDV_MODULE_EXIT=`echo $MODULE_EXIT | sed 's/&//'` \
+  -D_Bool=int \
+  $preproc $all_src -o $OUTPUT
+EOF
+      ;;
     cpp)
       cat >> $OUTPUT_COMPILE_FILE <<EOF
 mkdir $OUTPUT.dir
@@ -241,6 +251,7 @@ opts=`getopt -n "$0" -o "hD:o:" --long "\
 	    check-context,\
 	    goto-cc,\
 	    cil,\
+	    cil-blast,\
       cpp,\
       module-init:,\
 	    module-exit:,\
@@ -277,6 +288,7 @@ while true ; do
 	  --check-context) CHECK_CONTEXT=1 ; shift 1;;
 	  --goto-cc) COMPILER=goto-cc ; shift 1;;
 	  --cil) COMPILER=cil ; shift 1;;
+	  --cil-blast) COMPILER=cil-blast ; shift 1;;
 	  --cpp) COMPILER=cpp ; shift 1;;
     --module-init) MODULE_INIT="$2" ; shift 2;;
 	  --module-exit) MODULE_EXIT="$2" ; shift 2;;
@@ -303,7 +315,7 @@ for f in $@ ; do
       OUTPUT="`basename $MAIN_SOURCE .c`"
       case "$COMPILER" in
         goto-cc) OUTPUT="$OUTPUT.bin" ;;
-        cil) OUTPUT="$OUTPUT.i" ;;
+        cil|cil-blast) OUTPUT="$OUTPUT.i" ;;
         cpp) OUTPUT="$OUTPUT.dir" ;;
       esac
     fi
