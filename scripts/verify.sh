@@ -97,11 +97,7 @@ Usage: $SELF [OPTIONS] SOURCES ... [-- BACKENDOPTS]
     --valid                             claim is valid
     --invalid                           claim is invalid
   Back end:
-    --satabs                            use SATABS as verification tool
-    --cbmc                              use CBMC as verification tool
-    --wolverine                         use WOLVERINE as verification tool
-    --scratch                           use SCRATCH as verification tool
-    --loopfrog                          use LOOPFROG as verification tool
+    --cmd CMD                           execute verification command CMD
 
 EOF
 }
@@ -170,11 +166,7 @@ opts=`getopt -n "$0" -o "h" --long "\
       unknown,\
       valid,\
       invalid,\
-	    satabs,\
-	    cbmc,\
-      wolverine,\
-      scratch,\
-      loopfrog,\
+      cmd:,\
   " -- "$@"`
 eval set -- "$opts"
 
@@ -198,7 +190,7 @@ while true ; do
       fi
       ulimit -S -v $(( $2 * 1024 )) ; shift 2;;
 	  --unknown|--valid|--invalid) EXPECT_RESULT="`echo $1 | cut -b3-`" ; shift 1;;
-	  --satabs|--cbmc|--wolverine|--scratch|--loopfrog) TOOL="`echo $1 | cut -b3-`" ; shift 1;;
+    --cmd) TOOL="$2" ; shift 2;;
     --) shift ; break ;;
     *) die "Unknown option $1" ;;
   esac
@@ -206,7 +198,7 @@ done
 
 [ -n "$TOOL" ] || die "Please select the verification tool to be used"
 
-if [ -n "$CLAIM" ] ; then
+if [ -n "$CLAIM" -a "$CLAIM" != "ALL_CLAIMS" ] ; then
   if [ "$TOOL" = "loopfrog" ] ; then
     CLAIM_CMD="--testclaim $CLAIM"
   else

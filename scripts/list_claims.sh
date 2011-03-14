@@ -39,7 +39,8 @@
 # THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-# wrapper around CPROVER verification tools to obtain a list of claims
+# wrapper around CPROVER verification tools to obtain a list of claims; for
+# other (unsupported) verification tools, ALL_CLAIMS:UNKNOWN is returned
 
 set -e
 
@@ -87,12 +88,7 @@ Usage: $SELF [OPTIONS] SOURCES ... [-- BACKENDOPTS]
   Options for the verify front end:     Purpose:
     -h|--help                           show help
     --no-cleanup                        don't remove generated files
-  Options controlling the verification tool:
-    --satabs                            use SATABS to list claims
-    --cbmc                              use CBMC to list claims
-    --wolverine                         use WOLVERINE to list claims
-    --scratch                           use SCRATCH to list claims
-    --loopfrog                          use LOOPFROG to list claims
+    --cmd CMD                           target verification tool to list claims for
 
 EOF
 }
@@ -159,11 +155,7 @@ SELF=$0
 opts=`getopt -n "$0" -o "h" --long "\
 	    help,\
       no-cleanup,\
-	    satabs,\
-	    cbmc,\
-      wolverine,\
-      scratch,\
-      loopfrog,\
+      cmd:,\
   " -- "$@"`
 eval set -- "$opts"
 
@@ -173,11 +165,7 @@ while true ; do
   case "$1" in
     -h|--help) usage ; exit 0;;
     --no-cleanup) NO_CLEANUP=1 ; shift 1;;
-	  --satabs) TOOL=satabs ; shift 1;;
-	  --cbmc) TOOL=cbmc ; shift 1;;
-	  --wolverine) TOOL=wolverine ; shift 1;;
-	  --scratch) TOOL=scratch ; shift 1;;
-	  --loopfrog) TOOL=loopfrog ; shift 1;;
+	  --cmd) TOOL="$2" ; shift 2;;
     --) shift ; break ;;
     *) die "Unknown option $1" ;;
   esac
@@ -185,25 +173,33 @@ done
 
 [ -n "$TOOL" ] || die "Please select the verification tool to be used"
 
-unset SOURCES OPTS
-for o in $@ ; do
-  case "$o" in
-    -*)
-      OPTS=$@
-      break
-      ;;
-    *)
-      [ -f "$o" ] || die "Source file $o not found"
-      if [ "$TOOL" = "scratch" -a "`file -b $o`" = "data" ] ; then
-        SOURCES="$SOURCES --binary $o"
-      else
-        SOURCES="$SOURCES $o"
-      fi
-      shift 1
-      ;;
-  esac
-done
-[ -n "$SOURCES" ] || die "No source file given"
+case "$TOOL" in
+  satabs|cbmc|wolverine|scratch|loopfrog)
+    unset SOURCES OPTS
+    for o in $@ ; do
+      case "$o" in
+        -*)
+          OPTS=$@
+          break
+          ;;
+        *)
+          [ -f "$o" ] || die "Source file $o not found"
+          if [ "$TOOL" = "scratch" -a "`file -b $o`" = "data" ] ; then
+            SOURCES="$SOURCES --binary $o"
+          else
+            SOURCES="$SOURCES $o"
+          fi
+          shift 1
+          ;;
+      esac
+    done
+    [ -n "$SOURCES" ] || die "No source file given"
 
-run_tool
+    run_tool
+    ;;
+  *)
+    echo "No specific support for $TOOL" 1>&2
+    echo "ALL_CLAIMS:UNKNOWN"
+    ;;
+esac
 
