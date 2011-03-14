@@ -1,0 +1,19 @@
+Source: cpbm
+Section: science
+Priority: extra
+Maintainer: Michael Tautschnig <mt@debian.org>
+Build-Depends: debhelper (>= 7.0.50~)
+Standards-Version: 3.9.1
+Homepage: http://www.cprover.org/benchmarks
+#Vcs-Git: git://git.debian.org/collab-maint/cpbm.git
+#Vcs-Browser: http://git.debian.org/?p=collab-maint/cpbm.git;a=summary
+
+Package: cpbm
+Architecture: all
+Depends: ${misc:Depends}, gcc, make
+Recommends: wget
+Suggests: ocaml-cil
+Description: CPROVER benchmarking framework
+ The CPROVER benchmarking framework is a collection of scripts that manage,
+ execute, and evaluate benchmarks for software analysis tools. The management
+ part is similar to Debian packages with explicit tracking of patches.
