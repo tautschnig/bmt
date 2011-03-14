@@ -7,7 +7,6 @@ make_table.pl usr/share/cpbm/
 parse-blast.pl usr/share/cpbm/
 parse-cpachecker.pl usr/share/cpbm/
 parse-cprover.pl usr/share/cpbm/
-parse_results.pl usr/share/cpbm/
 rules.template usr/share/cpbm/
 unpack.sh usr/share/cpbm/
 update.sh usr/share/cpbm/
