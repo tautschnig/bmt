@@ -122,6 +122,14 @@ void ddv()
     } while (nondet_int());
 #endif
 }
+    
+// some tools don't support function pointers
+#ifdef DDV_MODULE_INIT
+extern int DDV_MODULE_INIT(void);
+#endif
+#ifdef DDV_MODULE_EXIT
+extern void DDV_MODULE_EXIT(void);
+#endif
 
 int call_ddv()
 {
@@ -131,7 +139,11 @@ int call_ddv()
 
     init_kernel();
 
+#ifndef DDV_MODULE_INIT
     err =  (* _ddv_module_init)();
+#else
+    err = DDV_MODULE_INIT();
+#endif
     
     if (err) {
 	return -1;
@@ -140,7 +152,11 @@ int call_ddv()
     ddv();
 
     switch_context(CONTEXT_PROCESS);
+#ifndef DDV_MODULE_EXIT
     (* _ddv_module_exit)();  
+#else
+    DDV_MODULE_EXIT();
+#endif
 
     return 0;
 }

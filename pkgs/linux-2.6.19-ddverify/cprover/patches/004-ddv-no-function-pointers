@@ -1,0 +1,31 @@
+diff -urN -xCVS -x.svn -xcprover cproverbm.PhdpWN/drivers/char/watchdog/wdt977.c linux-2.6.19-ddverify/drivers/char/watchdog/wdt977.c
+--- cproverbm.PhdpWN/drivers/char/watchdog/wdt977.c	2006-11-29 21:57:37.000000000 +0000
++++ linux-2.6.19-ddverify/drivers/char/watchdog/wdt977.c	2011-03-12 02:15:40.000000000 +0000
+@@ -36,7 +36,7 @@
+ 
+ #include <asm/io.h>
+ #include <asm/system.h>
+-#include <asm/mach-types.h>
++// #include <asm/mach-types.h>
+ #include <asm/uaccess.h>
+ 
+ #define WATCHDOG_VERSION  "0.04"
+diff -urN -xCVS -x.svn -xcprover cproverbm.PhdpWN/include/linux/config.h linux-2.6.19-ddverify/include/linux/config.h
+--- cproverbm.PhdpWN/include/linux/config.h	1970-01-01 01:00:00.000000000 +0100
++++ linux-2.6.19-ddverify/include/linux/config.h	2011-03-12 02:14:19.000000000 +0000
+@@ -0,0 +1 @@
++
+diff -urN -xCVS -x.svn -xcprover cproverbm.PhdpWN/include/linux/init.h linux-2.6.19-ddverify/include/linux/init.h
+--- cproverbm.PhdpWN/include/linux/init.h	2011-03-12 17:19:54.000000000 +0000
++++ linux-2.6.19-ddverify/include/linux/init.h	2011-03-12 13:53:34.000000000 +0000
+@@ -4,8 +4,8 @@
+ #include <linux/config.h>
+ #include <linux/compiler.h>
+ 
+-#define module_init(_function) int (* _ddv_tmp_init)(void) = _function
+-#define module_exit(_function) void (* _ddv_tmp_exit)(void) = _function
++#define module_init(_function) /* int (* _ddv_tmp_init)(void) = _function */
++#define module_exit(_function) /* void (* _ddv_tmp_exit)(void) = _function */
+ 
+ #define __init
+ #define __initdata

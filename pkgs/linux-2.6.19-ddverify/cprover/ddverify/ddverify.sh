@@ -143,8 +143,12 @@ write_cc_file() {
 
 int main()
 {
+#ifndef DDV_MODULE_INIT
   _ddv_module_init = $MODULE_INIT;
+#endif
+#ifndef DDV_MODULE_EXIT
   _ddv_module_exit = $MODULE_EXIT;
+#endif
   call_ddv();
   return 0;
 }
@@ -197,9 +201,10 @@ EOF
       ;;
     cil) 
       cat >> $OUTPUT_COMPILE_FILE <<EOF
-cilly -x c --merge --keepmerged --printCilAsIs --dosimplify --domakeCFG -o $OUTPUT -D__CPROVER__ $preproc $all_src || true
-rm ___extra_files
-mv ${OUTPUT}_comb.c $OUTPUT
+cil_wrapper.sh -D__CPROVER__ \
+  -DDDV_MODULE_INIT=`echo $MODULE_INIT | sed 's/&//'` \
+  -DDDV_MODULE_EXIT=`echo $MODULE_EXIT | sed 's/&//'` \
+  $preproc $all_src -o $OUTPUT
 EOF
       ;;
     cpp)
