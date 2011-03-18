@@ -6,6 +6,8 @@
 
 create_request(int genhd_no)
 {
+    // this isn't valid C code because of an embedded char[16]
+    /*
     struct request rq;
     
     rq.cmd_type = REQ_TYPE_FS;
@@ -15,6 +17,13 @@ create_request(int genhd_no)
     rq.buffer = nondet_pchar();
 
     genhd_registered[genhd_no].current_request = rq;
+    */
+    genhd_registered[genhd_no].current_request.cmd_type = REQ_TYPE_FS;
+    genhd_registered[genhd_no].current_request.rq_disk = genhd_registered[genhd_no].gd;
+    genhd_registered[genhd_no].current_request.sector = nondet_sector_t();
+    genhd_registered[genhd_no].current_request.current_nr_sectors = nondet_uint();
+    genhd_registered[genhd_no].current_request.buffer = nondet_pchar();
+    
     genhd_registered[genhd_no].requests_open   = 1;
 }
 

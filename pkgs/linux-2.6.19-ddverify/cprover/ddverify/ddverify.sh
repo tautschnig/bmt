@@ -53,8 +53,8 @@ Usage: $SELF [OPTIONS] SOURCES ...
   where SOURCES are C files containing a Linux device driver
   $SELF extracts the init and exit routines from the first device driver file and
   compiles these to a goto binary amenable to verification using tools such as
-  SATABS, CBMC, or WOLVERINE, or to CIL preprocessed source, or just runs the
-  preprocessor
+  SATABS, CBMC, or WOLVERINE, or to CIL preprocessed source, just runs the
+  preprocessor, or uses clang to compile to LLVM bytecode
    
   Options for the DDVerify front end:   Purpose:
     -h|--help                           show help
@@ -79,6 +79,7 @@ Usage: $SELF [OPTIONS] SOURCES ...
     --cil                               compile using CIL (creates preprocessed source)
     --cil-blast                         compile using CIL (creates preprocessed source) and include ERROR labels
     --cpp                               compile using gcc -E (creates directory with preprocessed files)
+    --clang                             compile using clang (creates LLVM bytecode)
   Driver description:
     --module-init <func>                set module initalization function to <func>, otherwise extracted from SOURCE
     --module-exit <func>                set module cleanup function <func>, otherwise extracted from SOURCE
@@ -227,6 +228,13 @@ for f in $all_src ; do
 done
 EOF
       ;;
+    clang)
+      cat >> $OUTPUT_COMPILE_FILE <<EOF
+cpbm cillify -D__CPROVER__ \
+  $preproc $all_src -o `dirname $OUTPUT`/`basename $OUTPUT .s`.i
+clang -emit-llvm -c -o $OUTPUT `dirname $OUTPUT`/`basename $OUTPUT .s`.i
+EOF
+      ;;
   esac
   
   chmod a+x $OUTPUT_COMPILE_FILE
@@ -253,6 +261,7 @@ opts=`getopt -n "$0" -o "hD:o:" --long "\
 	    cil,\
 	    cil-blast,\
       cpp,\
+      clang,\
       module-init:,\
 	    module-exit:,\
 	    driver-type:,\
@@ -290,6 +299,7 @@ while true ; do
 	  --cil) COMPILER=cil ; shift 1;;
 	  --cil-blast) COMPILER=cil-blast ; shift 1;;
 	  --cpp) COMPILER=cpp ; shift 1;;
+	  --clang) COMPILER=clang ; shift 1;;
     --module-init) MODULE_INIT="$2" ; shift 2;;
 	  --module-exit) MODULE_EXIT="$2" ; shift 2;;
 	  --driver-type)
@@ -317,6 +327,7 @@ for f in $@ ; do
         goto-cc) OUTPUT="$OUTPUT.bin" ;;
         cil|cil-blast) OUTPUT="$OUTPUT.i" ;;
         cpp) OUTPUT="$OUTPUT.dir" ;;
+        clang) OUTPUT="$OUTPUT.s" ;;
       esac
     fi
   else

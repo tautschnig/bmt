@@ -1,0 +1,12 @@
+diff -urN -xCVS -x.svn -xcprover cproverbm.avz1FC/include/asm-i386/thread_info.h linux-2.6.19-ddverify/include/asm-i386/thread_info.h
+--- cproverbm.avz1FC/include/asm-i386/thread_info.h	2011-03-17 05:57:13.000000000 +0000
++++ linux-2.6.19-ddverify/include/asm-i386/thread_info.h	2011-03-17 03:51:29.000000000 +0000
+@@ -86,7 +86,7 @@
+ 
+ 
+ /* how to get the current stack pointer from C */
+-register unsigned long current_stack_pointer;
++unsigned long current_stack_pointer;
+ 
+ /* how to get the thread information struct from C */
+ static inline struct thread_info *current_thread_info(void)
