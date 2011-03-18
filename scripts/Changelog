@@ -6,6 +6,8 @@
 	stderr
 	* unpack.sh, update.sh: Support plain tar archives
 	* README: Documented parser lookup in make_csv.pl
+	* cil_wrapper.sh: Use hardly documented CILLY_DONT_LINK_AFTER_MERGE to stop
+	cilly from running the linker
 
 2011-03-14  Michael Tautschnig  <michael.tautschnig@comlab.ox.ac.uk>
 

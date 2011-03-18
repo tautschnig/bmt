@@ -156,8 +156,8 @@ done
 
 cd $d
 TMP_DIRS="../$d"
-cilly --save-temps -x c --merge --keepmerged -o `basename $OUTPUT` $preproc_files || true
-cilly --save-temps --dosimplify --printCilAsIs --domakeCFG -o `basename $OUTPUT` `basename ${OUTPUT}_comb.c` || true
+CILLY_DONT_LINK_AFTER_MERGE=1 cilly --save-temps -x c --merge --keepmerged -o `basename $OUTPUT` $preproc_files
+CILLY_DONT_LINK_AFTER_MERGE=1 cilly --save-temps -x c --dosimplify --printCilAsIs --domakeCFG -o `basename $OUTPUT` `basename ${OUTPUT}_comb.c`
 cd ..
 TMP_DIRS="$d"
 mv $d/`basename ${OUTPUT}_comb.cil.c` $OUTPUT
