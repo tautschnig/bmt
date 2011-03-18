@@ -2,6 +2,9 @@
 
 	* parse-{cbmc,satabs,loopfrog,wolverine,scratch}.pl: Move previous
 	parse-cprover.pl to one parser per tool, currently all sharing the same code
+	* rules.template, rules.cpbm.generic: Moved all generally useful rules to
+	rules.cpbm.generic that is called from default rules file; all targets may be
+	overridden; added more comments
 
 2011-03-17  Michael Tautschnig  <michael.tautschnig@comlab.ox.ac.uk>
 

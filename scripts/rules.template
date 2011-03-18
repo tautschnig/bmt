@@ -1,107 +1,39 @@
 #!/usr/bin/make -f
 
+# add benchmark files without suffix here
 BENCHMARKS = XXX
 
-TIMEOUT = 60
-MAXMEM = 3500
+# select a default configuration, timeout and memory limit
 CONFIG = XXX
 # CONFIG = loopfrog.no-inv
 # CONFIG = cbmc.u5-nua
 # CONFIG = cpachecker.explicit
 # CONFIG = blast.dfl
 
+# leave timeout and/or memory limit undefined to not use any limit
+TIMEOUT = 60
+# MAXMEM = 3500
+
+# example configuration - CPROVER tools
 cprover/verified.cbmc.u5-nua: TOOL_OPTS := --32 --unwind 5 --no-unwinding-assertions
 cprover/verified.loopfrog.no-inv: TOOL_OPTS := --32 --no-invariants
 cprover/verified.satabs.dfl: TOOL_OPTS := --32 --iterations 20
 cprover/verified.scratch.bf: TOOL_OPTS := --32 --bug-finding
 cprover/verified.wolverine.u5: TOOL_OPTS := --32 --unwind 5
 
+# CPAchecker example configuration
 CPACHECKER_HOME = /some/path
 cprover/verified.cpachecker.%: TOOL := $(CPACHECKER_HOME)/scripts/cpa.sh
 cprover/verified.cpachecker.%: TOOL_OPTS += -setprop output.disable=true -spec $(CPACHECKER_HOME)/test/config/automata/ErrorLocationAutomaton.txt
 cprover/verified.cpachecker.explicit: TOOL_OPTS += -config $(CPACHECKER_HOME)/test/config/explicitAnalysisInf.properties
 cprover/verified.cpachecker.symbpredabsCPA: TOOL_OPTS += -config $(CPACHECKER_HOME)/test/config/symbpredabsCPA.properties
 
+# BLAST configuration
 cprover/verified.blast.%: TOOL := pblast.opt
 cprover/verified.blast.dfl: TOOL_OPTS += 
 
-
-# building the source code
-COMPILER = goto-cc --32
-SUFFIX = bin
-
-ifeq ($(filter-out cpachecker.%,$(CONFIG)),)
-  COMPILER = cpbm cillify -D__CPROVER_assert=__assert_fail -Dassert=__assert_fail
-  SUFFIX = i
-endif
-
-ifeq ($(filter-out blast.%,$(CONFIG)),)
-  COMPILER = cpbm cillify --blast
-  SUFFIX = i
-endif
-
-build::
-	test -d cprover
-	$(MAKE) -f cprover/rules cprover/binaries.$(CONFIG)
-
-cprover/binaries.$(CONFIG): $(addsuffix .$(SUFFIX), $(addprefix build/, $(BENCHMARKS)))
-	rm -f $@
-	for f in $^ ; do \
-	  echo $$f >> $@ ; \
-	done
-
-build/%.$(SUFFIX): %.c
-	mkdir -p $(dir $@)
-	cd $(dir $<) ; $(COMPILER) -o $(abspath $@) $(realpath $<)
-
-
-# verification rules
-verify:: build
-	test -d cprover
-	$(MAKE) -f cprover/rules cprover/verified.$(CONFIG)
-
-cprover/verified.$(CONFIG): $(addsuffix .vr, $(addprefix results.$(CONFIG)/, $(BENCHMARKS)))
-	cat $^ > $@
-
-results.$(CONFIG)/%vr: build/%$(SUFFIX)
-	mkdir -p $(dir $@)
-	set -e ; cd $(dir $@) ; \
-	tool="$(TOOL)" ; if [ "x$$tool" = "x" ] ; then tool="$(basename $(CONFIG))" ; fi ; \
-	claims=`cpbm list-claims --cmd $$tool $(realpath $<) -- $(TOOL_OPTS)` ; \
-	for c in $$claims ; do \
-	  cl=`echo $$c | cut -f1 -d:` ; \
-	  st=`echo $$c | cut -f2 -d:` ; \
-	  if [ "$$st" = "TRUE" ] ; then st="--valid" ; else st="--unknown" ; fi ; \
-	  cpbm run --claim $$cl $$st --timeout $(TIMEOUT) --maxmem $(MAXMEM) --cmd $$tool $(realpath  $<) -- $(TOOL_OPTS) ; \
-	done | tee $(abspath $@) ; \
-	exit $${PIPESTATUS[0]}
-
-
-# statistics collection
-csv:: verify
-	test -d cprover
-	$(MAKE) -f cprover/rules cprover/results.$(CONFIG).csv
-
-PARSER = cprover
-cprover/results.cpachecker.%.csv: PARSER := cpachecker
-cprover/results.blast.%.csv: PARSER := blast
-
-cprover/results.$(CONFIG).csv: cprover/verified.$(CONFIG)
-	cpbm csv $(PARSER) $^ > $@
-
-table:: csv
-	test -d cprover
-	cpbm table cprover/results.$(CONFIG).csv Benchmark Result usertime maxmem
-
-graph:: csv
-	test -d cprover
-	cpbm graph cprover/results.$(CONFIG).csv
-
-
-# cleanup
-clean::
-	test -d cprover
-	rm -rf results.* build
-	rm -f cprover/binaries.* cprover/verified.*
-	rm -f cprover/results.*
+# execute default rules
+# any of these rules may be overridden by specifying them in this file
+%:
+	$(MAKE) -f $(shell cpbm home)/rules.cpbm.generic $@
 
