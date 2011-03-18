@@ -8,6 +8,8 @@
 	* README: Documented parser lookup in make_csv.pl
 	* cil_wrapper.sh: Use hardly documented CILLY_DONT_LINK_AFTER_MERGE to stop
 	cilly from running the linker
+	* parse-rr-aa.pl: Added parser for experiments using LLVM and an
+	implementation of Rugina and Rinard's pointer analysis
 
 2011-03-14  Michael Tautschnig  <michael.tautschnig@comlab.ox.ac.uk>
 
