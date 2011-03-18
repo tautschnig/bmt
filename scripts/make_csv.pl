@@ -140,10 +140,9 @@ sub parse_exit {
 
     if ($mode eq "exitcode") {
       /^(\d+)$/ or die "Unexpected exit code format\n";
+      $hash->{$mode} = $1;
       if ($1 == 124) {
-        $hash->{$mode} = "124 (TIMEOUT)";
-      } else {
-        $hash->{$mode} = $1;
+        $hash->{Result} = "TIMEOUT";
       }
     } elsif ($mode eq "time") {
       if (/^\s+User time \(seconds\): (\d+\.\d+)$/) {
@@ -184,7 +183,9 @@ while (<RESULTS>) {
   ($bm_name =~ /^.*\/results\.[^\/]+\/(\S+)\.[a-z]+_(\S+)_\d{4}-\d\d-\d\d_\d{6}_.{6}\.log$/)
     or die "Don't know how to extract benchmark name from log file name $fname\n";
   $bm_name = ($2 eq "ALL_CLAIMS") ? $1 : "$1:$2";
-  $results{$fname}{"Benchmark"} = $bm_name;
+  $results{$fname}{Benchmark} = $bm_name;
+  # default to ERROR
+  $results{$fname}{Result} = "ERROR";
   &parse_file($fname, \%{ $results{$fname} });
 }
 close RESULTS;

@@ -7,7 +7,8 @@
 	rules.cpbm.generic that is called from default rules file; all targets may be
 	overridden; added more comments
 	* make_csv.pl: Print benchmark result lines sorted by file name; benchmark
-	name is without file suffix and claim name is omitted if ALL_CLAIMS
+	name is without file suffix and claim name is omitted if ALL_CLAIMS; default
+	Result value to ERROR
 	* make_table.pl: Escape _ in LaTeX output of values, print floating point
 	numbers with rounding to three digits, make columns suitable and fixed width,
 	beautify headers using multicolumn
