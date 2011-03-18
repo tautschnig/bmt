@@ -63,7 +63,10 @@ show_help() {
   cat <<EOF
   
   Available commands:
-  help            display this help text
+  help|--help     display this help text
+  --version       display current version
+  home            print the path where cpbm scripts reside
+
   unpack          unpack a CPROVER benchmark package
   update          update a CPROVER benchmark package
   init            create a CPROVER benchmark package
@@ -87,7 +90,9 @@ fi
 
 shift
 case "$CMD" in 
-  help) show_help;;
+  help|--help) show_help;;
+  --version) cat $SCRIPT_HOME/VERSION;;
+  home) echo $SCRIPT_HOME;;
   unpack) $SCRIPT_HOME/unpack.sh $@;;
   update) $SCRIPT_HOME/update.sh $@;;
   init) $SCRIPT_HOME/update.sh --init $@;;
@@ -99,4 +104,6 @@ case "$CMD" in
   graph) $SCRIPT_HOME/make_graph.pl $@;;
   *) die "Unknown command $CMD" ;;
 esac
+
+exit 0
 

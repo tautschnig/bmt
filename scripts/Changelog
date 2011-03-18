@@ -10,6 +10,7 @@
 	cilly from running the linker
 	* parse-rr-aa.pl: Added parser for experiments using LLVM and an
 	implementation of Rugina and Rinard's pointer analysis
+	* cpbm: Added --help, --version, home options
 
 2011-03-14  Michael Tautschnig  <michael.tautschnig@comlab.ox.ac.uk>
 
