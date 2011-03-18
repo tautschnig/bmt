@@ -191,7 +191,10 @@ Each of these three steps permits a number of customizations:
   output for each verification tool. These parsers are perl scriptlets found in
   the parse-*.pl file of the CPROVER benchmarking distribution. To produce
   additional columns in the CSV file simply add further patterns to these
-  parsers or copy and adapt one of the existing parsers.
+  parsers or copy and adapt one of the existing parsers. New parsers are
+  preferably added to the distribution, but can also be put in the cprover/
+  directory. If a parser exists both in cprover/ and in the distribution, the
+  former will be used.
 
 - The LaTeX table is generated using cpbm table, which takes as arguments a CSV
   file and one or more column names that shall be included (in the specified

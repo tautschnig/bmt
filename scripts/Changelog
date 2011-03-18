@@ -5,6 +5,7 @@
 	support all [a-z]+ filename suffixes; print the file name being processed to
 	stderr
 	* unpack.sh, update.sh: Support plain tar archives
+	* README: Documented parser lookup in make_csv.pl
 
 2011-03-14  Michael Tautschnig  <michael.tautschnig@comlab.ox.ac.uk>
 
