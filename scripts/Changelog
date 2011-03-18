@@ -8,6 +8,9 @@
 	overridden; added more comments
 	* make_csv.pl: Print benchmark result lines sorted by file name; benchmark
 	name is without file suffix and claim name is omitted if ALL_CLAIMS
+	* make_table.pl: Escape _ in LaTeX output of values, print floating point
+	numbers with rounding to three digits, make columns suitable and fixed width,
+	beautify headers using multicolumn
 
 2011-03-17  Michael Tautschnig  <michael.tautschnig@comlab.ox.ac.uk>
 

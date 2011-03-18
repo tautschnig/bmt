@@ -70,7 +70,8 @@ print <<'EOF';
 EOF
 print '  \begin{tabular}{' . "l" x scalar(@ARGV) . "}\n";
 print "  \\toprule\n";
-print join(" & ", @ARGV) . "\\\\ \\midrule\n";
+print "   \\multicolumn{1}{c}{" . join("} & \n   \\multicolumn{1}{c}{",
+  @ARGV) . "}\\\\ \\midrule\n";
 
 my %globals = ();
 
@@ -80,6 +81,9 @@ my $arref = $csv->getline($CSV);
 defined($arref) or die "Failed to parse headers\n";
 $csv->column_names(@$arref);
 
+my %columns = ();
+$columns{$_} = { width => 0, data => [] } foreach (@ARGV);
+
 while (my $row = $csv->getline_hr($CSV)) {
   foreach (qw(command timeout uname cpuinfo meminfo memlimit)) {
     defined($row->{$_}) or die "No $_ data in table\n";
@@ -87,8 +91,23 @@ while (my $row = $csv->getline_hr($CSV)) {
     $globals{$_}{$row->{$_}} = 1;
   }
   
+  foreach my $c (@ARGV) {
+    my $val = defined($row->{$c}) ? $row->{$c} : "n/a";
+    $val =~ s/_/\\_/g;
+    $val = sprintf("%.3f", $val) if ($val =~ /^\d+\.\d+$/);
+    $columns{$c}{width} = length($val) + 1
+      if ($columns{$c}{width} < (length($val) + 1));
+    push @{ $columns{$c}{data} }, $val;
+  }
+}
+
+while (scalar(@{ $columns{$ARGV[0]}{data} })) {
   my @data = ();
-  push @data, defined($row->{$_}) ? $row->{$_} : "n/a" foreach (@ARGV);
+  foreach my $c (@ARGV) {
+    my $val = shift @{ $columns{$c}{data} };
+    my $minus = ($val =~ /^\d/) ? "" : "-";
+    push @data, sprintf("%$minus$columns{$c}{width}s ", $val);
+  }
   print join(" & ", @data) . "\\\\\n";
 }
 
