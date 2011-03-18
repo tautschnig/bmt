@@ -1,3 +1,8 @@
+2011-03-18  Michael Tautschnig  <michael.tautschnig@comlab.ox.ac.uk>
+
+	* parse-{cbmc,satabs,loopfrog,wolverine,scratch}.pl: Move previous
+	parse-cprover.pl to one parser per tool, currently all sharing the same code
+
 2011-03-17  Michael Tautschnig  <michael.tautschnig@comlab.ox.ac.uk>
 
 	* verify.sh: Ignore errors from $TOOL --version; check for executability
