@@ -32,8 +32,9 @@ cprover/verified.cpachecker.symbpredabsCPA: TOOL_OPTS += -config $(CPACHECKER_HO
 cprover/verified.blast.%: TOOL := pblast.opt
 cprover/verified.blast.dfl: TOOL_OPTS += 
 
-# execute default rules
-# any of these rules may be overridden by specifying them in this file
+# execute default rules using the variables defined above
+export
+# any of these rules may be overridden by defining rules below
 %:
 	$(MAKE) -f $(shell cpbm home)/rules.cpbm.generic $@
 
