@@ -149,6 +149,9 @@ case $SOURCE in
   *.tar.gz|*.tgz)
     tar xz --no-same-owner --no-overwrite-dir --strip-components=1 -f $SOURCE -C $TMP_UNPACK
     ;;
+  *.tar)
+    tar x --no-same-owner --no-overwrite-dir --strip-components=1 -f $SOURCE -C $TMP_UNPACK
+    ;;
   *.tar.bz2)
     tar xj --no-same-owner --no-overwrite-dir --strip-components=1 -f $SOURCE -C $TMP_UNPACK
     ;;

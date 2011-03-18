@@ -118,6 +118,10 @@ case $SOURCE in
     tar xz --no-same-owner --no-overwrite-dir --strip-components=1 -f $SOURCE -C $TMP_UNPACK
     mv $TMP_UNPACK $PKG_NAME
     ;;
+  *.tar)
+    tar x --no-same-owner --no-overwrite-dir --strip-components=1 -f $SOURCE -C $TMP_UNPACK
+    mv $TMP_UNPACK $PKG_NAME
+    ;;
   *.tar.bz2)
     tar xj --no-same-owner --no-overwrite-dir --strip-components=1 -f $SOURCE -C $TMP_UNPACK
     mv $TMP_UNPACK $PKG_NAME
