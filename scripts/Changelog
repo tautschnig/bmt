@@ -1,0 +1,12 @@
+2011-03-17  Michael Tautschnig  <michael.tautschnig@comlab.ox.ac.uk>
+
+	* verify.sh: Ignore errors from $TOOL --version; check for executability
+	* make_csv.pl: Use cprover/ as primary search path for log parser snippet;
+	support all [a-z]+ filename suffixes; print the file name being processed to
+	stderr
+	* unpack.sh, update.sh: Support plain tar archives
+
+2011-03-14  Michael Tautschnig  <michael.tautschnig@comlab.ox.ac.uk>
+
+	* Initial release.
+
