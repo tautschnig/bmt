@@ -39,7 +39,7 @@
 # THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-# build a LaTeX table of results
+# build a CSV table of results
 
 use strict;
 use warnings FATAL => qw(uninitialized);
@@ -63,6 +63,7 @@ my $file = $ARGV[1];
 
 use File::Basename qw(dirname);
 use lib dirname($0);
+use lib "cprover/";
 require "parse-$config.pl";
 
 sub parse_description {
@@ -175,11 +176,12 @@ open RESULTS, "<$file" or die "File $file not found\n";
 while (<RESULTS>) {
   chomp;
   next unless (/^LOGFILE:\s+(\S+)$/);
+  print STDERR "Parsing $1\n";
   defined($results{$1}) and die "Duplicate log file $1\n";
   my $fname = $1;
   $results{$fname} = ();
   my $bm_name = $fname;
-  ($bm_name =~ /^.*\/results\.[^\/]+\/(\S+\.(bin|i))_(\S+)_\d{4}-\d\d-\d\d_\d{6}_.{6}\.log$/)
+  ($bm_name =~ /^.*\/results\.[^\/]+\/(\S+\.([a-z]+))_(\S+)_\d{4}-\d\d-\d\d_\d{6}_.{6}\.log$/)
     or die "Don't know how to extract benchmark name from log file name $fname\n";
   $bm_name = "$1:$3";
   $results{$fname}{"Benchmark"} = $bm_name;
