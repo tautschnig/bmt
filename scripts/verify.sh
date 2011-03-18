@@ -103,6 +103,8 @@ EOF
 }
 
 run_tool() {
+  test -x $TOOL || die "$TOOL is not an executable"
+
   TMP_FILES="$TMP_FILES .smv_lock cegar_tmp_abstract.warn \
     cegar_tmp_abstract.smv cegar_tmp_abstract.stats \
     cegar_tmp_abstract.out cegar_tmp_abstract.update \
@@ -126,7 +128,7 @@ run_tool() {
       version_info="no info"
       ;;
     *)
-      version_info=`$TOOL --version`
+      version_info=`$TOOL --version || true`
       ;;
   esac
   
