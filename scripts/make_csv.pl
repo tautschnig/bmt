@@ -181,9 +181,9 @@ while (<RESULTS>) {
   my $fname = $1;
   $results{$fname} = ();
   my $bm_name = $fname;
-  ($bm_name =~ /^.*\/results\.[^\/]+\/(\S+\.([a-z]+))_(\S+)_\d{4}-\d\d-\d\d_\d{6}_.{6}\.log$/)
+  ($bm_name =~ /^.*\/results\.[^\/]+\/(\S+)\.[a-z]+_(\S+)_\d{4}-\d\d-\d\d_\d{6}_.{6}\.log$/)
     or die "Don't know how to extract benchmark name from log file name $fname\n";
-  $bm_name = "$1:$3";
+  $bm_name = ($2 eq "ALL_CLAIMS") ? $1 : "$1:$2";
   $results{$fname}{"Benchmark"} = $bm_name;
   &parse_file($fname, \%{ $results{$fname} });
 }
@@ -202,7 +202,7 @@ unshift @headings, "Log File";
 $csv->combine(@headings) or die "Error: $csv->error_input()\n";
 print $csv->string() . "\n";
 
-foreach my $f (keys %results) {
+foreach my $f (sort keys %results) {
   my @row = ();
   push @row, $f;
   foreach my $field (keys %all_fields) {

@@ -6,6 +6,8 @@
 	* rules.template, rules.cpbm.generic: Moved all generally useful rules to
 	rules.cpbm.generic that is called from default rules file; all targets may be
 	overridden; added more comments
+	* make_csv.pl: Print benchmark result lines sorted by file name; benchmark
+	name is without file suffix and claim name is omitted if ALL_CLAIMS
 
 2011-03-17  Michael Tautschnig  <michael.tautschnig@comlab.ox.ac.uk>
 
