@@ -1,3 +1,8 @@
+2011-03-19  Michael Tautschnig  <michael.tautschnig@comlab.ox.ac.uk>
+
+	* make_web.pl, cpbm, rules.cpbm.generic: Added command to generate an HTML
+	table and collect the log files for web publication
+
 2011-03-18  Michael Tautschnig  <michael.tautschnig@comlab.ox.ac.uk>
 
 	* parse-{cbmc,satabs,loopfrog,wolverine,scratch}.pl: Move previous

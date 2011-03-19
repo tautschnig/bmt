@@ -79,13 +79,16 @@ graph: csv
 	test -d cprover
 	cpbm graph cprover/results.$(CONFIG).csv
 
+web: csv
+	test -d cprover
+	cpbm web cprover/results.$(CONFIG).csv cprover/results.$(CONFIG).web
 
 # cleanup
 clean:
 	test -d cprover
 	rm -rf results.* build
 	rm -f cprover/binaries.* cprover/verified.*
-	rm -f cprover/results.*
+	rm -rf cprover/results.*
 
-.PHONY: clean build verify csv table graph
+.PHONY: clean build verify csv table graph web
 

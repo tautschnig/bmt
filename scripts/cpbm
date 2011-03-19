@@ -76,6 +76,7 @@ show_help() {
   csv             produce a CSV table from benchmark runs
   table           produce a LaTeX table from CSV
   graph           produce GNUplot scripts for box and scatter plots
+  web             generate HTML table and collect log files for web publication
 EOF
 }
 
@@ -102,6 +103,7 @@ case "$CMD" in
   csv) $SCRIPT_HOME/make_csv.pl $@;;
   table) $SCRIPT_HOME/make_table.pl $@;;
   graph) $SCRIPT_HOME/make_graph.pl $@;;
+  web) $SCRIPT_HOME/make_web.pl $@;; 
   *) die "Unknown command $CMD" ;;
 esac
 
