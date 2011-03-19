@@ -4,11 +4,10 @@ list_claims.sh usr/share/cpbm/
 make_csv.pl usr/share/cpbm/
 make_graph.pl usr/share/cpbm/
 make_table.pl usr/share/cpbm/
-parse-blast.pl usr/share/cpbm/
-parse-cpachecker.pl usr/share/cpbm/
-parse-cprover.pl usr/share/cpbm/
-parse-rr-aa.pl usr/share/cpbm/
+make_web.pl usr/share/cpbm/
+parse-*.pl usr/share/cpbm/
 rules.template usr/share/cpbm/
+rules.cpbm.generic usr/share/cpbm/
 unpack.sh usr/share/cpbm/
 update.sh usr/share/cpbm/
 verify.sh usr/share/cpbm/
