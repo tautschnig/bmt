@@ -1,11 +1,11 @@
-Description: Upstream changes introduced in version 0.1-1
+Description: Upstream changes introduced in version 0.2-1
  This patch has been created by dpkg-source during the package build.
  Here's the last changelog entry, hopefully it gives details on why
  those changes were made:
  .
- cpbm (0.1-1) unstable; urgency=low
+ cpbm (0.2-1) unstable; urgency=low
  .
-   * Initial release (Closes: #nnnn)
+   * New upstream version.
  .
  The person named in the Author field signed this changelog entry.
 Author: Michael Tautschnig <mt@debian.org>
@@ -23,14 +23,14 @@ Forwarded: <no|not-needed|url proving that it has been forwarded>
 Reviewed-By: <name and email of someone who approved the patch>
 Last-Update: <YYYY-MM-DD>
 
---- cpbm-0.1.orig/cpbm
-+++ cpbm-0.1/cpbm
-@@ -74,7 +74,7 @@ show_help() {
- EOF
+--- cpbm-0.2.orig/cpbm
++++ cpbm-0.2/cpbm
+@@ -81,7 +81,7 @@ EOF
+ }
  
  SELF=$0
 -SCRIPT_HOME=`dirname $0`
-+SCRIPT_HOME=/usr/share/cpbm/
++SCRIPT_HOME=/usr/share/cpbm
  CMD=$1
  
  if [ $# -lt 1 ] ; then
