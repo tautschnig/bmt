@@ -8,7 +8,7 @@ version=3
 
 # Uncomment to examine a Webpage
 # <Webpage URL> <string match>
-http://www.cprover.org/benchmarks/ cpbm-(.*)\.tar\.gz
+http://www.cprover.org/software/benchmarks/ cpbm-(.*)\.tar\.gz
 
 # Uncomment to examine a Webserver directory
 #http://www.example.com/pub/cpbm-(.*)\.tar\.gz
