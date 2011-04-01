@@ -54,7 +54,7 @@ sub parse_log {
     chomp;
     return 1 if (/^###############################################################################$/);
 
-    if (/^\*\*\*\* Verification\s+(\S+)$/) {
+    if (/^\*\*\*\* Verification\s+(\S+)/) {
       $hash->{Result} = "$1";
     } elsif (/^ITERATION \((backtrack|decision)\) (\d+)$/) {
       $hash->{Iterations} = $2;
