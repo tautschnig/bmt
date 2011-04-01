@@ -8,7 +8,7 @@ Homepage: http://www.cprover.org/software/benchmarks
 
 Package: cpbm
 Architecture: all
-Depends: ${misc:Depends}, gcc, make, libtext-csv-perl
+Depends: ${perl:Depends}, ${misc:Depends}, gcc, make, libtext-csv-perl
 Recommends: wget
 Suggests: ocaml-cil, runlim, gnuplot
 Description: CPROVER benchmarking framework
