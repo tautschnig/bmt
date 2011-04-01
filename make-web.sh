@@ -1,19 +1,21 @@
 #!/bin/bash
 
-set -e
+set -evx
 
 mv pkgs pkgs.src
 pkgs=`ls pkgs.src`
 mkdir pkgs
 cd pkgs.src
 for i in $pkgs ; do
-  [ -d $i ] || continue
+  [ -d $i ] || continue
   ./make-pkg.sh $i
   mv $i.cprover-bm.tar.gz ../pkgs/
 done
+cd ..
 
-rsync --archive -L --delete --ignore=".svn" webpage/ /fs/website/people/michael.tautschnig/cpbm
+rsync --progress --archive -L --delete --exclude=".svn" webpage/ /fs/website/people/michael.tautschnig/cpbm
+chmod -R a+rX /fs/website/people/michael.tautschnig/cpbm
 
-rm -r pkgs.src
+rm -r pkgs
 mv pkgs.src pkgs
 

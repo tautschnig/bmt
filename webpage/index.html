@@ -64,6 +64,11 @@ The benchmarking toolkit consists of three main components:
 All steps are performed by subcommands of the main <b>cpbm</b> command. Type
 <b>cpbm help</b> to get the list of all subcommands.
 
+<p>
+Please report problems, bugs, questions, suggestions to <a
+  href="mailto:michael.tautschnig@comlab.ox.ac.uk">Michael Tautschnig</a>.
+</p>
+
 <h2>
 Download
 </h2>
@@ -72,7 +77,7 @@ Download
 Download our benchmarking framework as <a
   href="releases/cpbm-0.4.tar.gz">tarball</a> or as
 <a href="releases/cpbm_0.4-1_all.deb">Debian/Ubuntu package</a>.
-When using the .tar.gz archive, extract the archive and add scripts/ to
+When using the .tar.gz archive, extract the archive and add cpbm-0.4 to
 your PATH enviroment variable. For the Debian/Ubuntu package: install it
 using <b>dpkg -i cpbm_0.4-1_all.deb</b>.
 </p>
@@ -242,7 +247,7 @@ Archive management commands
   </li>
 
   <li>
-  <b>cpbm init</b> and <b>cpbm update</b>: Creates and maintains a &lt;NAME&gt;.cprover-bm.tar.gz
+  <b>cpbm init</b> and <b>cpbm update</b>: Create and maintain a &lt;NAME&gt;.cprover-bm.tar.gz
   file. This file is initially created in the parent directory by running <b>cpbm
   init &lt;SOURCE ARCHIVE&gt;</b> from within directory &lt;NAME&gt; resulting from manually
   unpacking &lt;SOURCE ARCHIVE&gt;. This init step creates the cprover/ directory and
@@ -322,13 +327,13 @@ Benchmark Execution
 </h2>
 
 <p>
-<b>cpbm init</b>, as described above, create as template the cprover/rules file (a
+<b>cpbm init</b>, as described above, creates as template the cprover/rules file (a
 Makefile). For most basic use cases filling in the names of the benchmarks to be
 run (e.g., all C files without the .c suffix) in the BENCHMARKS = XXX line and
 choosing a suitable default configuration in CONFIG = XXX (see examples in there)
 will suffice to produce a working benchmark package. The file may, however, be
 fully customized as deemed necessary. The only assumption made by cpbm is that
-<b>cprover/rules clean</b> performs a cleanup.  Remember to run cpbm update before
+<b>cprover/rules clean</b> performs a cleanup.  Remember to run <b>cpbm update</b> before
 distributing the .cprover-bm.tar.gz file.
 </p>
 

@@ -66,7 +66,7 @@ Archive management commands
   the contents of the original source archive, unpacks the cprover directory in
   <NAME>, and applies patches from cprover/patches, if any.
   
-- cpbm init and cpbm update: Creates and maintains a <NAME>.cprover-bm.tar.gz
+- cpbm init and cpbm update: Create and maintain a <NAME>.cprover-bm.tar.gz
   file. This file is initially created in the parent directory by running cpbm
   init <SOURCE ARCHIVE> from within directory <NAME> resulting from manually
   unpacking <SOURCE ARCHIVE>. This init step creates the cprover/ directory and
@@ -117,7 +117,7 @@ Usage Example
 Benchmark Execution
 ===================
  
-cpbm init, as described above, create as template the cprover/rules file (a
+cpbm init, as described above, creates as template the cprover/rules file (a
 Makefile). For most basic use cases filling in the names of the benchmarks to be
 run (e.g., all C files without the .c suffix) in the BENCHMARKS = XXX line and
 choosing a suitable default configuration in CONFIG = XXX (see examples in there)
