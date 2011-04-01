@@ -1,3 +1,7 @@
+2011-03-23  Michael Tautschnig  <mt@debian.org>
+
+	* cil_wrapper.sh: Properly handle single source file case
+
 2011-03-21  Michael Tautschnig  <mt@debian.org>
 
 	* README: Document new web target
