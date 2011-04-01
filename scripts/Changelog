@@ -1,3 +1,7 @@
+2011-03-21  Michael Tautschnig  <mt@debian.org>
+
+	* README: Document new web target
+
 2011-03-19  Michael Tautschnig  <michael.tautschnig@comlab.ox.ac.uk>
 
 	* make_web.pl, cpbm, rules.cpbm.generic: Added command to generate an HTML

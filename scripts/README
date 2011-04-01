@@ -185,7 +185,13 @@ $ cprover/rules graph
 furthermore a GNUplot script is produced which may be copied or piped into
 the gnuplot command.
 
-Each of these three steps permits a number of customizations:
+$ cprover/rules web
+
+collects all log files in a new directory cprover/results.$CONFIG.web plus an
+index.html file that contains an HTML formatted version of the CSV table. Each
+benchmark links to the respective log file.
+
+These steps permits a number of customizations:
 
 - The CSV data is produced by cpbm csv, which uses a specific parser of the
   output for each verification tool. These parsers are perl scriptlets found in
