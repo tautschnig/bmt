@@ -29,7 +29,7 @@ $ cd linux-2.6.19-ddverify
 Run the default benchmark configuration and produce a LaTeX table
 $ cprover/rules -j4 table
 
-Produce an additional GNUplot script and diplay the graph
+Produce an additional GNUplot script and display the graph
 $ cprover/rules graph | gnuplot
 
 
@@ -40,7 +40,7 @@ Benchmarks consist of two files: (1) an original source archive as obtained from
 its original authors, without modification and (2) a corresponding
 <NAME>.cprover-bm.tar.gz file that contains all modifications, execution scripts,
 and other helpers. This design is inspired by Debian v3 source packages and may
-thus sound familiar to people who are used to working with Debian packages. 
+thus sound familiar to people who are used to working with Debian packages.
 
 (1) The original source archive must be a .zip, .tar.gz, .tgz, or .tar.bz2
     archive. If the authors of the software to be benchmarked do not offer such
@@ -120,7 +120,7 @@ Benchmark Execution
 cpbm init, as described above, create as template the cprover/rules file (a
 Makefile). For most basic use cases filling in the names of the benchmarks to be
 run (e.g., all C files without the .c suffix) in the BENCHMARKS = XXX line and
-chosing a suitable default configuration in CONFIG = XXX (see examples in there)
+choosing a suitable default configuration in CONFIG = XXX (see examples in there)
 will suffice to produce a working benchmark package. The file may, however, be
 fully customized as deemed necessary. The only assumption made by cpbm is that
 `cprover/rules clean` performs a cleanup.  Remember to run cpbm update before

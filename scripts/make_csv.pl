@@ -124,7 +124,7 @@ sub parse_description {
       /^MemTotal:\s+(\d+) kB/ or next;
       $hash->{$mode} = "$1kb";
     } elsif ($mode eq "meminfo_osx") {
-      defined($hash->{meminfo}) or $hash->{$mode} = "0kb";
+      defined($hash->{meminfo}) or $hash->{meminfo} = "0kb";
       /^\s+Size:\s+(\d+)\s+GB/ or next;
       my $banksize = $1 * 1024 * 1024;
       ($hash->{meminfo} =~ /^(\d+)kb$/) or die "Invalid mem info\n";
