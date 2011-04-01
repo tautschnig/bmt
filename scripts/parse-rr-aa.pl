@@ -50,6 +50,7 @@ sub parse_log {
   my %threads = ();
     
   $hash->{Result} = "FAILED";
+  $hash->{instcount} = 0;
 
   while (<$LOG>) {
     chomp;
@@ -71,6 +72,8 @@ sub parse_log {
       $threads{$2}{max_iter} = $threads{$2}{max_iter} < $3 ? $3 : $threads{$2}{max_iter};
       defined($threads{$2}{per_iter}{$3}) and die "Iteration timer already seen\n";
       $threads{$2}{per_iter}{$3} = $1;
+    } elsif (/^\s*(\d+) instcount - Number of/) {
+      $hash->{instcount} += $1;
     }
   }
       

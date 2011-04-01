@@ -1,9 +1,13 @@
-2011-03-23  Michael Tautschnig  <mt@debian.org>
+2011-03-28  Michael Tautschnig  <michael.tautschnig@comlab.ox.ac.uk>
+
+	* parse-rr-aa.pl: Collect instruction counts 
+
+2011-03-23  Michael Tautschnig  <michael.tautschnig@comlab.ox.ac.uk>
 
 	* cil_wrapper.sh: Properly handle single source file case
 	* rules.cpbm.generic: Force SHELL to /bin/bash to support trap ERR
 
-2011-03-21  Michael Tautschnig  <mt@debian.org>
+2011-03-21  Michael Tautschnig  <michael.tautschnig@comlab.ox.ac.uk>
 
 	* README: Document new web target
 	* parse-rr-aa.pl: Include time of "repair iterations" in output
