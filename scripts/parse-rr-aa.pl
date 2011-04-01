@@ -49,7 +49,7 @@ sub parse_log {
 
   my %threads = ();
     
-  $hash->{Result} = "FAILED";
+  $hash->{Result} = "ERROR";
   $hash->{instcount} = 0;
 
   while (<$LOG>) {

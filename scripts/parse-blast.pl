@@ -46,6 +46,8 @@ use warnings FATAL => qw(uninitialized);
 
 sub parse_log {
   my ($LOG, $hash) = @_;
+  
+  $hash->{Result} = "ERROR";
 
   while (<$LOG>) {
     chomp;

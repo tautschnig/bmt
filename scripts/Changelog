@@ -6,6 +6,7 @@
 	* parse-ai.pl: New results parser for CPROVER ai tool
 	* unpack.sh, update.sh: Exit with proper error message if source archive
 		contains extra files
+	* parse-*.pl: Set default result to ERROR
 
 2011-03-28  Michael Tautschnig  <michael.tautschnig@comlab.ox.ac.uk>
 
