@@ -4,6 +4,8 @@
 	* verify.sh, make_csv.pl: Support for Mac OS X, mingw32 and cygwin
 	* README: Updated (future) home URL
 	* parse-ai.pl: New results parser for CPROVER ai tool
+	* unpack.sh, update.sh: Exit with proper error message if source archive
+		contains extra files
 
 2011-03-28  Michael Tautschnig  <michael.tautschnig@comlab.ox.ac.uk>
 

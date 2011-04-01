@@ -142,6 +142,8 @@ case $SOURCE in
     unzip -n -d $TMP_UNPACK $SOURCE
     [ `find $TMP_UNPACK -maxdepth 1 -type d | wc -l` -eq 2 ] || \
       die "Source $SOURCE must contain exactly one directory"
+    [ `find $TMP_UNPACK -maxdepth 1 | wc -l` -eq 2 ] || \
+      die "Source $SOURCE must not contain anything other than one directory"
     mv $TMP_UNPACK/* ${TMP_UNPACK}_
     rmdir $TMP_UNPACK
     mv ${TMP_UNPACK}_ $TMP_UNPACK
