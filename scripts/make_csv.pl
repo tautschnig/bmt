@@ -162,6 +162,7 @@ sub parse_exit {
 
     $mode = "exitcode", next if (/^### exit code:$/);
     $mode = "time", next if (/^### \/usr\/bin\/time -v:$/);
+    $mode = "time_osx", next if (/^### \/usr\/bin\/time -l:$/);
 
     if ($mode eq "exitcode") {
       /^(\d+)$/ or die "Unexpected exit code format\n";
@@ -176,6 +177,13 @@ sub parse_exit {
         $hash->{wallclock} = $1;
       } elsif (/^\s+Maximum resident set size \(kbytes\): (\d+)$/) {
         $hash->{maxmem} = "$1kb";
+      }
+    } elsif ($mode eq "time_osx") {
+      if (/^\s+(\d+\.\d+)\s+real\s+(\d+\.\d+)\s+user\s+(\d+\.\d+)\s+sys$/) {
+        $hash->{usertime} = $2;
+        $hash->{wallclock} = $1;
+      } elsif (/^\s+(\d+)\s+maximum resident set size$/) {
+        $hash->{maxmem} = ($1/1024) . "kb";
       }
     } else {
       die "Don't know what to do in mode $mode\n";

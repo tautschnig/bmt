@@ -109,8 +109,6 @@ run_tool() {
     cegar_tmp_abstract.smv cegar_tmp_abstract.stats \
     cegar_tmp_abstract.out cegar_tmp_abstract.update \
     cegar_tmp_smv_out1 cegar_tmp_smv_out2"
-  mktemp_local_prefix_suffix time_out stats .stat
-  BENCHMARKING="/usr/bin/time -v -o$time_out"
   exit_code=0
   tmp_files=$TMP_FILES
   mktemp_local_prefix_suffix claim_out "`basename $MAIN_SOURCE`_${CLAIM}_`date +%Y-%m-%d_%H%M%S`" .log
@@ -134,6 +132,8 @@ run_tool() {
   
   case `uname -s` in
     Linux|CYGWIN_*)
+      mktemp_local_prefix_suffix time_out stats .stat
+      BENCHMARKING="/usr/bin/time -v -o$time_out"
       cat > $claim_out <<EOF
 ### uname -a:
 `uname -a`
@@ -144,6 +144,7 @@ run_tool() {
 EOF
       ;;
     Darwin)
+      BENCHMARKING="/usr/bin/time -l"
       cat > $claim_out <<EOF
 ### uname -a:
 `uname -a`
@@ -190,9 +191,22 @@ EOF
 ###############################################################################
 ### exit code:
 $exit_code
+EOF
+  
+  case `uname -s` in
+    Linux|CYGWIN_*|MINGW32_*)
+      cat >> $claim_out <<EOF
 ### /usr/bin/time -v:
 `cat $time_out`
 EOF
+      ;;
+    Darwin)
+      cat >> $claim_out <<EOF
+### /usr/bin/time -l:
+`cat $claim_out | perl -n -e '$do = 1 if(/.* real .* user .* sys$/); print $_ if($do);'`
+EOF
+      ;;
+  esac
 
   echo "LOGFILE: $PWD/$claim_out"
 }
