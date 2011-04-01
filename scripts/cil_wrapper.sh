@@ -90,6 +90,7 @@ Usage: $SELF [OPTIONS] SOURCES ...
   Options:                              Purpose:
     -h|--help                           show help
     --no-cleanup                        don't remove generated files
+    --no-simplify                       only preprocess and merge files
     --blast                             translate __CPROVER_assert to ERROR labels
     -D macro                            define preprocessor macro
     -I path                             add to preprocessor search path
@@ -100,15 +101,16 @@ EOF
 
 SELF=$0
 
-opts=`getopt -n "$0" -o "hD:I:o:" --long "help,no-cleanup,blast" -- "$@"`
+opts=`getopt -n "$0" -o "hD:I:o:" --long "help,no-cleanup,no-simplify,blast" -- "$@"`
 eval set -- "$opts"
 
-unset DEFINES INCLUDES OUTPUT BLAST
+unset DEFINES INCLUDES OUTPUT NO_SIMPLIFY BLAST
 
 while true ; do
   case "$1" in
     -h|--help) usage ; exit 0;;
     --no-cleanup) NO_CLEANUP=1 ; shift 1;;
+    --no-simplify) NO_SIMPLIFY=1 ; shift 1;;
     --blast) BLAST=1 ; shift 1;;
     -D) DEFINES="$DEFINES -D$2" ; shift 2;;
     -I) INCLUDES="$INCLUDES -I$2" ; shift 2;;
@@ -157,15 +159,27 @@ done
 cd $d
 TMP_DIRS="../$d"
 if [ "x$OTHER_SOURCES" = "x" ] ; then
-CILLY_DONT_LINK_AFTER_MERGE=1 cilly --save-temps -x c --dosimplify --printCilAsIs --domakeCFG -o `basename $OUTPUT` $preproc_files
-cd ..
-TMP_DIRS="$d"
-mv $d/`basename $preproc_files .i`.cil.c $OUTPUT
+  if [ -n "$NO_SIMPLIFY" ] ; then
+    cd ..
+    TMP_DIRS="$d"
+    mv $d/`basename $preproc_files` $OUTPUT
+  else
+    CILLY_DONT_LINK_AFTER_MERGE=1 cilly --save-temps -x c --dosimplify --printCilAsIs --domakeCFG -o `basename $OUTPUT` $preproc_files
+    cd ..
+    TMP_DIRS="$d"
+    mv $d/`basename $preproc_files .i`.cil.c $OUTPUT
+  fi
 else
-CILLY_DONT_LINK_AFTER_MERGE=1 cilly --save-temps -x c --merge --keepmerged -o `basename $OUTPUT` $preproc_files
-CILLY_DONT_LINK_AFTER_MERGE=1 cilly --save-temps -x c --dosimplify --printCilAsIs --domakeCFG -o `basename $OUTPUT` `basename ${OUTPUT}_comb.c`
-cd ..
-TMP_DIRS="$d"
-mv $d/`basename ${OUTPUT}_comb.cil.c` $OUTPUT
+  CILLY_DONT_LINK_AFTER_MERGE=1 cilly --save-temps -x c --merge --keepmerged -o `basename $OUTPUT` $preproc_files
+  if [ -n "$NO_SIMPLIFY" ] ; then
+    cd ..
+    TMP_DIRS="$d"
+    mv $d/`basename ${OUTPUT}_comb.c` $OUTPUT
+  else
+    CILLY_DONT_LINK_AFTER_MERGE=1 cilly --save-temps -x c --dosimplify --printCilAsIs --domakeCFG -o `basename $OUTPUT` `basename ${OUTPUT}_comb.c`
+    cd ..
+    TMP_DIRS="$d"
+    mv $d/`basename ${OUTPUT}_comb.cil.c` $OUTPUT
+  fi
 fi
 

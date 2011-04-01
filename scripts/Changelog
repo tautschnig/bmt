@@ -1,6 +1,7 @@
 2011-03-28  Michael Tautschnig  <michael.tautschnig@comlab.ox.ac.uk>
 
-	* parse-rr-aa.pl: Collect instruction counts 
+	* parse-rr-aa.pl: Collect instruction counts
+	* cil_wrapper.sh: Added option --no-simplify
 
 2011-03-23  Michael Tautschnig  <michael.tautschnig@comlab.ox.ac.uk>
 
