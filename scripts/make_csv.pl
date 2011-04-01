@@ -76,7 +76,9 @@ sub parse_description {
 
     $mode = "uname", next if (/^### uname -a:$/);
     $mode = "cpuinfo", next if (/^### cat \/proc\/cpuinfo:$/);
+    $mode = "cpuinfo_osx", next if (/^### \/usr\/sbin\/system_profiler -detailLevel full SPHardwareDataType:$/);
     $mode = "meminfo", next if (/^### cat \/proc\/meminfo:$/);
+    $mode = "meminfo_osx", next if (/^### \/usr\/sbin\/system_profiler -detailLevel full SPMemoryDataType:$/);
     $mode = "date", next if (/^### date:$/);
     $mode = "user", next if (/^### user:$/);
     $mode = "ulimit", next if (/^### ulimit -a:$/);
@@ -90,20 +92,43 @@ sub parse_description {
       /^(\S+)\s+(\S+)\s+(\S+)\s+/ or die "Unexpected uname output\n";
       $hash->{$mode} = "$1 $3";
     } elsif ($mode eq "cpuinfo") {
-      /^(processor\s*:\s*(\d+))|(model name\s*:\s*(.*))$/ or next;
-      defined($hash->{$mode}) or $hash->{$mode} = "0x XXX";
+      defined($hash->{$mode}) or $hash->{$mode} = "0x XXX \@\@YYYMHz";
+      /^(processor\s*:\s*(\d+))|(model name\s*:\s*(.*))|(cpu MHz\s*:\s*(.*))$/ or next;
       if (defined($2)) {
         ($hash->{$mode} =~ /^(\d+)(x .*)$/) or die "Invalid cpu def\n";
         $hash->{$mode} = ($1 + 1) . $2;
-      } else {
+      } elsif (defined($4)) {
         my $model = $4;
-        ($hash->{$mode} =~ /^(\d+)x (.*)$/) or die "Invalid cpu def\n";
+        ($hash->{$mode} =~ /^(\d+)x (.*) @@(.*)MHz$/) or die "Invalid cpu def\n";
         ($2 eq "XXX") or ($2 eq $model) or die "NUMA system with both $model and $2 not supported\n";
-        $hash->{$mode} = "$1x $model";
+        $hash->{$mode} = "$1x $model \@\@$3MHz";
+      } elsif (defined($6)) {
+        my $freq = $6;
+        ($hash->{$mode} =~ /^(\d+)x (.*) @@(.*)MHz$/) or die "Invalid cpu def\n";
+        $hash->{$mode} = "$1x $2 \@\@${freq}MHz";
+      }
+    } elsif ($mode eq "cpuinfo_osx") {
+      defined($hash->{cpuinfo}) or $hash->{cpuinfo} = "1x XXX \@\@YYYMHz";
+      if (/^\s+Processor Name: (.*)$/) {
+        my $model = $1;
+        $hash->{cpuinfo} =~ s/XXX/$model/;
+      } elsif (/^\s+Processor Speed: (.*) GHz$/) {
+        my $freq = $1 * 1000;
+        $hash->{cpuinfo} =~ s/YYY/$freq/;
+      } elsif (/^\s+(Number Of Processors|Total Number Of Cores): (\d+)$/) {
+        my $count = $2;
+        ($hash->{cpuinfo} =~ /^(\d+)(x .*)$/) or die "Invalid cpu def\n";
+        $hash->{cpuinfo} = ($1 * $count) . $2;
       }
     } elsif ($mode eq "meminfo") {
       /^MemTotal:\s+(\d+) kB/ or next;
       $hash->{$mode} = "$1kb";
+    } elsif ($mode eq "meminfo_osx") {
+      defined($hash->{meminfo}) or $hash->{$mode} = "0kb";
+      /^\s+Size:\s+(\d+)\s+GB/ or next;
+      my $banksize = $1 * 1024 * 1024;
+      ($hash->{meminfo} =~ /^(\d+)kb$/) or die "Invalid mem info\n";
+      $hash->{meminfo} = ($1 + $banksize) . "kb";
     } elsif ($mode eq "date") {
       $hash->{$mode} = "$_";
     } elsif ($mode eq "user") {

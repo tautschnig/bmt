@@ -132,13 +132,39 @@ run_tool() {
       ;;
   esac
   
-  cat > $claim_out <<EOF
+  case `uname -s` in
+    Linux|CYGWIN_*)
+      cat > $claim_out <<EOF
 ### uname -a:
 `uname -a`
 ### cat /proc/cpuinfo:
 `cat /proc/cpuinfo`
 ### cat /proc/meminfo:
 `cat /proc/meminfo`
+EOF
+      ;;
+    Darwin)
+      cat > $claim_out <<EOF
+### uname -a:
+`uname -a`
+### /usr/sbin/system_profiler -detailLevel full SPHardwareDataType:
+`/usr/sbin/system_profiler -detailLevel full SPHardwareDataType`
+### /usr/sbin/system_profiler -detailLevel full SPMemoryDataType:
+`/usr/sbin/system_profiler -detailLevel full SPMemoryDataType`
+EOF
+      ;;
+    MINGW32_*)
+      cat > $claim_out <<EOF
+### uname -a:
+`uname -a`
+EOF
+      ;;
+    *)
+      die "Unsupported platform `uname -s`"
+      ;;
+  esac
+  
+  cat >> $claim_out <<EOF
 ### date:
 `date`
 ### user:
