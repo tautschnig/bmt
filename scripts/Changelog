@@ -7,6 +7,7 @@
 	* unpack.sh, update.sh: Exit with proper error message if source archive
 		contains extra files
 	* parse-*.pl: Set default result to ERROR
+	* VERSION: Release 0.4
 
 2011-03-28  Michael Tautschnig  <michael.tautschnig@comlab.ox.ac.uk>
 
