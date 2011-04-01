@@ -1,5 +1,8 @@
 #!/usr/bin/make -f
 
+# trap ... ERR isn't supported by dash, which is used on some systems
+SHELL = /bin/bash
+
 # add benchmark files without suffix here
 CHAR_DRIVERS = genrtc applicom \
 						 	 watchdog/i8xx_tco watchdog/ib700wdt watchdog/machzwd watchdog/mixcomwd \
@@ -45,7 +48,7 @@ DDV_CHECKS = --check-spinlock \
 						 --check-tasklet --check-work-queue --check-timer --check-context
 
 cprover/verified.llvm.rr-aa: TOOL = $(realpath ../)/llvm-2.8/Release/bin/opt
-cprover/verified.llvm.rr-aa: TOOL_OPTS := -loop-unroll -rr-aa
+cprover/verified.llvm.rr-aa: TOOL_OPTS := -loop-unroll -rr-aa -instcount -stats -o=/dev/null
 
 cprover/results.llvm.%.csv: PARSER := rr-aa
 
