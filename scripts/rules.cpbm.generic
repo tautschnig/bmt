@@ -1,5 +1,8 @@
 #!/usr/bin/make -f
 
+# trap ... ERR isn't supported by dash, which is used on some systems
+SHELL = /bin/bash
+
 # building the source code
 ifeq ($(filter-out cpachecker.%,$(CONFIG)),)
   COMPILER ?= cpbm cillify -D__CPROVER_assert=__assert_fail -Dassert=__assert_fail

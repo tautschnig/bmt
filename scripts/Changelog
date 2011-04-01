@@ -1,6 +1,7 @@
 2011-03-23  Michael Tautschnig  <mt@debian.org>
 
 	* cil_wrapper.sh: Properly handle single source file case
+	* rules.cpbm.generic: Force SHELL to /bin/bash to support trap ERR
 
 2011-03-21  Michael Tautschnig  <mt@debian.org>
 
