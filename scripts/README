@@ -16,7 +16,7 @@ Benchmark Execution Example
 ===========================
 
 Download the benchmark package
-$ wget http://www.cprover.org/benchmarks/linux-2.6.19-ddverify.cprover-bm.tar.gz
+$ wget http://www.cprover.org/software/benchmarks/linux-2.6.19-ddverify.cprover-bm.tar.gz
 
 Unpack the kernel sources and the benchmark package
 $ cpbm unpack \

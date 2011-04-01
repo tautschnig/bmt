@@ -1,7 +1,8 @@
-2011-03-31  Michael Tautschnig  <mt@debian.org>
+2011-03-31  Michael Tautschnig  <michael.tautschnig@comlab.ox.ac.uk>
 
 	* verify.sh: Proper check for executable
 	* verify.sh, make_csv.pl: Support for Mac OS X, mingw32 and cygwin
+	* README: Updated (future) home URL 
 
 2011-03-28  Michael Tautschnig  <michael.tautschnig@comlab.ox.ac.uk>
 
