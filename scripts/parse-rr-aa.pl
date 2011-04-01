@@ -81,6 +81,7 @@ sub parse_log {
   my $max_time = 0;
   my $avg_time = 0;
   my $avg_it1_part = 0;
+  my $total_time_not_it1 = 0;
   foreach my $t (keys %threads) {
     $max_iter = $max_iter < $threads{$t}{max_iter} ? $threads{$t}{max_iter} : $max_iter;
     $avg_iter += $threads{$t}{max_iter};
@@ -88,6 +89,7 @@ sub parse_log {
     $avg_time += $threads{$t}{total_time};
     $avg_it1_part += $threads{$t}{per_iter}{1} / $threads{$t}{total_time}
       if ($threads{$t}{total_time} > 0.0);
+    $total_time_not_it1 += $threads{$t}{total_time} - $threads{$t}{per_iter}{1};
   }
   
   $hash->{maxiter} = $max_iter;
@@ -96,6 +98,7 @@ sub parse_log {
   $hash->{avgtime} = $avg_time / scalar(keys %threads);
   $hash->{avgit1part} = $avg_it1_part / scalar(keys %threads);
   $hash->{nthreads} = scalar(keys %threads);
+  $hash->{timenotit1} = $total_time_not_it1;
 }
 
 return 1;

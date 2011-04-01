@@ -1,6 +1,7 @@
 2011-03-21  Michael Tautschnig  <mt@debian.org>
 
 	* README: Document new web target
+	* parse-rr-aa.pl: Include time of "repair iterations" in output
 
 2011-03-19  Michael Tautschnig  <michael.tautschnig@comlab.ox.ac.uk>
 
