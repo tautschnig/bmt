@@ -1,0 +1,464 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>The CPROVER Benchmarking Toolkit</title>
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta http-equiv="Content-Script-Type" content="text/Javascript" />
+		<!--<style type="text/css">
+		    html{ cursor: default; background-color:#353535; }
+			body{ margin:0px; padding:0px; height:100%; }
+			span.sep{ font-size:16px; }
+			a.links{ color:#000000; text-decoration:none; }
+			a.links:hover{ color:#ffffff; background-color: #000000; }
+			#flashcontent {
+				display: block;
+				margin-left: auto;
+				margin-right: auto;
+			}	
+			#flashcontent p { color:white; padding:5px;}
+    </style>-->
+			
+		<script type="text/javascript" src="com/js/swfobject/swfobject.js"></script>		
+		<script type="text/javascript">
+			var flashvars = {};
+			var params = {};
+			
+			params.bgcolor = "#000000";
+			params.allowscriptaccess = "always";
+			
+			flashvars.videoPath = "movie.f4v";
+			flashvars.posterPath = "com/poster/myPosterFrame.jpg";
+			flashvars.skinPath = "com/skin/skin.swf";
+			
+			var stageW = 720;
+			var stageH = 422;
+			
+			var attributes = {};
+			attributes.id = "flashcontent";			
+			
+			swfobject.embedSWF("player.swf", "flashcontent", stageW, stageH, "9.0.0", false, flashvars, params, attributes);
+		</script>
+  </head>
+
+  <body>
+    <table width="800">
+      <tr>
+        <td>
+    <h1>CPROVER Benchmarking Toolkit</h1>
+
+The benchmarking toolkit consists of three main components:
+
+<ul>
+  <li>
+  Benchmark archive management tools
+  </li>
+  <li>
+  Benchmark execution helpers
+  </li>
+  <li>
+  Result evaluation
+  </li>
+</ul>
+
+All steps are performed by subcommands of the main <b>cpbm</b> command. Type
+<b>cpbm help</b> to get the list of all subcommands.
+
+<h2>
+Download
+</h2>
+
+<p>
+Download our benchmarking framework as <a
+  href="releases/cpbm-0.4.tar.gz">tarball</a> or as
+<a href="releases/cpbm_0.4-1_all.deb">Debian/Ubuntu package</a>.
+When using the .tar.gz archive, extract the archive and add scripts/ to
+your PATH enviroment variable. For the Debian/Ubuntu package: install it
+using <b>dpkg -i cpbm_0.4-1_all.deb</b>.
+</p>
+
+<h2>
+Available Benchmarks
+</h2>
+
+  <table class="bmtable">
+    <tr class="bmtable">
+      <th>Benchmark</th>
+      <th>Original Source</th>
+      <th>Local Copy</th>
+      <th>Benchmark Archive</th>
+    </tr>
+    <tr>
+      <td>Linux 2.6.19/DDVerify</td>
+      <td><a href="http://www.kernel.org/pub/linux/kernel/v2.6/linux-2.6.19.tar.bz2">kernel.org</a></td>
+      <td><a href="orig-src/linux-2.6.19.tar.bz2">linux-2.6.19.tar.bz2</a></td>
+      <td><a href="pkgs/linux-2.6.19-ddverify.cprover-bm.tar.gz">linux-2.6.19-ddverify.cprover-bm.tar.gz</a></td>
+    </tr>
+    <tr>
+      <td>Scratch</td>
+      <td><a href="http://www.cprover.org/scratch/download/scratch-0.1-benchmarks.tar.gz">www.cprover.org/scratch</a></td>
+      <td><a href="orig-src/scratch-0.1-benchmarks.tar.gz">scratch-0.1-benchmarks.tar.gz</a></td>
+      <td><a href="pkgs/scratch-benchmarks.cprover-bm.tar.gz">scratch-benchmarks.cprover-bm.tar.gz</a></td>
+    </tr>
+    <tr>
+      <td>Conflict Driven Learning</td>
+      <td><a href="http://www.comlab.ox.ac.uk/people/leopold.haller/cdfpl/cdfpl.tar.gz">Leo's page</a></td>
+      <td><a href="orig-src/cdfpl.tar.gz">cdfpl.tar.gz</a></td>
+      <td><a href="pkgs/cdfpl.cprover-bm.tar.gz">cdfpl.cprover-bm.tar.gz</a></td>
+    </tr>
+    <tr>
+      <td>Loopfrog: Lincoln Labs Corpora</td>
+      <td><a href="http://www.ll.mit.edu/mission/communications/ist/corpora/models-2007-11-06.tgz">Lincoln Labs Corpora</a></td>
+      <td><a href="orig-src/models-2007-11-06.tgz">models-2007-11-06.tgz</a></td>
+      <td><a href="pkgs/llcorpora-2007-11-06.cprover-bm.tar.gz">llcorpora-2007-11-06.cprover-bm.tar.gz</a></td>
+    </tr>
+    <tr>
+      <td>Loopfrog: Verisec</td>
+      <td><a href="http://www.cs.toronto.edu/~kelvin/benchmark/verisec-r421.tar.gz">Verisec Suite</a></td>
+      <td><a href="orig-src/verisec-r421.tar.gz">verisec-r421.tar.gz</a></td>
+      <td><a href="pkgs/verisec-r421.cprover-bm.tar.gz">verisec-r421.cprover-bm.tar.gz</a></td>
+    </tr>
+    <tr>
+      <td>NEC Labs: Atomicity Violations (1)</td>
+      <td><a href="http://www.nec-labs.com/~chaowang/pubDOC/atom.tar.gz">Chao Wang</a></td>
+      <td><a href="orig-src/atom.tar.gz">atom.tar.gz</a></td>
+      <td><a href="pkgs/atom-example.cprover-bm.tar.gz">atom-example.cprover-bm.tar.gz</a></td>
+    </tr>
+    <tr>
+      <td>NEC Labs: Atomicity Violations (2)</td>
+      <td><a href="http://www.nec-labs.com/~chaowang/pubDOC/predict-example.tar">Chao Wang</a></td>
+      <td><a href="orig-src/predict-example.tar">predict-example.tar</a></td>
+      <td><a href="pkgs/predict-example.cprover-bm.tar.gz">predict-example.cprover-bm.tar.gz</a></td>
+    </tr>
+  </table>
+
+<h2>
+Benchmark Execution Example 1
+</h2>
+
+<p>
+Download the benchmark package
+<pre>
+$ wget http://www.cprover.org/software/benchmarks/linux-2.6.19-ddverify.cprover-bm.tar.gz
+</pre>
+</p>
+
+<p>
+Unpack the kernel sources and the benchmark package
+<pre>
+$ cpbm unpack \
+  http://www.kernel.org/pub/linux/kernel/v2.6/linux-2.6.19.tar.bz2 \
+  linux-2.6.19-ddverify.cprover-bm.tar.gz
+</pre>
+</p>
+
+<p>
+Enter the new directory
+<pre>
+$ cd linux-2.6.19-ddverify
+</pre>
+</p>
+
+<p>
+Run the default benchmark configuration and produce a LaTeX table
+<pre>
+$ cprover/rules -j4 table
+</pre>
+</p>
+
+<p>
+Produce an additional GNUplot script and display the graph
+<pre>
+$ cprover/rules graph | gnuplot
+</pre>
+</p>
+
+<p>
+Build a web page providing an overview table and all log files in
+cprover/results.satabs.dfl.web/:
+<pre>
+$ cprover/rules web
+</pre>
+</p>
+
+<h2>Benchmark Execution Example 2</h2>
+
+<p>
+Take a look at the complete workflow using examples from the <a
+  href="http://samate.nist.gov/SRD/view.php">SAMATE Reference Dataset</a>.
+</p>
+
+<div id="flashcontent">
+  <p>This ScreenFlow video requires a more recent version of the Adobe Flash
+  Player to display.  Please update your version of the 
+  <a href="http://www.adobe.com/go/getflashplayer">Adobe Flash Player</a>.
+  </p>
+</div>
+
+<h2>
+Benchmark Archive Management
+</h2>
+
+<p>
+Benchmarks consist of two files: (1) an original source archive as obtained from
+its original authors, without modification and (2) a corresponding
+&lt;NAME&gt;.cprover-bm.tar.gz file that contains all modifications, execution scripts,
+and other helpers. This design is inspired by Debian v3 source packages and may
+thus sound familiar to people who are used to working with Debian packages.
+</p>
+
+<p>
+(1) The original source archive must be a .zip, .tar.gz, .tgz, or .tar.bz2
+    archive. If the authors of the software to be benchmarked do not offer such
+    an archive it should be built manually from whatever the authors provide as
+    source.
+</p>
+
+<p>
+(2) The &lt;NAME&gt;.cprover-bm.tar.gz is created and managed by <b>cpbm update</b> as
+    described below. The file ships a cprover/ directory that may contain
+    arbitrary files, but at least a Makefile cprover/rules must be provided. The
+    archive management scripts will populate a cprover/patches directory that
+    precisely describes all modification to original sources.
+</p>
+
+<p>
+The basic design of this archive solution is completely independent of the
+software to be benchmarked. Its main purpose is the precise description of
+changes to the original source that were made in order to benchmark some tool.
+</p>
+
+<h3>
+Archive management commands
+</h3>
+
+<ul>
+  <li>
+  <b>cpbm unpack</b>: Takes an archive of original source (or a URL to download the
+  archive from) and the corresponding benchmarking archive
+  &lt;NAME&gt;.cprover-bm.tar.gz. <b>cpbm unpack</b> then builds the directory &lt;NAME&gt; from
+  the contents of the original source archive, unpacks the cprover directory in
+  <NAME>, and applies patches from cprover/patches, if any.
+  </li>
+
+  <li>
+  <b>cpbm init</b> and <b>cpbm update</b>: Creates and maintains a &lt;NAME&gt;.cprover-bm.tar.gz
+  file. This file is initially created in the parent directory by running <b>cpbm
+  init &lt;SOURCE ARCHIVE&gt;</b> from within directory &lt;NAME&gt; resulting from manually
+  unpacking &lt;SOURCE ARCHIVE&gt;. This init step creates the cprover/ directory and
+  populates it with a template cprover/rules file. Once the
+  &lt;NAME&gt;.cprover-bm.tar.gz file has been created for the first time, it will
+  only be updated by <b>cpbm update</b>. To this end, <b>cpbm update &lt;SOURCE ARCHIVE&gt;</b>
+  unpacks the source archive into a temporary directory, applies patches
+  previously recorded in cprover/patches, and computes the diff between the
+  current directory and the contents of the patched source archive. If new
+  changes are found, these are recorded as new patches in cprover/patches. The
+  sequence of patches to be applied is stored in cprover/patches series. It is
+  recommended that automatically created patches are renamed to more descriptive
+  names.  Consequently such renamings must be reflected in
+  cprover/patches/series.
+  </li>
+</ul>
+
+<h3>
+Usage Example
+</h3>
+
+Creating a new benchmark suite, e.g., for the Linux kernel:
+
+<p>
+  Download the original sources from kernel.org:
+<pre>
+  $ wget http://www.kernel.org/pub/linux/kernel/v2.6/linux-2.6.19.tar.bz2
+</pre>
+</p>
+
+<p>
+  Manually unpack them:
+<pre>
+  $ tar xjf linux-2.6.19.tar.bz2
+</pre>
+</p>
+
+<p>
+  We rename the directory to get proper benchmark name "linux-2.6.19-foo"
+<pre>
+  $ mv linux-2.6.19 linux-2.6.19-foo
+  $ cd linux-2.6.19-foo
+</pre>
+</p>
+
+<p>
+  Create the basic benchmarking archive linux-2.6.19-foo.cprover-bm.tar.gz
+<pre>
+  $ cpbm init ../linux-2.6.19.tar.bz2
+</pre>
+</p>
+
+<p>
+  Edit some source files ... and record patches
+<pre>
+  $ cpbm update ../linux-2.6.19.tar.bz2
+</pre>
+</p>
+
+<p>
+  To make the benchmark source and all patches available for others to use
+  publish linux-2.6.19-foo.cprover-bm.tar.gz and the original source archive or
+  its URL.
+</p>
+
+Using the benchmark suite:
+
+<pre>
+  $ cpbm unpack http://www.kernel.org/pub/linux/kernel/v2.6/linux-2.6.19.tar.bz2 \
+    linux-2.6.19-foo.cprover-bm.tar.gz
+  $ cd linux-2.6.19-foo
+</pre>
+
+
+<h2>
+Benchmark Execution
+</h2>
+
+<p>
+<b>cpbm init</b>, as described above, create as template the cprover/rules file (a
+Makefile). For most basic use cases filling in the names of the benchmarks to be
+run (e.g., all C files without the .c suffix) in the BENCHMARKS = XXX line and
+choosing a suitable default configuration in CONFIG = XXX (see examples in there)
+will suffice to produce a working benchmark package. The file may, however, be
+fully customized as deemed necessary. The only assumption made by cpbm is that
+<b>cprover/rules clean</b> performs a cleanup.  Remember to run cpbm update before
+distributing the .cprover-bm.tar.gz file.
+</p>
+
+<p>
+The actual benchmark execution is then triggered by
+
+<pre>
+$ cprover/rules -j4 verify
+</pre>
+
+to perform verification of all benchmark instances in 4 parallel threads of
+execution with the default configuration. This step first induces a build of
+each benchmark from source, if necessary.
+</p>
+
+<p>
+To choose a different configuration for the verification run, override the
+CONFIG variable. For instance, to perform verification using CPAchecker's
+explicit analysis use
+
+<pre>
+$ cprover/rules -j4 verify CONFIG=cpachecker.explicit
+</pre>
+</p>
+
+
+<h3>
+Benchmark Execution Helpers
+</h3>
+
+Benchmark execution makes use of a number of helpers:
+
+<ul>
+  <li>
+  <b>cpbm cillify</b>: transform C sources using the C Intermediate Language tool to a
+  format suitable, e.g., for CPAchecker or BLAST (requires Cil installation).
+  </li>
+
+  <li>
+  <b>cpbm list-claims</b>: the CPROVER tools are able to selectively verify a chose
+  claim in a program under scrutiny. This tool lists the possible claims as
+  pairs &lt;CLAIM&gt;:&lt;STATUS&gt;, where &lt;CLAIM&gt; is the identifier used by the
+  verification tool and &lt;STATUS&gt; is UNKNOWN or TRUE, if a claim is trivially
+  satisfied. If the verification CONFIG does not support specific claims (as is
+  the case for all non-CPROVER tools), ALL_CLAIMS:UNKNOWN is return as pseudo
+  claim identifier and verification status.
+  </li>
+
+  <li>
+  <b>cpbm run</b>: actually executes the verification tool with the configured options
+  and produces a log file. This log file contains the output of the verification
+  tool plus environment information and statistics. All further benchmark
+  evaluation is based on such log files.
+  </li>
+</ul>
+
+
+<h2>
+Result Evaluation
+</h2>
+
+<p>
+The names of all log files produced by <b>cpbm run</b> will be listed in
+cprover/verified.$CONFIG. Performing
+
+<pre>
+$ cprover/rules csv
+</pre>
+
+yields a CSV (comma-separated value) formatted summary of all results in
+cprover/results.$CONFIG.csv. This file may be read using most spreadsheet
+programs for further manual inspection and evaluation. With cpbm, however, also
+LaTeX tables and GNUplot graphs may be produced:
+
+<pre>
+$ cprover/rules table
+</pre>
+
+yields a LaTeX summary of execution times and memory usage of all benchmark
+instances. With
+
+<pre>
+$ cprover/rules graph
+</pre>
+
+furthermore a GNUplot script is produced which may be copied or piped into
+the gnuplot command.
+
+<pre>
+$ cprover/rules web
+</pre>
+
+collects all log files in a new directory cprover/results.$CONFIG.web plus an
+index.html file that contains an HTML formatted version of the CSV table. Each
+benchmark links to the respective log file.
+</p>
+
+These steps permits a number of customizations:
+
+<ul>
+  <li>
+  The CSV data is produced by <b>cpbm csv</b>, which uses a specific parser of the
+  output for each verification tool. These parsers are perl scriptlets found in
+  the parse-*.pl file of the CPROVER benchmarking distribution. To produce
+  additional columns in the CSV file simply add further patterns to these
+  parsers or copy and adapt one of the existing parsers. New parsers are
+  preferably added to the distribution, but can also be put in the cprover/
+  directory. If a parser exists both in cprover/ and in the distribution, the
+  former will be used.
+  </li>
+
+  <li>
+  The LaTeX table is generated using <b>cpbm table</b>, which takes as arguments a CSV
+  file and one or more column names that shall be included (in the specified
+  order) in the LaTeX output. Consequently, adding further columns to CSV output
+  as described above also permits printing this output to LaTeX.
+  </li>
+
+  <li>
+  The GNUplot scripts may either be box plots of CPU time and memory usage or
+  scatter plots for comparison of two tools. For box plots an arbitrary number
+  of CSV files may be specified, whereas scatter plots require exactly two CSV
+  files.
+  </li>
+</ul>
+
+        </td>
+      </tr>
+    </table>
+
+  </body>
+</html>
+
