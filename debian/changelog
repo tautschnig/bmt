@@ -1,3 +1,9 @@
+cpbm (0.3-1) unstable; urgency=low
+
+  * New upstream version.
+
+ -- Michael Tautschnig <mt@debian.org>  Mon, 28 Mar 2011 15:42:45 +0100
+
 cpbm (0.2-1) unstable; urgency=low
 
   * New upstream version.
