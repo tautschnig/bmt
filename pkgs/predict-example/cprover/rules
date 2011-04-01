@@ -1,0 +1,27 @@
+#!/usr/bin/make -f
+
+# add benchmark files without suffix here
+BENCHMARKS = banking/banking indexer/indexer
+
+
+# select a default configuration, timeout and memory limit
+CONFIG = llvm.rr-aa
+PARSER = rr-aa
+
+# leave timeout and/or memory limit undefined to not use any limit
+TIMEOUT = 600
+# MAXMEM = 3500
+
+cprover/verified.llvm.rr-aa: TOOL = $(realpath ../)/llvm-2.8/Release/bin/opt
+cprover/verified.llvm.rr-aa: TOOL_OPTS := -loop-unroll -rr-aa -instcount -stats -o=/dev/null
+
+# execute default rules using the variables defined above
+export
+# any of these rules may be overridden by defining rules below
+%:
+	$(MAKE) -f $(shell cpbm home)/rules.cpbm.generic $@
+
+table: csv
+	test -d cprover
+	cpbm table cprover/results.$(CONFIG).csv Benchmark instcount nthreads usertime maxiter avgiter timenotit1
+

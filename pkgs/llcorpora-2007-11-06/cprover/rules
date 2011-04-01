@@ -1,13 +1,18 @@
 #!/usr/bin/make -f
 
+# add benchmark files without suffix here
 BENCHMARKS = $(basename $(shell find . -name "*.test_desc"))
 
-TIMEOUT = 60
-MAXMEM = 3500
+# select a default configuration, timeout and memory limit
 CONFIG = loopfrog.dfl
 # CONFIG = loopfrog.no-inv
 # CONFIG = cbmc.u5-nua
 
+# leave timeout and/or memory limit undefined to not use any limit
+TIMEOUT = 60
+# MAXMEM = 3500
+
+# example configuration - CPROVER tools
 TOOL_OPTS = --bounds-check --32
 cprover/verified.cbmc.u5-nua: TOOL_OPTS += --unwind 5 --no-unwinding-assertions
 cprover/verified.loopfrog.no-inv: TOOL_OPTS += --no-invariants
@@ -15,17 +20,26 @@ cprover/verified.satabs: TOOL_OPTS += --iterations 20
 cprover/verified.scratch.bf: TOOL_OPTS += --bug-finding
 cprover/verified.wolverine.u5: TOOL_OPTS += --unwind 5
 
+# execute default rules using the variables defined above
+export
+# any of these rules may be overridden by defining rules below
+%:
+	$(MAKE) -f $(shell cpbm home)/rules.cpbm.generic $@
+
+# trap ... ERR isn't supported by dash, which is used on some systems
+SHELL = /bin/bash
 
 # building the source code
 COMPILER = goto-cc --32
 SUFFIX = bin
 
-build::
+build:
 	test -d cprover
-	$(MAKE) -f cprover/rules cprover/binaries
+	$(MAKE) -f cprover/rules cprover/binaries.$(CONFIG)
 
-cprover/binaries: $(addsuffix .$(SUFFIX), $(addprefix build/, $(BENCHMARKS)))
-	rm -f $@
+cprover/binaries.$(CONFIG): $(addsuffix .$(SUFFIX), $(addprefix build/, $(BENCHMARKS)))
+	$(RM) $@
+	set -e ; trap '$(RM) $@' ERR ; \
 	for f in $^ ; do \
 	  echo $$f >> $@ ; \
 	done
@@ -36,22 +50,25 @@ build/%.$(SUFFIX): %.test_desc
 
 
 # verification rules
-verify:: build
+verify: build
 	test -d cprover
 	$(MAKE) -f cprover/rules cprover/verified.$(CONFIG)
 
-cprover/verified.$(CONFIG): TOOL ?= $(basename $(CONFIG))
-
 cprover/verified.$(CONFIG): $(addsuffix .vr, $(addprefix results.$(CONFIG)/, $(BENCHMARKS)))
+	set -e ; trap '$(RM) $@' ERR ; \
 	cat $^ > $@
 
 results.$(CONFIG)/%vr: build/%$(SUFFIX)
 	mkdir -p $(dir $@)
-	set -e ; cd $(dir $@) ; \
-	if [ "$(TOOL)" = "loopfrog" ] ; then \
+	set -e ; trap '$(RM) $(abspath $@)' ERR ; \
+	tool="$(TOOL)" ; if [ "x$$tool" = "x" ] ; then tool="$(basename $(CONFIG))" ; fi ; \
+	timeout="$(TIMEOUT)" ; if [ "x$$timeout" != "x" ] ; then timeout="--timeout $(TIMEOUT)" ; fi ; \
+	maxmem="$(MAXMEM)" ; if [ "x$$maxmem" != "x" ] ; then maxmem="--maxmem $(MAXMEM)" ; fi ; \
+	cd $(dir $@) ; \
+	if [ "$$tool" = "loopfrog" ] ; then \
 		claims="`sed -n '2{p;q}' $(realpath $*test_desc) | perl -p -e 's/^.*--testclaim\s+(\S+)(\s+.*)?$$/$$1/g'`:UNKNOWN" ; \
 	else \
-		claims=`list_claims.sh --$(TOOL) $(realpath $<) -- $(TOOL_OPTS)` ; \
+		claims=`cpbm list-claims --cmd $$tool $(realpath $<) -- $(TOOL_OPTS)` ; \
 	fi ; \
 	for c in $$claims ; do \
 		cl=`echo $$c | cut -f1 -d:` ; \
@@ -59,14 +76,7 @@ results.$(CONFIG)/%vr: build/%$(SUFFIX)
 		if [ "$$st" = "PASS: 0 FAIL: 1" ] ; then st="--invalid" ; \
 		elif [ "$$st" = "PASS: 1 FAIL: 0" ] ; then st="--valid" ; \
 		else echo "Found unexpected status $$st" 1>&2 ; exit 1 ; fi ; \
-		verify.sh --claim $$cl $$st --timeout $(TIMEOUT) --maxmem $(MAXMEM) --$(TOOL) $(realpath  $<) -- $(TOOL_OPTS) ; \
+	  cpbm run --claim $$cl $$st $$timeout $$maxmem --cmd $$tool $(realpath $<) -- $(TOOL_OPTS) ; \
 	done | tee $(abspath $@) ; \
 	exit $${PIPESTATUS[0]}
-
-
-# cleanup
-clean::
-	test -d cprover
-	rm -rf results.* build
-	rm -f cprover/binaries cprover/verified.*
 

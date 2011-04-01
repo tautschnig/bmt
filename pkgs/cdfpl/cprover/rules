@@ -1,0 +1,55 @@
+#!/usr/bin/make -f
+
+# add benchmark files without suffix here
+NEWTON = $(foreach bi,1 2 3,$(foreach bn,1 2 3 4 5 6 7 8,newton/newton.$(bn).$(bi)))
+TAYLOR1 = $(foreach bn,1 2 3 4 5 6 7 8,taylor1/sine.$(bn).0)
+TAYLOR2 = $(foreach bn,1 2 3 4 5 6 7 8,taylor2/square.$(bn).0)
+BENCHMARKS = $(NEWTON) $(TAYLOR1) $(TAYLOR2)
+
+# select a default configuration, timeout and memory limit
+CONFIG = cdfpl.dfl
+# CONFIG = cdfpl.nolearning
+# CONFIG = cdfpl.norand
+# CONFIG = cbmc.dfl
+
+# leave timeout and/or memory limit undefined to not use any limit
+TIMEOUT = 3600
+# MAXMEM = 3500
+
+# example configuration - CPROVER tools
+cprover/verified.cdfpl.%: TOOL := $(abspath .)/cdfpl
+cprover/verified.cdfpl.%: TOOL_OPTS := --inline --filter-dec-vars IN --proof-search
+cprover/verified.cdfpl.dfl: TOOL_OPTS += --dec-heur-rand
+cprover/verified.cdfpl.nolearning: TOOL_OPTS += --dec-heur-rand --disable-learning
+cprover/verified.cdfpl.norand: TOOL_OPTS +=
+
+cprover/results.cdfpl.%.csv: PARSER := ai
+
+# execute default rules using the variables defined above
+export
+# any of these rules may be overridden by defining rules below
+%:
+	$(MAKE) -f $(shell cpbm home)/rules.cpbm.generic $@
+
+# building the source code
+SUFFIX = i
+
+# trap ... ERR isn't supported by dash, which is used on some systems
+SHELL = /bin/bash
+
+build:
+	test -d cprover
+	$(MAKE) -f cprover/rules cprover/binaries.$(CONFIG)
+
+cprover/binaries.$(CONFIG): $(addsuffix .$(SUFFIX), $(addprefix build/, $(BENCHMARKS)))
+	$(RM) $@
+	set -e ; trap '$(RM) $@' ERR ; \
+	for f in $^ ; do \
+	  echo $$f >> $@ ; \
+	done
+
+.SECONDEXPANSION:
+build/%.$(SUFFIX): $$(addsuffix .c,$$(basename $$(basename $$*)))
+	mkdir -p $(dir $@)
+	gcc -E -DNR=$(subst .,,$(suffix $(basename $*))) -DITERATIONS=$(subst .,,$(suffix $*)) $< -o $@
+
