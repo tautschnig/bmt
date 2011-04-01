@@ -2,6 +2,7 @@
 
 	* parse-rr-aa.pl: Collect instruction counts
 	* cil_wrapper.sh: Added option --no-simplify
+	* VERSION: Release 0.3
 
 2011-03-23  Michael Tautschnig  <michael.tautschnig@comlab.ox.ac.uk>
 
