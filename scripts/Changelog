@@ -2,7 +2,8 @@
 
 	* verify.sh: Proper check for executable
 	* verify.sh, make_csv.pl: Support for Mac OS X, mingw32 and cygwin
-	* README: Updated (future) home URL 
+	* README: Updated (future) home URL
+	* parse-ai.pl: New results parser for CPROVER ai tool
 
 2011-03-28  Michael Tautschnig  <michael.tautschnig@comlab.ox.ac.uk>
 
