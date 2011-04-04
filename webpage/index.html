@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>The CPROVER Benchmarking Toolkit</title>
-    <link rel="stylesheet" href="style.css" type="text/css">
+    <link rel="stylesheet" href="cprover.css" type="text/css">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<meta http-equiv="Content-Script-Type" content="text/Javascript" />
 		<!--<style type="text/css">
@@ -31,8 +31,10 @@
 			flashvars.posterPath = "com/poster/myPosterFrame.jpg";
 			flashvars.skinPath = "com/skin/skin.swf";
 			
-			var stageW = 720;
-			var stageH = 422;
+			//var stageW = 720;
+			//var stageH = 422;
+			var stageW = 600;
+			var stageH = 352;
 			
 			var attributes = {};
 			attributes.id = "flashcontent";			
@@ -42,10 +44,20 @@
   </head>
 
   <body>
-    <table width="800">
+    <div id="main">
+    <table style="width:100%">
       <tr>
         <td>
-    <h1>CPROVER Benchmarking Toolkit</h1>
+          <img src="Books_large.png"/>
+        </td>
+        <td>
+          <h1>CPROVER Benchmarking Toolkit</h1>
+        </td>
+        <td align="right">
+          <img src="bug_anim_small.gif" width="51" height="48"/>
+        </td>
+      </tr>
+    </table>
 
 The benchmarking toolkit consists of three main components:
 
@@ -64,6 +76,9 @@ The benchmarking toolkit consists of three main components:
 All steps are performed by subcommands of the main <b>cpbm</b> command. Type
 <b>cpbm help</b> to get the list of all subcommands.
 
+<h2>
+Contact Information
+</h2>
 <p>
 Please report problems, bugs, questions, suggestions to <a
   href="mailto:michael.tautschnig@comlab.ox.ac.uk">Michael Tautschnig</a>.
@@ -72,6 +87,7 @@ Please report problems, bugs, questions, suggestions to <a
 <h2>
 Download
 </h2>
+<div class="box1">
 
 <p>
 Download our benchmarking framework as <a
@@ -81,13 +97,14 @@ When using the .tar.gz archive, extract the archive and add cpbm-0.4 to
 your PATH enviroment variable. For the Debian/Ubuntu package: install it
 using <b>dpkg -i cpbm_0.4-1_all.deb</b>.
 </p>
+</div>
 
 <h2>
 Available Benchmarks
 </h2>
 
-  <table class="bmtable">
-    <tr class="bmtable">
+  <table class="fancy">
+    <tr class="fancy">
       <th>Benchmark</th>
       <th>Original Source</th>
       <th>Local Copy</th>
@@ -96,44 +113,44 @@ Available Benchmarks
     <tr>
       <td>Linux 2.6.19/DDVerify</td>
       <td><a href="http://www.kernel.org/pub/linux/kernel/v2.6/linux-2.6.19.tar.bz2">kernel.org</a></td>
-      <td><a href="orig-src/linux-2.6.19.tar.bz2">linux-2.6.19.tar.bz2</a></td>
-      <td><a href="pkgs/linux-2.6.19-ddverify.cprover-bm.tar.gz">linux-2.6.19-ddverify.cprover-bm.tar.gz</a></td>
+      <td><a href="orig-src/linux-2.6.19.tar.bz2"><img src="Box.png" border="0"/></a></td>
+      <td><a href="pkgs/linux-2.6.19-ddverify.cprover-bm.tar.gz"><img src="Box.png" border="0"/></a></td>
     </tr>
     <tr>
       <td>Scratch</td>
-      <td><a href="http://www.cprover.org/scratch/download/scratch-0.1-benchmarks.tar.gz">www.cprover.org/scratch</a></td>
-      <td><a href="orig-src/scratch-0.1-benchmarks.tar.gz">scratch-0.1-benchmarks.tar.gz</a></td>
-      <td><a href="pkgs/scratch-benchmarks.cprover-bm.tar.gz">scratch-benchmarks.cprover-bm.tar.gz</a></td>
+      <td><a href="http://www.cprover.org/scratch/download/scratch-0.1-benchmarks.tar.gz">Scratch</a></td>
+      <td><a href="orig-src/scratch-0.1-benchmarks.tar.gz"><img src="Box.png" border="0"/></a></td>
+      <td><a href="pkgs/scratch-benchmarks.cprover-bm.tar.gz"><img src="Box.png" border="0"/></a></td>
     </tr>
     <tr>
       <td>Conflict Driven Learning</td>
       <td><a href="http://www.comlab.ox.ac.uk/people/leopold.haller/cdfpl/cdfpl.tar.gz">Leo's page</a></td>
-      <td><a href="orig-src/cdfpl.tar.gz">cdfpl.tar.gz</a></td>
-      <td><a href="pkgs/cdfpl.cprover-bm.tar.gz">cdfpl.cprover-bm.tar.gz</a></td>
+      <td><a href="orig-src/cdfpl.tar.gz"><img src="Box.png" border="0"/></a></td>
+      <td><a href="pkgs/cdfpl.cprover-bm.tar.gz"><img src="Box.png" border="0"/></a></td>
     </tr>
     <tr>
       <td>Loopfrog: Lincoln Labs Corpora</td>
       <td><a href="http://www.ll.mit.edu/mission/communications/ist/corpora/models-2007-11-06.tgz">Lincoln Labs Corpora</a></td>
-      <td><a href="orig-src/models-2007-11-06.tgz">models-2007-11-06.tgz</a></td>
-      <td><a href="pkgs/llcorpora-2007-11-06.cprover-bm.tar.gz">llcorpora-2007-11-06.cprover-bm.tar.gz</a></td>
+      <td><a href="orig-src/models-2007-11-06.tgz"><img src="Box.png" border="0"/></a></td>
+      <td><a href="pkgs/llcorpora-2007-11-06.cprover-bm.tar.gz"><img src="Box.png" border="0"/></a></td>
     </tr>
     <tr>
       <td>Loopfrog: Verisec</td>
       <td><a href="http://www.cs.toronto.edu/~kelvin/benchmark/verisec-r421.tar.gz">Verisec Suite</a></td>
-      <td><a href="orig-src/verisec-r421.tar.gz">verisec-r421.tar.gz</a></td>
-      <td><a href="pkgs/verisec-r421.cprover-bm.tar.gz">verisec-r421.cprover-bm.tar.gz</a></td>
+      <td><a href="orig-src/verisec-r421.tar.gz"><img src="Box.png" border="0"/></a></td>
+      <td><a href="pkgs/verisec-r421.cprover-bm.tar.gz"><img src="Box.png" border="0"/></a></td>
     </tr>
     <tr>
       <td>NEC Labs: Atomicity Violations (1)</td>
       <td><a href="http://www.nec-labs.com/~chaowang/pubDOC/atom.tar.gz">Chao Wang</a></td>
-      <td><a href="orig-src/atom.tar.gz">atom.tar.gz</a></td>
-      <td><a href="pkgs/atom-example.cprover-bm.tar.gz">atom-example.cprover-bm.tar.gz</a></td>
+      <td><a href="orig-src/atom.tar.gz"><img src="Box.png" border="0"/></a></td>
+      <td><a href="pkgs/atom-example.cprover-bm.tar.gz"><img src="Box.png" border="0"/></a></td>
     </tr>
     <tr>
       <td>NEC Labs: Atomicity Violations (2)</td>
       <td><a href="http://www.nec-labs.com/~chaowang/pubDOC/predict-example.tar">Chao Wang</a></td>
-      <td><a href="orig-src/predict-example.tar">predict-example.tar</a></td>
-      <td><a href="pkgs/predict-example.cprover-bm.tar.gz">predict-example.cprover-bm.tar.gz</a></td>
+      <td><a href="orig-src/predict-example.tar"><img src="Box.png" border="0"/></a></td>
+      <td><a href="pkgs/predict-example.cprover-bm.tar.gz"><img src="Box.png" border="0"/></a></td>
     </tr>
   </table>
 
@@ -142,10 +159,7 @@ Benchmark Execution Example 1
 </h2>
 
 <p>
-Download the benchmark package
-<pre>
-$ wget http://www.cprover.org/software/benchmarks/linux-2.6.19-ddverify.cprover-bm.tar.gz
-</pre>
+Download the <a href="linux-2.6.19-ddverify.cprover-bm.tar.gz">benchmark package</a>
 </p>
 
 <p>
@@ -272,53 +286,51 @@ Usage Example
 Creating a new benchmark suite, e.g., for the Linux kernel:
 
 <p>
-  Download the original sources from kernel.org:
+Download the <a href="http://www.kernel.org/pub/linux/kernel/v2.6/linux-2.6.19.tar.bz2">original sources from kernel.org</a>
+</p>
+
+<p>
+Manually unpack them:
 <pre>
-  $ wget http://www.kernel.org/pub/linux/kernel/v2.6/linux-2.6.19.tar.bz2
+$ tar xjf linux-2.6.19.tar.bz2
 </pre>
 </p>
 
 <p>
-  Manually unpack them:
+We rename the directory to get proper benchmark name "linux-2.6.19-foo"
 <pre>
-  $ tar xjf linux-2.6.19.tar.bz2
+$ mv linux-2.6.19 linux-2.6.19-foo
+$ cd linux-2.6.19-foo
 </pre>
 </p>
 
 <p>
-  We rename the directory to get proper benchmark name "linux-2.6.19-foo"
+Create the basic benchmarking archive linux-2.6.19-foo.cprover-bm.tar.gz
 <pre>
-  $ mv linux-2.6.19 linux-2.6.19-foo
-  $ cd linux-2.6.19-foo
+$ cpbm init ../linux-2.6.19.tar.bz2
 </pre>
 </p>
 
 <p>
-  Create the basic benchmarking archive linux-2.6.19-foo.cprover-bm.tar.gz
+Edit some source files ... and record patches
 <pre>
-  $ cpbm init ../linux-2.6.19.tar.bz2
+$ cpbm update ../linux-2.6.19.tar.bz2
 </pre>
 </p>
 
 <p>
-  Edit some source files ... and record patches
-<pre>
-  $ cpbm update ../linux-2.6.19.tar.bz2
-</pre>
-</p>
-
-<p>
-  To make the benchmark source and all patches available for others to use
-  publish linux-2.6.19-foo.cprover-bm.tar.gz and the original source archive or
-  its URL.
+To make the benchmark source and all patches available for others to use
+publish linux-2.6.19-foo.cprover-bm.tar.gz and the original source archive or
+its URL.
 </p>
 
 Using the benchmark suite:
 
 <pre>
-  $ cpbm unpack http://www.kernel.org/pub/linux/kernel/v2.6/linux-2.6.19.tar.bz2 \
-    linux-2.6.19-foo.cprover-bm.tar.gz
-  $ cd linux-2.6.19-foo
+$ cpbm unpack \
+  http://www.kernel.org/pub/linux/kernel/v2.6/linux-2.6.19.tar.bz2 \
+  linux-2.6.19-foo.cprover-bm.tar.gz
+$ cd linux-2.6.19-foo
 </pre>
 
 
@@ -460,9 +472,7 @@ These steps permits a number of customizations:
   </li>
 </ul>
 
-        </td>
-      </tr>
-    </table>
+    </div>
 
   </body>
 </html>
