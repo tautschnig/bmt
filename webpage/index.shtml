@@ -84,7 +84,7 @@ All steps are performed by subcommands of the main <b>cpbm</b> command. Type
 <h2>
 Contact Information
 </h2>
-<p>
+<p class="justified">
 Please report problems, bugs, questions, suggestions to <a
   href="mailto:michael.tautschnig@comlab.ox.ac.uk">Michael Tautschnig</a>.
 </p>
@@ -94,7 +94,7 @@ Download
 </h2>
 <div class="box1">
 
-<p>
+<p class="justified">
 Download our benchmarking framework as <a
   href="releases/cpbm-0.4.tar.gz">tarball</a> or as
 <a href="releases/cpbm_0.4-1_all.deb">Debian/Ubuntu package</a>.
@@ -163,11 +163,11 @@ Available Benchmarks
 Benchmark Execution Example 1
 </h2>
 
-<p>
+<p class="justified">
 Download the <a href="linux-2.6.19-ddverify.cprover-bm.tar.gz">benchmark package</a>
 </p>
 
-<p>
+<p class="justified">
 Unpack the kernel sources and the benchmark package
 <pre>
 $ cpbm unpack \
@@ -183,21 +183,21 @@ $ cd linux-2.6.19-ddverify
 </pre>
 </p>
 
-<p>
+<p class="justified">
 Run the default benchmark configuration and produce a LaTeX table
 <pre>
 $ cprover/rules -j4 table
 </pre>
 </p>
 
-<p>
+<p class="justified">
 Produce an additional GNUplot script and display the graph
 <pre>
 $ cprover/rules graph | gnuplot
 </pre>
 </p>
 
-<p>
+<p class="justified">
 Build a web page providing an overview table and all log files in
 cprover/results.satabs.dfl.web/:
 <pre>
@@ -207,7 +207,7 @@ $ cprover/rules web
 
 <h2>Benchmark Execution Example 2</h2>
 
-<p>
+<p class="justified">
 Take a look at the complete workflow using examples from the <a
   href="http://samate.nist.gov/SRD/view.php">SAMATE Reference Dataset</a>.
 </p>
@@ -223,7 +223,7 @@ Take a look at the complete workflow using examples from the <a
 Benchmark Archive Management
 </h2>
 
-<p>
+<p class="justified">
 Benchmarks consist of two files: (1) an original source archive as obtained from
 its original authors, without modification and (2) a corresponding
 &lt;NAME&gt;.cprover-bm.tar.gz file that contains all modifications, execution scripts,
@@ -231,14 +231,14 @@ and other helpers. This design is inspired by Debian v3 source packages and may
 thus sound familiar to people who are used to working with Debian packages.
 </p>
 
-<p>
+<p class="justified">
 (1) The original source archive must be a .zip, .tar.gz, .tgz, or .tar.bz2
     archive. If the authors of the software to be benchmarked do not offer such
     an archive it should be built manually from whatever the authors provide as
     source.
 </p>
 
-<p>
+<p class="justified">
 (2) The &lt;NAME&gt;.cprover-bm.tar.gz is created and managed by <b>cpbm update</b> as
     described below. The file ships a cprover/ directory that may contain
     arbitrary files, but at least a Makefile cprover/rules must be provided. The
@@ -246,7 +246,7 @@ thus sound familiar to people who are used to working with Debian packages.
     precisely describes all modification to original sources.
 </p>
 
-<p>
+<p class="justified">
 The basic design of this archive solution is completely independent of the
 software to be benchmarked. Its main purpose is the precise description of
 changes to the original source that were made in order to benchmark some tool.
@@ -290,18 +290,18 @@ Usage Example
 
 Creating a new benchmark suite, e.g., for the Linux kernel:
 
-<p>
+<p class="justified">
 Download the <a href="http://www.kernel.org/pub/linux/kernel/v2.6/linux-2.6.19.tar.bz2">original sources from kernel.org</a>
 </p>
 
-<p>
+<p class="justified">
 Manually unpack them:
 <pre>
 $ tar xjf linux-2.6.19.tar.bz2
 </pre>
 </p>
 
-<p>
+<p class="justified">
 We rename the directory to get proper benchmark name "linux-2.6.19-foo"
 <pre>
 $ mv linux-2.6.19 linux-2.6.19-foo
@@ -309,21 +309,21 @@ $ cd linux-2.6.19-foo
 </pre>
 </p>
 
-<p>
+<p class="justified">
 Create the basic benchmarking archive linux-2.6.19-foo.cprover-bm.tar.gz
 <pre>
 $ cpbm init ../linux-2.6.19.tar.bz2
 </pre>
 </p>
 
-<p>
+<p class="justified">
 Edit some source files ... and record patches
 <pre>
 $ cpbm update ../linux-2.6.19.tar.bz2
 </pre>
 </p>
 
-<p>
+<p class="justified">
 To make the benchmark source and all patches available for others to use
 publish linux-2.6.19-foo.cprover-bm.tar.gz and the original source archive or
 its URL.
@@ -343,7 +343,7 @@ $ cd linux-2.6.19-foo
 Benchmark Execution
 </h2>
 
-<p>
+<p class="justified">
 <b>cpbm init</b>, as described above, creates as template the cprover/rules file (a
 Makefile). For most basic use cases filling in the names of the benchmarks to be
 run (e.g., all C files without the .c suffix) in the BENCHMARKS = XXX line and
@@ -354,7 +354,7 @@ fully customized as deemed necessary. The only assumption made by cpbm is that
 distributing the .cprover-bm.tar.gz file.
 </p>
 
-<p>
+<p class="justified">
 The actual benchmark execution is then triggered by
 
 <pre>
@@ -366,7 +366,7 @@ execution with the default configuration. This step first induces a build of
 each benchmark from source, if necessary.
 </p>
 
-<p>
+<p class="justified">
 To choose a different configuration for the verification run, override the
 CONFIG variable. For instance, to perform verification using CPAchecker's
 explicit analysis use
@@ -412,7 +412,7 @@ Benchmark execution makes use of a number of helpers:
 Result Evaluation
 </h2>
 
-<p>
+<p class="justified">
 The names of all log files produced by <b>cpbm run</b> will be listed in
 cprover/verified.$CONFIG. Performing
 
