@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>The CPROVER Benchmarking Toolkit</title>
-    <link rel="stylesheet" href="cprover.css" type="text/css">
+    <link rel="stylesheet" href="/style/cprover.css" type="text/css">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<meta http-equiv="Content-Script-Type" content="text/Javascript" />
 		<!--<style type="text/css">
@@ -44,6 +44,11 @@
   </head>
 
   <body>
+
+    <!--#include virtual="../../style/full-sidebar.html" -->
+
+<div id="wrap">
+
     <div id="main">
     <table style="width:100%">
       <tr>
@@ -473,6 +478,8 @@ These steps permits a number of customizations:
 </ul>
 
     </div>
+
+</div>
 
   </body>
 </html>
