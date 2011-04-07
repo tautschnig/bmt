@@ -89,10 +89,8 @@ Please report problems, bugs, questions, suggestions to <a
   href="mailto:michael.tautschnig@comlab.ox.ac.uk">Michael Tautschnig</a>.
 </p>
 
-<h2>
-Download
-</h2>
 <div class="box1">
+<div class="caption">Download</div>
 
 <p class="justified">
 Download our benchmarking framework as <a
@@ -166,15 +164,15 @@ and other helpers.
   </table>
 
 <h2>
-Benchmark Execution Example 1
+Benchmark Execution Example 1: DDVerify
 </h2>
 
 <p class="justified">
-Download the <a href="linux-2.6.19-ddverify.cprover-bm.tar.gz">patch set</a>
+Download the <a href="linux-2.6.19-ddverify.cprover-bm.tar.gz">patch set</a>.
 </p>
 
 <p class="justified">
-Unpack the kernel sources and the patch set
+Download and unpack the kernel sources and apply the patch set
 <pre>
 $ cpbm unpack \
   http://www.kernel.org/pub/linux/kernel/v2.6/linux-2.6.19.tar.bz2 \
@@ -265,14 +263,17 @@ Patch set management commands
 
 <ul>
   <li>
+  <p class="justified">
   <b>cpbm unpack</b>: Takes an archive of original source (or a URL to download the
   archive from) and the corresponding patch set &lt;NAME&gt;.cprover-bm.tar.gz.
   <b>cpbm unpack</b> then builds the directory &lt;NAME&gt; from the contents of the original
   source archive, unpacks the cprover directory in <NAME>, and applies patches
   from cprover/patches, if any.
+  </p>
   </li>
 
   <li>
+  <p class="justified">
   <b>cpbm init</b> and <b>cpbm update</b>: Create and maintain a &lt;NAME&gt;.cprover-bm.tar.gz
   file. This file is initially created in the parent directory by running <b>cpbm
   init &lt;SOURCE ARCHIVE&gt;</b> from within directory &lt;NAME&gt; resulting from manually
@@ -288,6 +289,7 @@ Patch set management commands
   cprover/patches series. It is recommended that automatically created patches
   are renamed to more descriptive names.  Consequently such renamings must be
   reflected in cprover/patches/series.
+  </p>
   </li>
 </ul>
 
@@ -295,7 +297,9 @@ Patch set management commands
 Usage Example
 </h3>
 
+<p class="justified">
 Creating a new benchmark suite, e.g., for the Linux kernel:
+</p>
 
 <p class="justified">
 Download the <a href="http://www.kernel.org/pub/linux/kernel/v2.6/linux-2.6.19.tar.bz2">original sources from kernel.org</a>
@@ -388,15 +392,20 @@ $ cprover/rules -j4 verify CONFIG=cpachecker.explicit
 Benchmark Execution Helpers
 </h3>
 
+<p class="justified">
 Benchmark execution makes use of a number of helpers:
+</p>
 
 <ul>
   <li>
+  <p class="justified">
   <b>cpbm cillify</b>: transform C sources using the <a href="http://cil.sourceforge.net/">C Intermediate Language (Cil)</a> tool to a
   format suitable, e.g., for <a href="http://cpachecker.sosy-lab.org/">CPAchecker</a> or <a href="http://www.sosy-lab.org/~dbeyer/Blast/">BLAST</a> (requires Cil installation).
+  </p>
   </li>
 
   <li>
+  <p class="justified">
   <b>cpbm list-claims</b>: the <a href="http://www.cprover.org/software/">CPROVER tools</a> are able to selectively verify a chosen
   claim in a program under scrutiny. This tool lists the possible claims as
   pairs &lt;CLAIM&gt;:&lt;STATUS&gt;, where &lt;CLAIM&gt; is the identifier used by the
@@ -405,13 +414,16 @@ Benchmark execution makes use of a number of helpers:
   If the verification CONFIG does not support specific claims (as is the case
   for all non-CPROVER tools), ALL_CLAIMS:UNKNOWN is return as pseudo claim
   identifier and verification status.
+  </p>
   </li>
 
   <li>
+  <p class="justified">
   <b>cpbm run</b>: actually executes the verification tool with the configured options
   and produces a log file. This log file contains the output of the verification
   tool plus environment information and statistics. All further benchmark
   evaluation is based on such log files.
+  </p>
   </li>
 </ul>
 
@@ -423,43 +435,54 @@ Result Evaluation
 <p class="justified">
 The names of all log files produced by <b>cpbm run</b> will be listed in
 cprover/verified.$CONFIG. Performing
+</p>
 
 <pre>
 $ cprover/rules csv
 </pre>
 
+<p class="justified">
 yields a CSV (comma-separated value) formatted summary of all results in
 cprover/results.$CONFIG.csv. This file may be read using most spreadsheet
 programs for further manual inspection and evaluation. With cpbm, however, also
 LaTeX tables, GNUplot graphs, or web pages may be produced:
+</p>
 
 <pre>
 $ cprover/rules table
 </pre>
 
+<p class="justified">
 yields a LaTeX summary of execution times and memory usage of all benchmark
 instances. With
+</p>
 
 <pre>
 $ cprover/rules graph
 </pre>
 
+<p class="justified">
 furthermore a GNUplot script is produced which may be copied or piped into
 the gnuplot command.
+</p>
 
 <pre>
 $ cprover/rules web
 </pre>
 
+<p class="justified">
 collects all log files in a new directory cprover/results.$CONFIG.web plus an
 index.html file that contains an HTML formatted version of the CSV table. Each
 benchmark links to the respective log file.
 </p>
 
+<p class="justified">
 These steps permits a number of customizations:
+</p>
 
 <ul>
   <li>
+  <p class="justified">
   The CSV data is produced by <b>cpbm csv</b>, which uses a specific parser of the
   output for each verification tool. These parsers are perl scriptlets found in
   the parse-*.pl file of the CPROVER benchmarking toolkit distribution.<br/>
@@ -468,20 +491,25 @@ These steps permits a number of customizations:
   preferably added to the distribution, but can also be put in the cprover/
   directory. If a parser exists both in cprover/ and in the distribution, the
   former will be used.
+  </p>
   </li>
 
   <li>
+  <p class="justified">
   The LaTeX table is generated using <b>cpbm table</b>, which takes as arguments a CSV
   file and one or more column names that shall be included (in the specified
   order) in the LaTeX output. Consequently, adding further columns to CSV output
   as described above also permits printing this output to LaTeX.
+  </p>
   </li>
 
   <li>
+  <p class="justified">
   The GNUplot scripts may either be box plots of CPU time and memory usage or
   scatter plots (using <b>cpbm graph -s</b>) for comparison of two tools. For box plots
   an arbitrary number of CSV files may be specified, whereas scatter plots
   require exactly two CSV files.
+  </p>
   </li>
 </ul>
 
