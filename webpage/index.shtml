@@ -123,43 +123,43 @@ and other helpers.
       <td>Linux 2.6.19/DDVerify</td>
       <td><a href="http://www.kernel.org/pub/linux/kernel/v2.6/linux-2.6.19.tar.bz2">kernel.org</a><br/>
       <a href="orig-src/linux-2.6.19.tar.bz2">(local copy)</a></td>
-      <td><a href="pkgs/linux-2.6.19-ddverify.cprover-bm.tar.gz"><img src="Box.png" border="0"/></a></td>
+      <td align=center><a href="pkgs/linux-2.6.19-ddverify.cprover-bm.tar.gz"><img src="Box.png" border="0"/></a></td>
     </tr>
     <tr>
       <td>Scratch</td>
       <td><a href="http://www.cprover.org/scratch/download/scratch-0.1-benchmarks.tar.gz">Scratch</a><br/>
       <a href="orig-src/scratch-0.1-benchmarks.tar.gz">(local copy)</a></td>
-      <td><a href="pkgs/scratch-benchmarks.cprover-bm.tar.gz"><img src="Box.png" border="0"/></a></td>
+      <td align=center><a href="pkgs/scratch-benchmarks.cprover-bm.tar.gz"><img src="Box.png" border="0"/></a></td>
     </tr>
     <tr>
       <td>Conflict Driven Learning</td>
       <td><a href="http://www.comlab.ox.ac.uk/people/leopold.haller/cdfpl/cdfpl.tar.gz">Leo's page</a><br/>
       <a href="orig-src/cdfpl.tar.gz">(local copy)</a></td>
-      <td><a href="pkgs/cdfpl.cprover-bm.tar.gz"><img src="Box.png" border="0"/></a></td>
+      <td align=center><a href="pkgs/cdfpl.cprover-bm.tar.gz"><img src="Box.png" border="0"/></a></td>
     </tr>
     <tr>
       <td>Loopfrog: Lincoln Labs Corpora</td>
       <td><a href="http://www.ll.mit.edu/mission/communications/ist/corpora/models-2007-11-06.tgz">Lincoln Labs Corpora</a><br/>
       <a href="orig-src/models-2007-11-06.tgz">(local copy)</a></td>
-      <td><a href="pkgs/llcorpora-2007-11-06.cprover-bm.tar.gz"><img src="Box.png" border="0"/></a></td>
+      <td align=center><a href="pkgs/llcorpora-2007-11-06.cprover-bm.tar.gz"><img src="Box.png" border="0"/></a></td>
     </tr>
     <tr>
       <td>Loopfrog: Verisec</td>
       <td><a href="http://www.cs.toronto.edu/~kelvin/benchmark/verisec-r421.tar.gz">Verisec Suite</a><br/>
       <a href="orig-src/verisec-r421.tar.gz">(local copy)</a></td>
-      <td><a href="pkgs/verisec-r421.cprover-bm.tar.gz"><img src="Box.png" border="0"/></a></td>
+      <td align=center><a href="pkgs/verisec-r421.cprover-bm.tar.gz"><img src="Box.png" border="0"/></a></td>
     </tr>
     <tr>
       <td>NEC Labs: Atomicity Violations (1)</td>
       <td><a href="http://www.nec-labs.com/~chaowang/pubDOC/atom.tar.gz">Chao Wang</a><br/>
       <a href="orig-src/atom.tar.gz">(local copy)</a></td>
-      <td><a href="pkgs/atom-example.cprover-bm.tar.gz"><img src="Box.png" border="0"/></a></td>
+      <td align=center><a href="pkgs/atom-example.cprover-bm.tar.gz"><img src="Box.png" border="0"/></a></td>
     </tr>
     <tr>
       <td>NEC Labs: Atomicity Violations (2)</td>
       <td><a href="http://www.nec-labs.com/~chaowang/pubDOC/predict-example.tar">Chao Wang</a><br/>
       <a href="orig-src/predict-example.tar">(local copy)</a></td>
-      <td><a href="pkgs/predict-example.cprover-bm.tar.gz"><img src="Box.png" border="0"/></a></td>
+      <td align=center><a href="pkgs/predict-example.cprover-bm.tar.gz"><img src="Box.png" border="0"/></a></td>
     </tr>
   </table>
 
