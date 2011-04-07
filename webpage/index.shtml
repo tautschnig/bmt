@@ -108,7 +108,7 @@ Available Benchmarks
 
 <p class="justified">
 Benchmarks consist of two files: (1) an <i>original source archive</i> as obtained from
-its original authors (we provide local back copies below), without modification and (2) a corresponding
+its original authors (we provide local backup copies below), without modification and (2) a corresponding
 <i>patch set &lt;NAME&gt;.cprover-bm.tar.gz</i> that contains all modifications, execution scripts,
 and other helpers. 
 </p>
