@@ -18,6 +18,7 @@ chmod -R a+rX .
 rsync --progress --archive -L --delete --exclude=".svn" webpage/ tmp-web
 cd tmp-web
 scp -r * tautschnig@dkr-srv.cs.ox.ac.uk:/srv/www/cprover.org/software/benchmarks/ || true
+cd ..
 rm -r tmp-web
 
 rm -r pkgs
