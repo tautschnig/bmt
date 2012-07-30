@@ -94,11 +94,11 @@ Please report problems, bugs, questions, suggestions to <a
 
 <p class="justified">
 Download our benchmarking framework as <a
-  href="releases/cpbm-0.4.tar.gz">tarball</a> or as
-<a href="releases/cpbm_0.4-1_all.deb">Debian/Ubuntu package</a>.
-When using the .tar.gz archive, extract the archive and add cpbm-0.4 to
+  href="releases/cpbm-0.5.tar.gz">tarball</a> or as
+<a href="releases/cpbm_0.5-1_all.deb">Debian/Ubuntu package</a>.
+When using the .tar.gz archive, extract the archive and add cpbm-0.5 to
 your PATH enviroment variable. For the Debian/Ubuntu package: install it
-using <b>dpkg -i cpbm_0.4-1_all.deb</b>.
+using <b>dpkg -i cpbm_0.5-1_all.deb</b>.
 </p>
 </div>
 

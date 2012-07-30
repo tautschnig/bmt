@@ -13,9 +13,9 @@ for i in $pkgs ; do
 done
 cd ..
 
-rsync --progress --archive -L --delete --exclude=".svn" webpage/ \
+chmod -R a+rX .
+rsync -e ssh --progress --archive -L --delete --exclude=".svn" webpage/ \
   /srv/www/cprover.org/software/benchmarks/
-chmod -R a+rX /srv/www/cprover.org/software/benchmarks
 
 rm -r pkgs
 mv pkgs.src pkgs
