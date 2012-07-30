@@ -56,7 +56,7 @@ cleanup() {
   if [ -z "$NO_CLEANUP" ] ; then
     for f in $TMP_FILES ; do
       if [ -f $f ] ; then
-        rm $f
+        rm -f $f
       fi
     done
     rm -f tmp.stderr*.txt
@@ -111,7 +111,8 @@ run_tool() {
     cegar_tmp_smv_out1 cegar_tmp_smv_out2"
   exit_code=0
   tmp_files=$TMP_FILES
-  mktemp_local_prefix_suffix claim_out "`basename $MAIN_SOURCE`_${CLAIM}_`date +%Y-%m-%d_%H%M%S`" .log
+  cl="`echo $CLAIM | sed 's/^ //' | sed 's/ /+/g'`"
+  mktemp_local_prefix_suffix claim_out "`basename $MAIN_SOURCE`_${cl}_`date +%Y-%m-%d_%H%M%S`" .log
   # we want to keep this file
   TMP_FILES=$tmp_files
  
@@ -124,6 +125,12 @@ run_tool() {
       ;;
     *cpa.sh)
       version_info="no info"
+      ;;
+    checkfence)
+      version_info="no info"
+      ;;
+    *cream)
+      version_info=`$TOOL --help | grep "Cream ver " | awk '{ print $4 }'`
       ;;
     *)
       version_info=`$TOOL --version || true`
@@ -185,6 +192,7 @@ $EXPECT_RESULT
 ###############################################################################
 EOF
   $TIMEOUT $BENCHMARKING $TOOL $OPTS $CLAIM_CMD $SOURCES >> $claim_out 2>&1 || exit_code=$?
+  sleep 1
   # interactive bash needed for proper support of Ctrl-c ?
   # bash -i -c "$TIMEOUT $BENCHMARKING $TOOL $OPTS --claim ${!claim_id_var} $SOURCES >> $claim_out 2>&1" || exit_code=$?
   cat >> $claim_out <<EOF
@@ -226,7 +234,7 @@ opts=`getopt -n "$0" -o "h" --long "\
   " -- "$@"`
 eval set -- "$opts"
 
-unset NO_CLEANUP CLAIM CLAIM_CMD TIMEOUT MAXMEM TOOL
+unset NO_CLEANUP CLAIM CLAIM_CMD TIMEOUT MAXMEM TOOL TO_OPTS
 
 EXPECT_RESULT=unknown
 
@@ -234,12 +242,19 @@ while true ; do
   case "$1" in
     -h|--help) usage ; exit 0;;
     --no-cleanup) NO_CLEANUP=1 ; shift 1;;
-    --claim) CLAIM=$2 ; shift 2;;
+    --claim) CLAIM="$CLAIM $2" ; shift 2;;
     --timeout)
       if ! echo $2 | egrep -q "^[[:digit:]]+$" ; then
         die "Invalid parameter to --timeout"
       fi
-      TIMEOUT="timeout -s SIGINT $2" ; shift 2;;
+      TO_OPTS="-s SIGINT"
+      if ! timeout $TO_OPTS 3 true > /dev/null 2>&1 ; then
+        TO_OPTS="-2"
+        if ! timeout $TO_OPTS 3 true > /dev/null 2>&1 ; then
+          die "No working timeout command found"
+        fi
+      fi
+      TIMEOUT="timeout $TO_OPTS $2" ; shift 2;;
     --maxmem)
       if ! echo $2 | egrep -q "^[[:digit:]]+$" ; then
         die "Invalid parameter to --maxmem"
@@ -254,12 +269,14 @@ done
 
 [ -n "$TOOL" ] || die "Please select the verification tool to be used"
 
-if [ -n "$CLAIM" -a "$CLAIM" != "ALL_CLAIMS" ] ; then
-  if [ "$TOOL" = "loopfrog" ] ; then
-    CLAIM_CMD="--testclaim $CLAIM"
-  else
-    CLAIM_CMD="--claim $CLAIM"
-  fi
+if [ -n "$CLAIM" ] && [ "$CLAIM" != " ALL_CLAIMS" ] ; then
+  for c in $CLAIM ; do
+    if [ "$TOOL" = "loopfrog" ] ; then
+      CLAIM_CMD="$CLAIM_CMD --testclaim $c"
+    else
+      CLAIM_CMD="$CLAIM_CMD --claim $c"
+    fi
+  done
 else
   CLAIM="ALL_CLAIMS"
 fi

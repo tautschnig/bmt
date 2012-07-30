@@ -1,3 +1,21 @@
+2012-07-30  Michael Tautschnig  <michael.tautschnig@cs.ox.ac.uk>
+
+	* parse-{llbmc,esbmc,mmchecker,poirot,threader,blender,astree}.pl: New result
+		parsers for LLBMC/ESBMC/MMchecker/Poirot/Threader/Blender/Astree
+	* parse-{checkfence,bfc,satabs2}.pl: New result parsers for
+		CheckFence/BFC/CImpact
+	* parse-cbmc.pl: Support statistics for concurrent programs
+	* parse-satabs.pl: Additional statistics for symmetry-aware verification
+	* make_piechart.pl: New subcommand snd-graph to build soundness graphs
+	* cpbm: Document new subcommand, new graph styles
+	* verify.sh: Fixed claim and timeout handling, more version checks supported
+	* make_web.pl: New options -z, -h, -n
+	* make_csv.pl: More flexibility in log file name parsing, minor fixes, sort
+		columns
+	* make_graph.pl: Rewrite to use LaTeX/TikZ instead of GNUplot for graph
+		output, added cactus plot support
+	* VERSION: Release 0.5
+
 2011-04-07  Michael Tautschnig  <michael.tautschnig@comlab.ox.ac.uk>
 
 	* README: Clarification of description and formatting

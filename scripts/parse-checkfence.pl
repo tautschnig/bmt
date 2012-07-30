@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/perl -w
 #
 # Copyright (c) 2011 Michael Tautschnig <michael.tautschnig@comlab.ox.ac.uk>
 # Daniel Kroening
@@ -39,75 +39,25 @@
 # THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-# main CPROVER benchmarking framework script
+# parse the Poirot specific part of a benchmark log file
 
-set -e
+use strict;
+use warnings FATAL => qw(uninitialized);
 
-die() {
-  echo $1
-  exit 1
-}
-
-usage() {
-  cat <<EOF
-Usage: $SELF [COMMAND] [OPTIONS]
-  Execute CPROVER benchmarking command COMMAND. Use $SELF help to display the
-  list of available commands and $SELF COMMAND --help to list command-specific
-  options.  
-
-EOF
-}
-
-show_help() {
-  usage
-  cat <<EOF
+sub parse_log {
+  my ($LOG, $hash) = @_;
   
-  Available commands:
-  help|--help     display this help text
-  --version       display current version
-  home            print the path where cpbm scripts reside
+  $hash->{Result} = "ERROR";
 
-  unpack          unpack a CPROVER benchmark package
-  update          update a CPROVER benchmark package
-  init            create a CPROVER benchmark package
-  run             run a verification tool on a given benchmark and obtain logs
-  cillify         run C sources through Cil
-  list-claims     list all claims in a benchmark
-  csv             produce a CSV table from benchmark runs
-  table           produce a LaTeX table from CSV
-  graph           scatter, cactus, or bar charts of run times
-  snd-graph       stacked bar or pie charts depicting soundness of tools
-  web             generate HTML table and collect log files for web publication
-EOF
+  while (<$LOG>) {
+    chomp;
+    return 1 if (/^###############################################################################$/);
+
+    if (/RESULT:\s+"[^"]+"\s+([^\.]+)\./) {
+      $hash->{Result} = "$1";
+    }
+  }
 }
 
-SELF=$0
-SCRIPT_HOME=`dirname $0`
-CMD=$1
-
-if [ $# -lt 1 ] ; then
-  usage
-  exit 1
-fi
-
-shift
-case "$CMD" in 
-  help|--help) show_help;;
-  --version) cat $SCRIPT_HOME/VERSION;;
-  home) echo $SCRIPT_HOME;;
-  unpack) $SCRIPT_HOME/unpack.sh "$@";;
-  update) $SCRIPT_HOME/update.sh "$@";;
-  init) $SCRIPT_HOME/update.sh --init "$@";;
-  run) $SCRIPT_HOME/verify.sh "$@";;
-  cillify) $SCRIPT_HOME/cil_wrapper.sh "$@";;
-  list-claims) $SCRIPT_HOME/list_claims.sh "$@";;
-  csv) $SCRIPT_HOME/make_csv.pl "$@";;
-  table) $SCRIPT_HOME/make_table.pl "$@";;
-  graph) $SCRIPT_HOME/make_graph.pl "$@";;
-  snd-graph) $SCRIPT_HOME/make_piechart.pl "$@";;
-  web) $SCRIPT_HOME/make_web.pl "$@";; 
-  *) die "Unknown command $CMD" ;;
-esac
-
-exit 0
+return 1;
 

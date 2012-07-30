@@ -137,8 +137,8 @@ sub parse_description {
       /^virtual memory\s+\(kbytes, -v\) (unlimited|\d+)$/ or next;
       $hash->{memlimit} = "$1kb";
     } elsif ($mode eq "timeout") {
-      /^(\s*|timeout -s SIGINT (\d+))$/ or die "Unexpected timeout format\n";
-      $hash->{$mode} = defined($2) ? "$2s" : "-";
+      /^(\s*|timeout -(s SIGINT|2) (\d+))$/ or die "Unexpected timeout format\n";
+      $hash->{$mode} = defined($3) ? "$3s" : "-";
     } elsif ($mode eq "version") {
       $hash->{$mode} = "$_";
     } elsif ($mode eq "command") {
@@ -165,7 +165,8 @@ sub parse_exit {
     $mode = "time_osx", next if (/^### \/usr\/bin\/time -l:$/);
 
     if ($mode eq "exitcode") {
-      /^(\d+)$/ or die "Unexpected exit code format\n";
+      #/^(\d+)$/ or die "Unexpected exit code format\n";
+      /^(\d+)$/ or next;
       $hash->{$mode} = $1;
       if ($1 == 124) {
         $hash->{Result} = "TIMEOUT";
@@ -177,6 +178,10 @@ sub parse_exit {
         $hash->{wallclock} = $1;
       } elsif (/^\s+Maximum resident set size \(kbytes\): (\d+)$/) {
         $hash->{maxmem} = "$1kb";
+      } elsif (/^SC_time:\s+(\d+\.\d+)$/) {
+        $hash->{sc_time} = "$1";
+        defined($hash->{usertime}) and
+        $hash->{overhead} = $hash->{usertime}/$1;
       }
     } elsif ($mode eq "time_osx") {
       if (/^\s+(\d+\.\d+)\s+real\s+(\d+\.\d+)\s+user\s+(\d+\.\d+)\s+sys$/) {
@@ -213,9 +218,28 @@ while (<RESULTS>) {
   my $fname = $1;
   $results{$fname} = ();
   my $bm_name = $fname;
-  ($bm_name =~ /^.*\/results\.[^\/]+\/(\S+)\.[a-z]+_(\S+)_\d{4}-\d\d-\d\d_\d{6}_.{6}\.log$/)
-    or die "Don't know how to extract benchmark name from log file name $fname\n";
-  $bm_name = ($2 eq "ALL_CLAIMS") ? $1 : "$1:$2";
+  if ($bm_name =~ /^.*\/results\.[^\/]+\/(\S+)\.[a-z]+_(\S+)_\d{4}-\d\d-\d\d_\d{6}_.{6}\.log$/)
+  {
+    $bm_name = ($2 eq "ALL_CLAIMS") ? $1 : "$1:$2";
+  }
+  elsif ($bm_name =~ /^.*\/(tests|results\.[^\/]+)\/([^\/]+).*(\/[a-z]+\/([^\/_]+\d+|iriw[^\/_]+))_([a-z]+(.oepc)?).*_(\S+)_\d{4}-\d\d-\d\d_\d{6}_.{6}\.log$/)
+  {
+    $bm_name = ($7 eq "CLAIMS" || $7 eq "ALL_CLAIMS" || $7 eq "main.1") ? "$2$3($5)" : "$2$3($5):$7";
+    defined($6) and $bm_name =~ s/\)/) 1d/;
+  }
+  elsif ($bm_name =~ /^.*\/(tests|results\.[^\/]+)\/([^\/]+).*(\/[a-z]+\/([^\/_]+\d+|iriw[^\/_]+))\.goto_(\S+)_\d{4}-\d\d-\d\d_\d{6}_.{6}\.log$/)
+  {
+    ($config eq "cbmc") or die "Benchmark name only acceptable for cbmc\n";
+    my $mm = `grep memory-model $fname | sed 's/.*memory-model //' | awk '{ print \$1 }' | head -n 1`;
+    chomp $mm;
+    $bm_name = ($5 eq "CLAIMS" || $5 eq "ALL_CLAIMS" || $5 eq "main.1") ? "$2$3($mm)" : "$2$3($mm):$5";
+    defined($4) and $bm_name =~ s/\)/) 1d/;
+    ($mm =~ /^(sc|tso|pso|rmo|power)(\.oepc)?$/) or die "Invalid memory model $mm\n";
+  }
+  else
+  {
+    die "Don't know how to extract benchmark name from log file name $fname\n";
+  }
   $results{$fname}{Benchmark} = $bm_name;
   # default to ERROR
   $results{$fname}{Result} = "ERROR";
@@ -231,19 +255,19 @@ foreach my $f (keys %results) {
 use Text::CSV;
 my $csv = Text::CSV->new();
 
-my @headings = keys %all_fields;
+my @headings = sort keys %all_fields;
 unshift @headings, "Log File";
-$csv->combine(@headings) or die "Error: $csv->error_input()\n";
+$csv->combine(@headings) or die "Error: ".$csv->error_input()."\n";
 print $csv->string() . "\n";
 
 foreach my $f (sort keys %results) {
   my @row = ();
   push @row, $f;
-  foreach my $field (keys %all_fields) {
+  foreach my $field (sort keys %all_fields) {
     push @row, defined($results{$f}{$field}) ? 
       $results{$f}{$field} : "";
   }
-  $csv->combine(@row) or die "Error: $csv->error_input()\n";
+  $csv->combine(@row) or die "Error: ".$csv->error_input()."\n";
   print $csv->string() . "\n";
 }
 

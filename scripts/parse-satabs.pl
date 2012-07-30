@@ -48,6 +48,10 @@ sub parse_log {
   my ($LOG, $hash) = @_;
     
   $hash->{Result} = "ERROR";
+  $hash->{"Transition refinements"} = -1;
+  $hash->{"Invalid states requiring more than 1 passive thread"} = 0;
+  $hash->{"Spurious guard transitions requiring more than 1 passive thread"} = 0;
+  $hash->{"Spurious assignment transitions requiring more than 1 passive thread"} = 0;
 
   while (<$LOG>) {
     chomp;
@@ -55,8 +59,59 @@ sub parse_log {
 
     if (/^Too many iterations, giving up/) {
       $hash->{Result} = "TOO_MANY_ITERATIONS";
+    } elsif (/^Timeout: aborting command/) {
+      $hash->{Result} = "TIMEOUT";
     } elsif (/^VERIFICATION\s+(\S+)$/) {
       $hash->{Result} = "$1";
+    } elsif (/^Time: (\d+\.\d+) total, (\d+\.\d+) abstractor, (\d+\.\d+) model checker, (\d+\.\d+) simulator, (\d+\.\d+) refiner$/) {
+      $hash->{"Time abstractor"} = $2;
+      $hash->{"Time model checker"} = $3;
+      $hash->{"Time simulator"} = $4;
+      $hash->{"Time refiner"} = $5;
+    } elsif (/^Time: (\d+\.\d+) total, (\d+\.\d+) abstractor, (\d+\.\d+) model checker, (\d+) simulator, (\d+\.\d+) refiner$/) {
+      $hash->{"Time abstractor"} = $2;
+      $hash->{"Time model checker"} = $3;
+      $hash->{"Time simulator"} = $4;
+      $hash->{"Time refiner"} = $5;
+    } elsif (/^Time: (\d+\.\d+) total, (\d+\.\d+) abstractor, (\d+\.\d+) model checker, (\d+) simulator, (\d+) refiner$/) {
+      $hash->{"Time abstractor"} = $2;
+      $hash->{"Time model checker"} = $3;
+      $hash->{"Time simulator"} = $4;
+      $hash->{"Time refiner"} = $5;
+    } elsif (/^Time: (\d+\.\d+) total, (\d+\.\d+) abstractor, (\d+\.\d+) model checker, (\d+\.\d+) simulator, (\d+) refiner$/) {
+      $hash->{"Time abstractor"} = $2;
+      $hash->{"Time model checker"} = $3;
+      $hash->{"Time simulator"} = $4;
+      $hash->{"Time refiner"} = $5;
+    } elsif (/^Iterations: (\d+)$/) {
+      $hash->{Iterations} = $1;
+      $hash->{"Transition refinements"} += $1;
+    } elsif (/^\s+shared: (\d+)$/) {
+      $hash->{"Shared predicates"} = $1;
+    } elsif (/^\s+local: (\d+)$/) {
+      $hash->{"Local predicates"} = $1;
+    } elsif (/^\s+mixed: (\d+)$/) {
+      $hash->{"Mixed predicates"} = $1;
+    } elsif (/^Transitions are not spurious$/) {
+      --$hash->{"Transition refinements"};
+    } elsif (/^Broadcast assignment operations executed: (\d+)$/) {
+      $hash->{"Broadcast assignment operations executed"} = $1;
+    } elsif (/^Max number of slots used: (\d+)$/) {
+      $hash->{"Max number of slots used"} = $1;
+    } elsif (/^Non-broadcast assignment operations executed: (\d+)$/) {
+      $hash->{"Non-broadcast assignment operations executed"} = $1;
+    } elsif (/^Time spent in broadcast assignment operations: (\S+)$/) {
+      $hash->{"Time spent in broadcast assignment operations"} = $1;
+    } elsif (/^Time spent in non-broadcast assignment operations: (\S+)$/) {
+      $hash->{"Time spent in non-broadcast assignment operations"} = $1;
+    } elsif (/^Invalid states requiring more than 1 passive thread: (\d+)$/) {
+      $hash->{"Invalid states requiring more than 1 passive thread"} = $1;
+    } elsif (/^Spurious guard transitions requiring more than 1 passive thread: (\d+)$/) {
+      $hash->{"Spurious guard transitions requiring more than 1 passive thread"} = $1;
+    } elsif (/^Spurious assignment transitions requiring more than 1 passive thread: (\d+)$/) {
+      $hash->{"Spurious assignment transitions requiring more than 1 passive thread"} = $1;
+    } elsif (/^Total transition refinements: (\d+)$/) {
+      $hash->{"Total transition refinements"} = $1;
     }
   }
 }

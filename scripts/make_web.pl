@@ -43,20 +43,27 @@
 
 use strict;
 use warnings FATAL => qw(uninitialized);
+use Getopt::Std;
 
 sub usage {
   print <<"EOF";
-Usage: $0 CSV TARGETDIR
+Usage: $0 [OPTIONS] CSV TARGETDIR
   where CSV is a comma-separated data file as built by make_csv.pl and TARGETDIR
   is the directory, which must not yet exist, to store the logs and the
   index.html file in
+  
+  Options:            Purpose:
+    -h                show help
+    -z                bzip2 log files larger than 1MB
+    -n                omit date
 
 EOF
 }
 
-if (scalar(@ARGV) != 2) {
+our ($opt_z, $opt_h, $opt_n);
+if (!getopts('hzn') || defined($opt_h) || scalar(@ARGV) != 2) {
   usage;
-  exit 1;
+  exit (defined($opt_h) ? 0 : 1);
 }
 
 my $file = $ARGV[0];
@@ -78,6 +85,8 @@ $csv->column_names(@$arref);
 my @skip = qw(command version timeout uname cpuinfo meminfo memlimit);
 push @skip, "Log File";
 push @skip, "Benchmark";
+push @skip, "Result";
+$opt_n and push @skip, "date";
 my %rm;
 @rm{@skip} = ();
 my @headers = grep { not exists $rm{$_} } @$arref;
@@ -97,12 +106,33 @@ while (my $row = $csv->getline_hr($CSV)) {
   $aliases{$logfile} = "$logfile.txt";
   $aliases{$logfile} =~ s/^.*\/results\.//;
   $aliases{$logfile} =~ s/\//__/g;
-  copy($logfile, "$destdir/$aliases{$logfile}") 
-    or die "Failed to copy log file from $logfile to $destdir/$aliases{$logfile}\n";
+  if($opt_n)
+  {
+    `cat $logfile | perl -e 'while(<>) { \
+      if(/^### date:/) { \$skip=1; next; }
+      if(\$skip) { \$skip=0; next; } \
+      print; }' > $destdir/$aliases{$logfile}`;
+  }
+  else
+  {
+    copy($logfile, "$destdir/$aliases{$logfile}") 
+      or die "Failed to copy log file from $logfile to $destdir/$aliases{$logfile}\n";
+  }
+  if($opt_z && -s $logfile > 1024*1024) {
+    warn "$logfile has size ".(-s $logfile).", running bzip2\n";
+    system("bzip2 $destdir/$aliases{$logfile}");
+    $aliases{$logfile} .= ".bz2";
+  }
     
   my @data = ();
   defined($row->{Benchmark}) or die "No Benchmark column in table\n";
   push @data, "<a href=\"$aliases{$logfile}\">$row->{Benchmark}</a>";
+
+  defined($row->{Result}) or die "No Result column in table\n";
+  my $res = $row->{Result};
+  $res = "Property VIOLATED" if($row->{Result} eq "FAILED");
+  $res = "Property HOLDS" if($row->{Result} eq "SUCCESSFUL");
+  push @data, $res;
 
   push @data, defined($row->{$_}) ? $row->{$_} : "n/a"
     foreach (@headers);
@@ -113,13 +143,14 @@ while (my $row = $csv->getline_hr($CSV)) {
 
 close $CSV;
 
+unshift @headers, "Result";
 unshift @headers, "Benchmark";
 my $ncols = scalar(@headers);
 my $command = join(';', keys %{ $globals{command} });
 my $version = join(';', keys %{ $globals{version} });
 my $timeout = join(';', keys %{ $globals{timeout} });
 my $memlimit = join(';', keys %{ $globals{memlimit} });
-my $currtime = localtime();
+my $currtime = $opt_n ? "" : localtime();
 
 open INDEX_HTML, ">$destdir/index.html" or die "Failed to create $destdir/index.html\n";
 print INDEX_HTML <<"EOF";
