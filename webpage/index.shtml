@@ -86,7 +86,7 @@ Contact Information
 </h2>
 <p class="justified">
 Please report problems, bugs, questions, suggestions to <a
-  href="mailto:michael.tautschnig@comlab.ox.ac.uk">Michael Tautschnig</a>.
+  href="mailto:michael.tautschnig@cs.ox.ac.uk">Michael Tautschnig</a>.
 </p>
 
 <div class="box1">
@@ -160,6 +160,13 @@ and other helpers.
       <td><a href="http://www.nec-labs.com/~chaowang/pubDOC/predict-example.tar">Chao Wang</a><br/>
       <a href="orig-src/predict-example.tar">(local copy)</a></td>
       <td align=center><a href="pkgs/predict-example.cprover-bm.tar.gz"><img src="Box.png" border="0"/></a></td>
+    </tr>
+    <tr>
+      <td>LLBMC VSTTE'12 Benchmarks</td>
+      <td><a
+          href="http://llbmc.org/files/downloads/llbmc-bench-vstte-2012.tgz">llbmc.org</a><br/>
+      <a href="orig-src/llbmc-bench-vstte-2012.tgz">(local copy)</a></td>
+      <td align=center><a href="pkgs/llbmc-bench.cprover-bm.tar.gz"><img src="Box.png" border="0"/></a></td>
     </tr>
   </table>
 
@@ -467,8 +474,8 @@ $ cprover/rules graph
 </pre>
 
 <p class="justified">
-furthermore a GNUplot script is produced which may be copied or piped into
-the gnuplot command.
+furthermore LaTeX/TikZ code is produced which may be included in publications
+or taken verbatim to produce PDF files.
 </p>
 
 <pre>
@@ -510,7 +517,7 @@ These steps permits a number of customizations:
 
   <li>
   <p class="justified">
-  The GNUplot scripts may either be box plots of CPU time and memory usage or
+  The graphs may either be box plots of CPU time and memory usage or
   scatter plots (using <b>cpbm graph -s</b>) for comparison of two tools. For box plots
   an arbitrary number of CSV files may be specified, whereas scatter plots
   require exactly two CSV files.
