@@ -78,6 +78,7 @@ show_help() {
   graph           scatter, cactus, or bar charts of run times
   snd-graph       stacked bar or pie charts depicting soundness of tools
   web             generate HTML table and collect log files for web publication
+  jtl             generate JMeter XML summary from CSV
 EOF
 }
 
@@ -106,6 +107,7 @@ case "$CMD" in
   graph) $SCRIPT_HOME/make_graph.pl "$@";;
   snd-graph) $SCRIPT_HOME/make_piechart.pl "$@";;
   web) $SCRIPT_HOME/make_web.pl "$@";; 
+  jtl) $SCRIPT_HOME/make_jtl.pl "$@";; 
   *) die "Unknown command $CMD" ;;
 esac
 

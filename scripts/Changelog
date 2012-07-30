@@ -7,13 +7,14 @@
 	* parse-cbmc.pl: Support statistics for concurrent programs
 	* parse-satabs.pl: Additional statistics for symmetry-aware verification
 	* make_piechart.pl: New subcommand snd-graph to build soundness graphs
-	* cpbm: Document new subcommand, new graph styles
+	* cpbm: Document new subcommands, new graph styles
 	* verify.sh: Fixed claim and timeout handling, more version checks supported
 	* make_web.pl: New options -z, -h, -n
 	* make_csv.pl: More flexibility in log file name parsing, minor fixes, sort
 		columns
 	* make_graph.pl: Rewrite to use LaTeX/TikZ instead of GNUplot for graph
 		output, added cactus plot support
+	* make_jtl.pl: Generate JMeter XML output from CSV, new subcommand jtl
 	* VERSION: Release 0.5
 
 2011-04-07  Michael Tautschnig  <michael.tautschnig@comlab.ox.ac.uk>
