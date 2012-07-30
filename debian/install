@@ -1,10 +1,7 @@
 cil_wrapper.sh usr/share/cpbm/
 cpbm usr/bin/
 list_claims.sh usr/share/cpbm/
-make_csv.pl usr/share/cpbm/
-make_graph.pl usr/share/cpbm/
-make_table.pl usr/share/cpbm/
-make_web.pl usr/share/cpbm/
+make_*.pl usr/share/cpbm/
 parse-*.pl usr/share/cpbm/
 rules.template usr/share/cpbm/
 rules.cpbm.generic usr/share/cpbm/
