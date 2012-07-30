@@ -1,0 +1,178 @@
+# generated using
+# for f in `find . -name "*.vr"` ; do echo -n "results.llbmc.%/$f: TOOL_OPTS +=" >> cprover/llbmc_opts ; tail -1 $f | sed 's/^llbmc [A-Za-z0-9_\-]*.bc//' >> cprover/llbmc_opts ; done
+# and sorting and editing of filenames plus fixing unwinding bounds
+results.llbmc.%/anonymous/bubbleSort.vr: TOOL_OPTS += --function-name=__llbmc_main --max-loop-iterations=5
+results.llbmc.%/anonymous/intSqRoot.vr: TOOL_OPTS += --function-name=intSqRoot --max-loop-iterations=200
+results.llbmc.%/anonymous/selectSort.vr: TOOL_OPTS += --function-name=__llbmc_main --max-loop-iterations=5
+results.llbmc.%/anonymous/simpleWhile.vr: TOOL_OPTS += --function-name=simpleWhile --max-loop-iterations=1000
+results.llbmc.%/eureka/array_init_assign.vr: TOOL_OPTS += 
+results.llbmc.%/eureka/array_init.vr: TOOL_OPTS += 
+results.llbmc.%/eureka/bf10.vr: TOOL_OPTS += --max-loop-iterations=10 
+results.llbmc.%/eureka/bf11.vr: TOOL_OPTS += --max-loop-iterations=11 
+results.llbmc.%/eureka/bf12.vr: TOOL_OPTS += --max-loop-iterations=12 
+results.llbmc.%/eureka/bf13.vr: TOOL_OPTS += --max-loop-iterations=13 
+results.llbmc.%/eureka/bf14.vr: TOOL_OPTS += --max-loop-iterations=14 
+results.llbmc.%/eureka/bf15.vr: TOOL_OPTS += --max-loop-iterations=15 
+results.llbmc.%/eureka/bf16.vr: TOOL_OPTS += --max-loop-iterations=16 
+results.llbmc.%/eureka/bf17.vr: TOOL_OPTS += --max-loop-iterations=17 
+results.llbmc.%/eureka/bf18.vr: TOOL_OPTS += --max-loop-iterations=18 
+results.llbmc.%/eureka/bf19.vr: TOOL_OPTS += --max-loop-iterations=19 
+results.llbmc.%/eureka/bf20.vr: TOOL_OPTS += --max-loop-iterations=20 
+results.llbmc.%/eureka/bf5.vr: TOOL_OPTS += --max-loop-iterations=5 
+results.llbmc.%/eureka/bf6.vr: TOOL_OPTS += --max-loop-iterations=6 
+results.llbmc.%/eureka/bf7.vr: TOOL_OPTS += --max-loop-iterations=7 
+results.llbmc.%/eureka/bf8.vr: TOOL_OPTS += --max-loop-iterations=8 
+results.llbmc.%/eureka/bf9.vr: TOOL_OPTS += --max-loop-iterations=9 
+results.llbmc.%/eureka/bubblesort_inner_loop.vr: TOOL_OPTS += --max-loop-iterations=5 
+results.llbmc.%/eureka/bubblesort.vr: TOOL_OPTS += --max-loop-iterations=5 
+results.llbmc.%/eureka/complex_guard.vr: TOOL_OPTS += --max-loop-iterations=2 
+results.llbmc.%/eureka/loop_on_input.vr: TOOL_OPTS += --max-loop-iterations=4 
+results.llbmc.%/eureka/Prim_4.vr: TOOL_OPTS += --max-loop-iterations=4 
+results.llbmc.%/eureka/Prim_5.vr: TOOL_OPTS += --max-loop-iterations=5 
+results.llbmc.%/eureka/Prim_6.vr: TOOL_OPTS += --max-loop-iterations=6 
+results.llbmc.%/eureka/Prim_7.vr: TOOL_OPTS += --max-loop-iterations=7 
+results.llbmc.%/eureka/Prim_8.vr: TOOL_OPTS += --max-loop-iterations=8 
+results.llbmc.%/eureka/sequential_swap.vr: TOOL_OPTS += 
+results.llbmc.%/eureka/simple_array_inversion.vr: TOOL_OPTS += --max-loop-iterations=2 
+results.llbmc.%/eureka/simple_control_on_input.vr: TOOL_OPTS += --max-loop-iterations=20 
+results.llbmc.%/eureka/simple_swap_call.vr: TOOL_OPTS += 
+results.llbmc.%/eureka/wrong_loop.vr: TOOL_OPTS += --max-loop-iterations=6 
+results.llbmc.%/necla/ex10.vr: TOOL_OPTS += --function-name=__llbmc_main --max-loop-iterations=16 
+results.llbmc.%/necla/ex11.vr: TOOL_OPTS += --max-loop-iterations=1000 --no-max-loop-iterations-checks 
+results.llbmc.%/necla/ex12.vr: TOOL_OPTS += 
+results.llbmc.%/necla/ex13.vr: TOOL_OPTS += 
+results.llbmc.%/necla/ex14.vr: TOOL_OPTS += 
+results.llbmc.%/necla/ex15.vr: TOOL_OPTS += 
+results.llbmc.%/necla/ex16.vr: TOOL_OPTS += --max-loop-iterations=1000 --no-max-loop-iterations-checks 
+results.llbmc.%/necla/ex17.vr: TOOL_OPTS += 
+results.llbmc.%/necla/ex18.vr: TOOL_OPTS += --max-loop-iterations=100 
+results.llbmc.%/necla/ex19.vr: TOOL_OPTS += --function-name=__llbmc_main --max-loop-iterations=1000 
+results.llbmc.%/necla/ex1.vr: TOOL_OPTS += 
+results.llbmc.%/necla/ex20.vr: TOOL_OPTS += --max-loop-iterations=1024 
+results.llbmc.%/necla/ex21.vr: TOOL_OPTS += --friendly-prototypes
+results.llbmc.%/necla/ex22.vr: TOOL_OPTS += --max-loop-iterations=200 
+results.llbmc.%/necla/ex23.vr: TOOL_OPTS += --function-name=__llbmc_main 
+results.llbmc.%/necla/ex26.vr: TOOL_OPTS += --friendly-prototypes
+results.llbmc.%/necla/ex27.vr: TOOL_OPTS += --max-loop-iterations=200 
+results.llbmc.%/necla/ex29.vr: TOOL_OPTS += 
+results.llbmc.%/necla/ex2.vr: TOOL_OPTS += --max-loop-iterations=100 
+results.llbmc.%/necla/ex30.vr: TOOL_OPTS += --max-loop-iterations=200 
+results.llbmc.%/necla/ex31.vr: TOOL_OPTS += --max-loop-iterations=7 
+results.llbmc.%/necla/ex32.vr: TOOL_OPTS += --max-loop-iterations=1000 
+results.llbmc.%/necla/ex33.vr: TOOL_OPTS += --function-name=__llbmc_main 
+results.llbmc.%/necla/ex34.vr: TOOL_OPTS += 
+results.llbmc.%/necla/ex36_free.vr: TOOL_OPTS += --function-name=__llbmc_main --no-max-loop-iterations-checks --no-memory-access-checks
+results.llbmc.%/necla/ex36_read.vr: TOOL_OPTS += --function-name=__llbmc_main --no-max-loop-iterations-checks --no-memory-free-checks
+results.llbmc.%/necla/ex37.vr: TOOL_OPTS += --function-name=__llbmc_main 
+results.llbmc.%/necla/ex3.vr: TOOL_OPTS += --max-loop-iterations=10 
+results.llbmc.%/necla/ex40.vr: TOOL_OPTS += --function-name=__llbmc_main --max-loop-iterations=100 
+results.llbmc.%/necla/ex43.vr: TOOL_OPTS += 
+results.llbmc.%/necla/ex46.vr: TOOL_OPTS += --function-name=__llbmc_main --max-loop-iterations=10 
+results.llbmc.%/necla/ex47.vr: TOOL_OPTS += --function-name=__llbmc_main --max-loop-iterations=10 
+results.llbmc.%/necla/ex49.vr: TOOL_OPTS += --function-name=__llbmc_main --max-loop-iterations=1000 
+results.llbmc.%/necla/ex4.vr: TOOL_OPTS += --max-loop-iterations=10 
+results.llbmc.%/necla/ex5.vr: TOOL_OPTS += 
+results.llbmc.%/necla/ex6.vr: TOOL_OPTS += 
+results.llbmc.%/necla/ex7.vr: TOOL_OPTS += --function-name=__llbmc_main --max-loop-iterations=1000 
+results.llbmc.%/necla/ex8.vr: TOOL_OPTS += --max-loop-iterations=1000 
+results.llbmc.%/necla/ex9.vr: TOOL_OPTS += --max-loop-iterations=6 
+results.llbmc.%/necla/inf1.vr: TOOL_OPTS += --function-name=__llbmc_main 
+results.llbmc.%/necla/inf3.vr: TOOL_OPTS += --function-name=__llbmc_main --max-loop-iterations=10 
+results.llbmc.%/necla/inf4.vr: TOOL_OPTS += --function-name=__llbmc_main 
+results.llbmc.%/necla/inf5.vr: TOOL_OPTS += --function-name=__llbmc_main 
+results.llbmc.%/necla/inf6.vr: TOOL_OPTS += --function-name=__llbmc_main 
+results.llbmc.%/necla/inf8.vr: TOOL_OPTS += --function-name=__llbmc_main 
+results.llbmc.%/queue/queue_1000.vr: TOOL_OPTS += 
+results.llbmc.%/queue/queue_100.vr: TOOL_OPTS += 
+results.llbmc.%/queue/queue_10.vr: TOOL_OPTS += 
+results.llbmc.%/queue/queue_1.vr: TOOL_OPTS += 
+results.llbmc.%/slayer/ex1.vr: TOOL_OPTS += 
+results.llbmc.%/slayer/ex2.vr: TOOL_OPTS += 
+results.llbmc.%/slayer/ex3.vr: TOOL_OPTS += 
+results.llbmc.%/slayer/ex5.vr: TOOL_OPTS += 
+results.llbmc.%/slayer/ex6.vr: TOOL_OPTS += 
+results.llbmc.%/slayer/ex7.vr: TOOL_OPTS += --max-loop-iterations=10 
+results.llbmc.%/slayer/ex8.vr: TOOL_OPTS += --max-loop-iterations=5 
+results.llbmc.%/slayer/ex9.vr: TOOL_OPTS += --max-loop-iterations=5 
+results.llbmc.%/smack/array1.vr: TOOL_OPTS += 
+results.llbmc.%/smack/array2.vr: TOOL_OPTS += 
+results.llbmc.%/smack/array3.vr: TOOL_OPTS += 
+results.llbmc.%/smack/array4.vr: TOOL_OPTS += 
+results.llbmc.%/smack/array_free1.vr: TOOL_OPTS += 
+results.llbmc.%/smack/array_free2.vr: TOOL_OPTS += 
+results.llbmc.%/smack/array_free.vr: TOOL_OPTS += 
+results.llbmc.%/smack/array.vr: TOOL_OPTS += 
+results.llbmc.%/smack/ase_example.vr: TOOL_OPTS += --max-loop-iterations=10 
+results.llbmc.%/smack/dsa_test10.vr: TOOL_OPTS += 
+results.llbmc.%/smack/dsa_test11.vr: TOOL_OPTS += 
+results.llbmc.%/smack/dsa_test12.vr: TOOL_OPTS += 
+results.llbmc.%/smack/dsa_test13.vr: TOOL_OPTS += 
+results.llbmc.%/smack/dsa_test14.vr: TOOL_OPTS += 
+results.llbmc.%/smack/dsa_test15.vr: TOOL_OPTS += 
+results.llbmc.%/smack/dsa_test1.vr: TOOL_OPTS += 
+results.llbmc.%/smack/dsa_test2.vr: TOOL_OPTS += 
+results.llbmc.%/smack/dsa_test3.vr: TOOL_OPTS += 
+results.llbmc.%/smack/dsa_test4.vr: TOOL_OPTS += 
+results.llbmc.%/smack/dsa_test5.vr: TOOL_OPTS += 
+results.llbmc.%/smack/dsa_test6.vr: TOOL_OPTS += 
+results.llbmc.%/smack/dsa_test7.vr: TOOL_OPTS += 
+results.llbmc.%/smack/dsa_test8.vr: TOOL_OPTS += 
+results.llbmc.%/smack/dsa_test9.vr: TOOL_OPTS += 
+results.llbmc.%/smack/dsa_test.vr: TOOL_OPTS += 
+results.llbmc.%/smack/simple_double_free.vr: TOOL_OPTS += 
+results.llbmc.%/smack/simple_fail.vr: TOOL_OPTS += 
+results.llbmc.%/smack/simple_pre1.vr: TOOL_OPTS += 
+results.llbmc.%/smack/simple_pre2.vr: TOOL_OPTS += 
+results.llbmc.%/smack/simple_pre3.vr: TOOL_OPTS += 
+results.llbmc.%/smack/simple_pre.vr: TOOL_OPTS += 
+results.llbmc.%/smack/simple.vr: TOOL_OPTS += 
+results.llbmc.%/smack/two_arrays1.vr: TOOL_OPTS += 
+results.llbmc.%/smack/two_arrays2.vr: TOOL_OPTS += --max-loop-iterations=50 
+results.llbmc.%/smack/two_arrays6.vr: TOOL_OPTS += --max-loop-iterations=50 
+results.llbmc.%/smack/two_arrays.vr: TOOL_OPTS += 
+results.llbmc.%/smack/vmcai_bytes.vr: TOOL_OPTS += 
+results.llbmc.%/smack/vmcai_struct.vr: TOOL_OPTS += 
+results.llbmc.%/snu/bs.vr: TOOL_OPTS += --max-loop-iterations=4 
+results.llbmc.%/snu/crc.vr: TOOL_OPTS += --max-loop-iterations=256 
+results.llbmc.%/snu/fibcall.vr: TOOL_OPTS += --max-loop-iterations=30 
+results.llbmc.%/snu/insertsort.vr: TOOL_OPTS += --max-loop-iterations=9 
+results.llbmc.%/snu/jfdctint.vr: TOOL_OPTS += 
+results.llbmc.%/snu/matmul.vr: TOOL_OPTS += 
+results.llbmc.%/urbiva/bitcount16.vr: TOOL_OPTS += --function-name=__llbmc_main 
+results.llbmc.%/urbiva/bitcount32.vr: TOOL_OPTS += --function-name=__llbmc_main 
+results.llbmc.%/urbiva/fermat.vr: TOOL_OPTS += --function-name=__llbmc_main --max-loop-iterations=3 --no-overflow-checks
+results.llbmc.%/urbiva/graycode.vr: TOOL_OPTS += --max-loop-iterations=11 --no-memory-access-checks --no-memory-allocation-checks --no-overflow-checks
+results.llbmc.%/urbiva/magic.vr: TOOL_OPTS += --max-loop-iterations=15 --no-memory-access-checks --no-memory-allocation-checks --no-overflow-checks
+results.llbmc.%/urbiva/matrixsqrt.vr: TOOL_OPTS += --no-memory-access-checks --no-memory-allocation-checks --no-overflow-checks
+results.llbmc.%/urbiva/queens.vr: TOOL_OPTS += --no-overflow-checks --no-memory-access-checks --no-memory-allocation-checks
+results.llbmc.%/urbiva/send-more-money.vr: TOOL_OPTS += --function-name=__llbmc_main --no-overflow-checks
+results.llbmc.%/urbiva/sort.vr: TOOL_OPTS += --no-memory-access-checks --no-memory-allocation-checks
+results.llbmc.%/urbiva/sudoku.vr: TOOL_OPTS += --max-loop-iterations=8 --no-memory-access-checks --no-memory-allocation-checks --no-overflow-checks
+results.llbmc.%/wcet/adpcm.vr: TOOL_OPTS += 
+results.llbmc.%/wcet/bsort100.vr: TOOL_OPTS += --max-loop-iterations=99 
+results.llbmc.%/wcet/bs.vr: TOOL_OPTS += --max-loop-iterations=4 
+results.llbmc.%/wcet/cnt.vr: TOOL_OPTS += 
+results.llbmc.%/wcet/compress.vr: TOOL_OPTS += --max-loop-iterations=49 
+results.llbmc.%/wcet/cover.vr: TOOL_OPTS += 
+results.llbmc.%/wcet/crc.vr: TOOL_OPTS += --max-loop-iterations=256 
+results.llbmc.%/wcet/duff.vr: TOOL_OPTS += 
+results.llbmc.%/wcet/edn.vr: TOOL_OPTS += --max-loop-iterations=99 
+results.llbmc.%/wcet/expint.vr: TOOL_OPTS += --max-loop-iterations=49 
+results.llbmc.%/wcet/fac.vr: TOOL_OPTS += --max-function-call-depth=7 
+results.llbmc.%/wcet/fdct.vr: TOOL_OPTS += 
+results.llbmc.%/wcet/fibcall.vr: TOOL_OPTS += --max-loop-iterations=29 
+results.llbmc.%/wcet/fir.vr: TOOL_OPTS += --max-loop-iterations=26 
+results.llbmc.%/wcet/insertsort.vr: TOOL_OPTS += --max-loop-iterations=9 
+results.llbmc.%/wcet/janne_complex.vr: TOOL_OPTS += --max-loop-iterations=9 
+results.llbmc.%/wcet/jfdctint.vr: TOOL_OPTS += 
+results.llbmc.%/wcet/loop3.vr: TOOL_OPTS += 
+results.llbmc.%/wcet/matmult.vr: TOOL_OPTS += 
+results.llbmc.%/wcet/minmax.vr: TOOL_OPTS += 
+results.llbmc.%/wcet/ndes.vr: TOOL_OPTS += 
+results.llbmc.%/wcet/nsichneu.vr: TOOL_OPTS += 
+results.llbmc.%/wcet/ns.vr: TOOL_OPTS += --max-loop-iterations=5 
+results.llbmc.%/wcet/prime.vr: TOOL_OPTS += --max-loop-iterations=357 
+results.llbmc.%/wcet/recursion.vr: TOOL_OPTS += --max-function-call-depth=11 
+results.llbmc.%/wcet/select.vr: TOOL_OPTS += 
+results.llbmc.%/wcet/statemate.vr: TOOL_OPTS += --max-loop-iterations=2 
+results.llbmc.%/wcet/ud.vr: TOOL_OPTS += --max-loop-iterations=5 

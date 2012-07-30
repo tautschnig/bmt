@@ -14,8 +14,11 @@ done
 cd ..
 
 chmod -R a+rX .
-rsync -e ssh --progress --archive -L --delete --exclude=".svn" webpage/ \
-  /srv/www/cprover.org/software/benchmarks/
+#rsync --progress --archive -L --delete --exclude=".svn" webpage/ /srv/www/cprover.org/software/benchmarks/
+rsync --progress --archive -L --delete --exclude=".svn" webpage/ tmp-web
+cd tmp-web
+scp -r * tautschnig@dkr-srv.cs.ox.ac.uk:/srv/www/cprover.org/software/benchmarks/ || true
+rm -r tmp-web
 
 rm -r pkgs
 mv pkgs.src pkgs

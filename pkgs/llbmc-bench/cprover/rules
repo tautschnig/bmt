@@ -1,0 +1,325 @@
+#!/usr/bin/make -f
+
+# add benchmark files without suffix here
+BENCHMARKS = \
+eureka/array_init_assign \
+eureka/bf8 \
+eureka/simple_array_inversion \
+eureka/bf16 \
+eureka/complex_guard \
+eureka/array_init \
+eureka/loop_on_input \
+eureka/bubblesort_inner_loop \
+eureka/bf10 \
+eureka/wrong_loop \
+eureka/Prim_6 \
+eureka/simple_swap_call \
+eureka/bf13 \
+eureka/bubblesort \
+eureka/Prim_8 \
+eureka/bf19 \
+eureka/bf15 \
+eureka/bf7 \
+eureka/simple_control_on_input \
+eureka/sequential_swap \
+eureka/bf9 \
+eureka/Prim_7 \
+eureka/bf11 \
+eureka/bf17 \
+eureka/bf18 \
+eureka/bf20 \
+eureka/bf12 \
+eureka/bf5 \
+eureka/bf14 \
+eureka/Prim_5 \
+eureka/Prim_4 \
+eureka/bf6 \
+smack/array \
+smack/dsa_test13 \
+smack/array4 \
+smack/simple_pre2 \
+smack/dsa_test1 \
+smack/array2 \
+smack/dsa_test \
+smack/simple_fail \
+smack/simple_double_free \
+smack/dsa_test6 \
+smack/vmcai_struct \
+smack/dsa_test14 \
+smack/dsa_test5 \
+smack/two_arrays6 \
+smack/dsa_test9 \
+smack/array_free \
+smack/simple \
+smack/dsa_test7 \
+smack/array1 \
+smack/array_free1 \
+smack/dsa_test2 \
+smack/vmcai_bytes \
+smack/two_arrays2 \
+smack/simple_pre1 \
+smack/array3 \
+smack/dsa_test15 \
+smack/two_arrays \
+smack/dsa_test12 \
+smack/simple_pre3 \
+smack/array_free2 \
+smack/dsa_test11 \
+smack/simple_pre \
+smack/ase_example \
+smack/two_arrays1 \
+smack/dsa_test4 \
+smack/dsa_test3 \
+smack/dsa_test10 \
+smack/dsa_test8 \
+slayer/ex2 \
+slayer/ex7 \
+slayer/ex6 \
+slayer/ex9 \
+slayer/ex1 \
+slayer/ex3 \
+slayer/ex5 \
+slayer/ex8 \
+necla/inf6 \
+necla/ex2 \
+necla/ex32 \
+necla/ex43 \
+necla/ex33 \
+necla/ex18 \
+necla/inf1 \
+necla/ex7 \
+necla/ex49 \
+necla/ex34 \
+necla/ex16 \
+necla/ex36_read \
+necla/ex26 \
+necla/ex22 \
+necla/ex36_free \
+necla/ex13 \
+necla/ex4 \
+necla/ex29 \
+necla/ex20 \
+necla/ex21 \
+necla/ex6 \
+necla/ex27 \
+necla/ex31 \
+necla/ex9 \
+necla/ex30 \
+necla/ex12 \
+necla/ex23 \
+necla/inf5 \
+necla/ex1 \
+necla/ex3 \
+necla/ex14 \
+necla/ex17 \
+necla/ex5 \
+necla/ex11 \
+necla/inf8 \
+necla/inf4 \
+necla/ex15 \
+necla/ex37 \
+necla/ex19 \
+necla/inf3 \
+necla/ex8 \
+necla/ex40 \
+necla/ex10 \
+necla/ex47 \
+necla/ex46 \
+queue/queue_100 \
+queue/queue_1 \
+queue/queue_10 \
+queue/queue_1000 \
+anonymous/selectSort \
+anonymous/intSqRoot \
+anonymous/bubbleSort \
+anonymous/simpleWhile \
+wcet/recursion \
+wcet/bsort100 \
+wcet/fdct \
+wcet/statemate \
+wcet/fac \
+wcet/select \
+wcet/fibcall \
+wcet/cnt \
+wcet/crc \
+wcet/jfdctint \
+wcet/ud \
+wcet/janne_complex \
+wcet/insertsort \
+wcet/adpcm \
+wcet/loop3 \
+wcet/cover \
+wcet/ndes \
+wcet/duff \
+wcet/prime \
+wcet/expint \
+wcet/nsichneu \
+wcet/minmax \
+wcet/fir \
+wcet/edn \
+wcet/matmult \
+wcet/compress \
+wcet/bs \
+wcet/ns \
+urbiva/matrixsqrt \
+urbiva/fermat \
+urbiva/queens \
+urbiva/magic \
+urbiva/sort \
+urbiva/graycode \
+urbiva/bitcount16 \
+urbiva/bitcount32 \
+urbiva/send-more-money \
+urbiva/sudoku \
+snu/matmul \
+snu/fibcall \
+snu/crc \
+snu/jfdctint \
+snu/insertsort \
+snu/bs
+
+# select a default configuration, timeout and memory limit
+CONFIG = XXX
+# CONFIG = loopfrog.no-inv
+# CONFIG = cbmc.u5-nua
+# CONFIG = cpachecker.explicit
+# CONFIG = blast.dfl
+
+# leave timeout and/or memory limit undefined to not use any limit
+TIMEOUT = 120
+# MAXMEM = 3500
+
+BASEDIR = $(realpath .)
+
+# example configuration - CPROVER tools
+cprover/verified.cbmc.dfl: TOOL_OPTS := --bounds-check --div-by-zero-check --pointer-check --signed-overflow-check --unsigned-overflow-check
+cprover/verified.cbmc.boolector: TOOL_OPTS := --bounds-check --div-by-zero-check --pointer-check --signed-overflow-check --unsigned-overflow-check
+cprover/verified.cbmc.boolector: TOOL_OPTS += --boolector
+cprover/verified.cbmc.profiling: TOOL_OPTS := --bounds-check --div-by-zero-check --pointer-check --signed-overflow-check --unsigned-overflow-check
+cprover/verified.cbmc.profiling: POST_RUN := cd $$tdir ; gprof `/usr/bin/which $$tool` $$tbasename.gmon.out.* > $$tbasename.profile
+include cprover/cbmc_opts
+
+cprover/verified.esbmc.dfl: TOOL_OPTS := -I $(BASEDIR)/include/esbmc --overflow-check
+include cprover/esbmc_opts
+
+cprover/verified.llbmc.dfl: TOOL_OPTS :=
+include cprover/llbmc_opts
+
+cprover/verified.loopfrog.no-inv: TOOL_OPTS := --32 --no-invariants
+cprover/verified.satabs.dfl: TOOL_OPTS := --32 --iterations 20
+cprover/verified.scratch.bf: TOOL_OPTS := --32 --bug-finding
+cprover/verified.wolverine.u5: TOOL_OPTS := --32 --unwind 5
+
+# CPAchecker example configuration
+CPACHECKER_HOME = /some/path
+cprover/verified.cpachecker.%: TOOL := $(CPACHECKER_HOME)/scripts/cpa.sh
+cprover/verified.cpachecker.%: TOOL_OPTS += -setprop output.disable=true -spec $(CPACHECKER_HOME)/test/config/automata/ErrorLocationAutomaton.txt
+cprover/verified.cpachecker.explicit: TOOL_OPTS += -config $(CPACHECKER_HOME)/test/config/explicitAnalysisInf.properties
+cprover/verified.cpachecker.symbpredabsCPA: TOOL_OPTS += -config $(CPACHECKER_HOME)/test/config/symbpredabsCPA.properties
+
+# BLAST configuration
+cprover/verified.blast.%: TOOL := pblast.opt
+cprover/verified.blast.dfl: TOOL_OPTS += 
+
+
+# execute default rules using the variables defined above
+export
+# any of these rules may be overridden by defining rules below
+%:
+	$(MAKE) -f $(shell cpbm home)/rules.cpbm.generic $@
+
+# trap ... ERR isn't supported by dash, which is used on some systems
+SHELL = /bin/bash
+
+cprover/clang/clang:
+	mkdir cprover/clang ; \
+	cd cprover/clang ; \
+	clangver=`clang --version 2>&1 | head -1 | awk '{ print $$3 }'` ; \
+	if [ "$$clangver" = "3.0" ] ; then \
+	  ln -s `/usr/bin/which clang` clang ; \
+	else \
+	  wget http://ftp.uk.debian.org/debian/pool/main/c/clang/libclang-common-dev_3.0-5_amd64.deb ; \
+		dpkg -x libclang-common-dev_3.0-5_amd64.deb . ; \
+	  wget http://ftp.uk.debian.org/debian/pool/main/g/gcc-4.6/libstdc++6_4.6.2-14_amd64.deb ; \
+		dpkg -x libstdc++6_4.6.2-14_amd64.deb . ; \
+		ln -s usr/lib/x86_64-linux-gnu/libstdc++.so.6 ; \
+		wget http://ftp.uk.debian.org/debian/pool/main/l/llvm-3.0/libllvm3.0_3.0-5_amd64.deb ; \
+		dpkg -x libllvm3.0_3.0-5_amd64.deb . ; \
+		ln -s usr/lib/x86_64-linux-gnu/libLLVM-3.0.so.1 ; \
+		wget http://ftp.uk.debian.org/debian/pool/main/c/clang/clang_3.0-5_amd64.deb ; \
+		dpkg -x clang_3.0-5_amd64.deb . ; \
+		ln -s usr/bin/clang ; \
+	fi
+
+# building the source code
+ifeq ($(filter-out esbmc.%,$(CONFIG)),)
+  COMPILER =  
+  SUFFIX = c
+else
+ifeq ($(filter-out llbmc.%,$(CONFIG)),)
+  COMPILER = PATH=$(BASEDIR)/cprover/clang:$$PATH ; \
+						 LD_LIBRARY_PATH=$(BASEDIR)/cprover/clang:$$LD_LIBRARY_PATH ; \
+						 clang -w -O0 -c -emit-llvm -I $(BASEDIR)/include \
+						   -I $(BASEDIR)/cprover/clang/usr/include/clang/3.0/include/
+  SUFFIX = bc
+  COMPILER =  
+  SUFFIX = c
+else
+  COMPILER = goto-cc -I $(BASEDIR)/include/cbmc \
+						 `grep "$$srcname.vr:.*--function " $(BASEDIR)/cprover/cbmc_opts | perl -p -e 's/.*(--function\s+\S+).*/$$1/'`
+  SUFFIX = bin
+endif
+endif
+
+build: cprover/clang/clang
+	test -d cprover
+	$(MAKE) -f cprover/rules cprover/binaries.$(CONFIG)
+
+cprover/binaries.$(CONFIG): $(addsuffix .$(SUFFIX), $(addprefix build/, $(BENCHMARKS)))
+	$(RM) $@
+	set -e ; trap '$(RM) $@' ERR ; \
+	for f in $^ ; do \
+	  echo $$f >> $@ ; \
+	done
+
+build/%.$(SUFFIX): %.c
+	mkdir -p $(dir $@)
+	cd $(dir $<) ; srcname=$(basename $<) ; $(COMPILER) -o $(abspath $@) $(realpath $<)
+
+build/%.c: %.c
+	mkdir -p $(dir $@)
+	cp -f $(wildcard $(dir $<)/*.h) $^ $(dir $@)
+
+# verification rules
+verify: build
+	test -d cprover
+	$(MAKE) -f cprover/rules cprover/verified.$(CONFIG)
+
+cprover/verified.$(CONFIG): $(addsuffix .vr, $(addprefix results.$(CONFIG)/, $(BENCHMARKS)))
+	set -e ; trap '$(RM) $@' ERR ; \
+	cat $^ > $@
+
+results.$(CONFIG)/%vr: build/%$(SUFFIX)
+	mkdir -p $(dir $@)
+	set -e ; trap '$(RM) $(abspath $@)' ERR ; \
+	tool="$(TOOL)" ; if [ "x$$tool" = "x" ] ; then tool="$(basename $(CONFIG))" ; fi ; \
+	timeout="$(TIMEOUT)" ; if [ "x$$timeout" != "x" ] ; then timeout="--timeout $(TIMEOUT)" ; fi ; \
+	maxmem="$(MAXMEM)" ; if [ "x$$maxmem" != "x" ] ; then maxmem="--maxmem $(MAXMEM)" ; fi ; \
+	cd $(dir $@) ; \
+	export GMON_OUT_PREFIX=$(basename $(notdir $@)).gmon.out ; \
+	cpbm run $$timeout $$maxmem --cmd $$tool $(realpath $<) -- $(TOOL_OPTS) | tee $(abspath $@) ; \
+	exit $${PIPESTATUS[0]}
+	tool="$(TOOL)" ; if [ "x$$tool" = "x" ] ; then tool="$(basename $(CONFIG))" ; fi ; \
+	tdir=$(dir $@) ; tbasename=$(basename $(notdir $@)) ; $(POST_RUN)
+
+
+# cleanup
+clean:
+	test -d cprover
+	rm -rf results.* build
+	rm -f cprover/binaries.* cprover/verified.*
+	rm -rf cprover/results.*
+	rm -rf cprover/clang
+
+.PHONY: clean build verify
+
