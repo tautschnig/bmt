@@ -57,13 +57,14 @@ Usage: $0 [OPTIONS] CSV [COLUMN FILTER] [CSV [COLUMN FILTER]] ...
     -c                build a cactus plot
     -l                use logarithmic scaling
     -r                use percentage of instances as x axis scaling in cactus plot
-    -m REGEXP:REGEXP  map benchmark names from REGEXP to REGEXP   
+    -m REGEXP:REGEXP  map benchmark names from REGEXP to REGEXP
+    -X                beautify graph
 
 EOF
 }
 
-our ($opt_s, $opt_h, $opt_c, $opt_l, $opt_r, $opt_m);
-if (!getopts('hsclrm:') || defined($opt_h) || !scalar(@ARGV)) {
+our ($opt_s, $opt_h, $opt_c, $opt_l, $opt_r, $opt_m, $opt_X);
+if (!getopts('hsclrm:X') || defined($opt_h) || !scalar(@ARGV)) {
   usage;
   exit (defined($opt_h) ? 0 : 1);
 }
@@ -188,6 +189,8 @@ foreach my $f (keys %files_filters) {
   }
 }
 
+system("wget http://antiyawn.com/uploads/Humor-Sans.ttf")
+  if($opt_X && ! -f "Humor-Sans.ttf");
 my $pgfbasedl = 0;
 if(! -d "base") {
   $pgfbasedl = 1;
@@ -216,7 +219,13 @@ $opt_l and $fn .= "_log";
 $title =~ s/, $//;
 $title =~ s/, ([^,]+)$/ and $1/;
 $legend =~ s/, $//;
-  
+my $decoration = "";
+$opt_X and $decoration = "decoration={random steps,segment length=1mm,amplitude=0.2pt}";
+my $axis_decoration = "";
+$opt_X and $axis_decoration = "xticklabel style={/pgf/number format/assume math mode},\n".
+  "  yticklabel style={/pgf/number format/assume math mode},\n".
+  "  decorate";
+
 my $lb = $opt_l ? 0.01 : 0.0;
 
 my $width = 4;
@@ -234,10 +243,12 @@ $width = 4 if($width < 4);
 $width = 75 if($width > 75);
 $xenlarge = 1/$width;
 $width = "\\pgfplotsset{width=${width}cm}\n";
-  
+
 open TEX, ">$fn.tex";
 print TEX << "EOF";
 \\documentclass{article}
+\\usepackage{fontspec}
+\\setmainfont{Humor-Sans.ttf}
 \\usepackage{pgfplots}
 \\usetikzlibrary{backgrounds}
 \\tikzset{
@@ -248,7 +259,8 @@ print TEX << "EOF";
             draw=none
         }
     },
-    extra padding/.default=0.5cm
+    extra padding/.default=0.5cm,
+    $decoration
 }
 $width
 \\pgfrealjobname{$fn-nn}
@@ -302,6 +314,7 @@ print TEX << "EOF";
   ymin=$rlb,
   xmax=$f1_to,
   ymax=$f2_to,
+  $axis_decoration
 ]
 \\addplot+[only marks]
   coordinates {
@@ -354,7 +367,8 @@ EOF
   legend style={at={(0.5,-2.2cm)}, 
   anchor=north,legend columns=-1},
   nodes near coords,
-  point meta=explicit symbolic
+  point meta=explicit symbolic,
+  $axis_decoration
 ]
 EOF
   print TEX "\\addplot+ coordinates { $coordstrings{$_} };\n"
@@ -420,7 +434,8 @@ EOF
   symbolic x coords={$labels},
   xtick=data, 
   x tick label style={rotate=60,anchor=east}, 
-  x label style={at={(0.5,${labelloc}cm)}}
+  x label style={at={(0.5,${labelloc}cm)}},
+  $axis_decoration
 ]
 EOF
   print TEX "\\addplot coordinates { $coordstrings{$_} };\n"
@@ -437,7 +452,7 @@ print TEX << "EOF";
 \\end{document}
 EOF
 
-system("TEXMFHOME=base:pgfplots pdflatex --jobname=$fn $fn");
+system("TEXMFHOME=base:pgfplots ".($opt_X ? "xelatex" : "pdflatex")." --jobname=$fn $fn");
 system("convert -density 96 -units PixelsPerInch $fn.pdf $fn.png");
 
 system("rm -r pgfplots") if($pgfplotsdl);

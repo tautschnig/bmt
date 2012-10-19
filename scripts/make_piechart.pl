@@ -58,12 +58,13 @@ Usage: $0 [OPTIONS] CSV ... GROUP-NAME GROUP-PATTERN ...
     -g                produce a chart per group instead of per file
     -A                display average runtimes instead of soundness results
     -E                display average runtimes with error bars
+    -X                beautify graph
 
 EOF
 }
 
-our ($opt_p, $opt_g, $opt_h, $opt_A, $opt_E);
-if (!getopts('hpgAE') || defined($opt_h) || !scalar(@ARGV)) {
+our ($opt_p, $opt_g, $opt_h, $opt_A, $opt_E, $opt_X);
+if (!getopts('hpgAEX') || defined($opt_h) || !scalar(@ARGV)) {
   usage;
   exit (defined($opt_h) ? 0 : 1);
 }
@@ -142,6 +143,8 @@ foreach my $f (@files) {
 
 my $pgfbasedl = 0;
 my $pgfplotsdl = 0;
+system("wget http://antiyawn.com/uploads/Humor-Sans.ttf")
+  if($opt_X && ! -f "Humor-Sans.ttf");
 if(! -f "pgf-pie.sty") {
   system("wget http://pgf-pie.googlecode.com/files/pgf-pie-0.2.zip");
   system("unzip -j pgf-pie-0.2.zip pgf-pie-0.2/pgf-pie.sty");
@@ -156,6 +159,13 @@ if(! -f "pgf-pie.sty") {
     system("unzip pgfplots.zip");
   }
 }
+
+my $decoration = "";
+$opt_X and $decoration = "decoration={random steps,segment length=1mm,amplitude=0.2pt}";
+my $axis_decoration = "";
+$opt_X and $axis_decoration = "xticklabel style={/pgf/number format/assume math mode},\n".
+  "  yticklabel style={/pgf/number format/assume math mode},\n".
+  "  decorate";
 
 for my $tn (keys %by_category) {
   my $fn = $tn;
@@ -181,6 +191,8 @@ for my $tn (keys %by_category) {
     open TEX, ">$fn.tex";
     print TEX << "EOF";
 \\documentclass{article}
+\\usepackage{fontspec}
+\\setmainfont{Humor-Sans.ttf}
 \\usepackage{pgf-pie}
 \\pgfrealjobname{$fn-nn}
 \\begin{document}
@@ -216,6 +228,8 @@ EOF
     open TEX, ">$fn.tex";
     print TEX << "EOF";
 \\documentclass{article}
+\\usepackage{fontspec}
+\\setmainfont{Humor-Sans.ttf}
 \\usepackage{pgfplots}
 \\usetikzlibrary{backgrounds}
 \\tikzset{
@@ -226,7 +240,8 @@ EOF
             draw=none
         }
     },
-    extra padding/.default=0.5cm
+    extra padding/.default=0.5cm,
+    $decoration
 }
 \\pgfplotsset{width=${width}cm}
 \\pgfrealjobname{$fn-nn}
@@ -246,6 +261,7 @@ EOF
   x tick label style={rotate=60,anchor=east}, 
   xlabel={Category},
   ylabel={Time},
+  $axis_decoration
 ]
 EOF
   my $style = $opt_E ? "error bars/.cd, y dir=both,y explicit" :
@@ -284,6 +300,8 @@ EOF
     open TEX, ">$fn.tex";
     print TEX << "EOF";
 \\documentclass{article}
+\\usepackage{fontspec}
+\\setmainfont{Humor-Sans.ttf}
 \\usepackage{pgfplots}
 \\usetikzlibrary{backgrounds}
 \\tikzset{
@@ -294,7 +312,8 @@ EOF
             draw=none
         }
     },
-    extra padding/.default=0.5cm
+    extra padding/.default=0.5cm,
+    $decoration
 }
 \\pgfplotsset{width=${width}cm}
 \\pgfrealjobname{$fn-nn}
@@ -314,6 +333,7 @@ EOF
   symbolic x coords={$labels},
   xtick=data, 
   x tick label style={rotate=60,anchor=east}, 
+  $axis_decoration
 ]
 \\addplot+[green!50!black, ybar] plot coordinates { $ok };
 \\addplot+[orange!90!black, ybar] plot coordinates { $unknown };
@@ -327,7 +347,7 @@ EOF
 
   }
 
-  system("TEXMFHOME=base:pgfplots pdflatex --jobname=$fn $fn");
+  system("TEXMFHOME=base:pgfplots ".($opt_X ? "xelatex" : "pdflatex")." --jobname=$fn $fn");
   system("convert -density 96 -units PixelsPerInch $fn.pdf $fn.png");
 }
 

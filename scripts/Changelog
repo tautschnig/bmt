@@ -1,3 +1,8 @@
+2012-10-19  Michael Tautschnig  <mt@debian.org>
+
+	* make_graph.pl, make_piechart.pl: Added option -X to format graphs in xkcd
+		style
+
 2012-07-30  Michael Tautschnig  <michael.tautschnig@cs.ox.ac.uk>
 
 	* parse-{llbmc,esbmc,mmchecker,poirot,threader,blender,astree}.pl: New result
