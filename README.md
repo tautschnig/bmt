@@ -1,6 +1,5 @@
-********************************
-* CPROVER Benchmarking Toolkit *
-********************************
+Benchmarking Toolkit
+====================
 
 The benchmarking toolkit consists of three main components:
 
