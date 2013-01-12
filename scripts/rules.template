@@ -1,0 +1,40 @@
+#!/usr/bin/make -f
+
+# add benchmark files without suffix here
+BENCHMARKS = XXX
+
+# select a default configuration, timeout and memory limit
+CONFIG = XXX
+# CONFIG = loopfrog.no-inv
+# CONFIG = cbmc.u5-nua
+# CONFIG = cpachecker.explicit
+# CONFIG = blast.dfl
+
+# leave timeout and/or memory limit undefined to not use any limit
+TIMEOUT = 60
+# MAXMEM = 3500
+
+# example configuration - CPROVER tools
+cprover/verified.cbmc.u5-nua: TOOL_OPTS := --32 --unwind 5 --no-unwinding-assertions
+cprover/verified.loopfrog.no-inv: TOOL_OPTS := --32 --no-invariants
+cprover/verified.satabs.dfl: TOOL_OPTS := --32 --iterations 20
+cprover/verified.scratch.bf: TOOL_OPTS := --32 --bug-finding
+cprover/verified.wolverine.u5: TOOL_OPTS := --32 --unwind 5
+
+# CPAchecker example configuration
+CPACHECKER_HOME = /some/path
+cprover/verified.cpachecker.%: TOOL := $(CPACHECKER_HOME)/scripts/cpa.sh
+cprover/verified.cpachecker.%: TOOL_OPTS += -setprop output.disable=true -spec $(CPACHECKER_HOME)/test/config/automata/ErrorLocationAutomaton.txt
+cprover/verified.cpachecker.explicit: TOOL_OPTS += -config $(CPACHECKER_HOME)/test/config/explicitAnalysisInf.properties
+cprover/verified.cpachecker.symbpredabsCPA: TOOL_OPTS += -config $(CPACHECKER_HOME)/test/config/symbpredabsCPA.properties
+
+# BLAST configuration
+cprover/verified.blast.%: TOOL := pblast.opt
+cprover/verified.blast.dfl: TOOL_OPTS += 
+
+# execute default rules using the variables defined above
+export
+# any of these rules may be overridden by defining rules below
+%:
+	$(MAKE) -f $(shell cpbm home)/rules.cpbm.generic $@
+

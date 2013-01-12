@@ -1,0 +1,97 @@
+#!/usr/bin/make -f
+
+# trap ... ERR isn't supported by dash, which is used on some systems
+SHELL = /bin/bash
+
+# building the source code
+ifeq ($(filter-out cpachecker.%,$(CONFIG)),)
+  COMPILER ?= cpbm cillify -D__CPROVER_assert=__assert_fail -Dassert=__assert_fail
+  SUFFIX ?= i
+endif
+
+ifeq ($(filter-out blast.%,$(CONFIG)),)
+  COMPILER ?= cpbm cillify --blast
+  SUFFIX ?= i
+endif
+
+ifeq ($(filter-out llvm.%,$(CONFIG)),)
+  COMPILER ?= clang -emit-llvm -c
+  SUFFIX ?= s
+endif
+
+COMPILER ?= goto-cc --32
+SUFFIX ?= bin
+
+build:
+	test -d cprover
+	$(MAKE) -f cprover/rules cprover/binaries.$(CONFIG)
+
+cprover/binaries.$(CONFIG): $(addsuffix .$(SUFFIX), $(addprefix build/, $(BENCHMARKS)))
+	$(RM) $@
+	set -e ; trap '$(RM) $@' ERR ; \
+	for f in $^ ; do \
+	  echo $$f >> $@ ; \
+	done
+
+build/%.$(SUFFIX): %.c
+	mkdir -p $(dir $@)
+	cd $(dir $<) ; $(COMPILER) -o $(abspath $@) $(realpath $<)
+
+
+# verification rules
+verify: build
+	test -d cprover
+	$(MAKE) -f cprover/rules cprover/verified.$(CONFIG)
+
+cprover/verified.$(CONFIG): $(addsuffix .vr, $(addprefix results.$(CONFIG)/, $(BENCHMARKS)))
+	set -e ; trap '$(RM) $@' ERR ; \
+	cat $^ > $@
+
+results.$(CONFIG)/%vr: build/%$(SUFFIX)
+	mkdir -p $(dir $@)
+	set -e ; trap '$(RM) $(abspath $@)' ERR ; \
+	tool="$(TOOL)" ; if [ "x$$tool" = "x" ] ; then tool="$(basename $(CONFIG))" ; fi ; \
+	timeout="$(TIMEOUT)" ; if [ "x$$timeout" != "x" ] ; then timeout="--timeout $(TIMEOUT)" ; fi ; \
+	maxmem="$(MAXMEM)" ; if [ "x$$maxmem" != "x" ] ; then maxmem="--maxmem $(MAXMEM)" ; fi ; \
+	cd $(dir $@) ; \
+	claims=`cpbm list-claims --cmd $$tool $(realpath $<) -- $(TOOL_OPTS)` ; \
+	for c in $$claims ; do \
+	  cl=`echo $$c | cut -f1 -d:` ; \
+	  st=`echo $$c | cut -f2 -d:` ; \
+	  if [ "$$st" = "TRUE" ] ; then st="--valid" ; else st="--unknown" ; fi ; \
+	  cpbm run --claim $$cl $$st $$timeout $$maxmem --cmd $$tool $(realpath $<) -- $(TOOL_OPTS) ; \
+	done | tee $(abspath $@) ; \
+	exit $${PIPESTATUS[0]}
+
+
+# statistics collection
+csv: verify
+	test -d cprover
+	$(MAKE) -f cprover/rules cprover/results.$(CONFIG).csv
+
+cprover/results.$(CONFIG).csv: cprover/verified.$(CONFIG)
+	set -e ; trap '$(RM) $@' ERR ; \
+	parser="$(PARSER)" ; if [ "x$$parser" = "x" ] ; then parser="$(basename $(CONFIG))" ; fi ; \
+	cpbm csv $$parser $^ > $@
+
+table: csv
+	test -d cprover
+	cpbm table cprover/results.$(CONFIG).csv Benchmark Result usertime maxmem
+
+graph: csv
+	test -d cprover
+	cpbm graph cprover/results.$(CONFIG).csv
+
+web: csv
+	test -d cprover
+	cpbm web cprover/results.$(CONFIG).csv cprover/results.$(CONFIG).web
+
+# cleanup
+clean:
+	test -d cprover
+	rm -rf results.* build
+	rm -f cprover/binaries.* cprover/verified.*
+	rm -rf cprover/results.*
+
+.PHONY: clean build verify csv table graph web
+

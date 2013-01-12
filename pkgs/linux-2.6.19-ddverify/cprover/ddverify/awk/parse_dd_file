@@ -1,0 +1,3 @@
+/^[ ]*module_init\(*\)*/ {print "MODULE_INIT\n" $1}
+/^[ ]*module_exit\(*\)*/ {print "MODULE_EXIT\n" $1}
+/^[ ]*#include*/ {print "INCLUDE\n" $2}

@@ -1,0 +1,83 @@
+.\"                                      Hey, EMACS: -*- nroff -*-
+.\" First parameter, NAME, should be all caps
+.\" Second parameter, SECTION, should be 1-8, maybe w/ subsection
+.\" other parameters are allowed: see man(7), man(1)
+.TH CPBM 1 "March 13, 2011"
+.\" Please adjust this date whenever revising the manpage.
+.\"
+.\" Some roff macros, for reference:
+.\" .nh        disable hyphenation
+.\" .hy        enable hyphenation
+.\" .ad l      left justify
+.\" .ad b      justify to both left and right margins
+.\" .nf        disable filling
+.\" .fi        enable filling
+.\" .br        insert line break
+.\" .sp <n>    insert n+1 empty lines
+.\" for manpage-specific macros, see man(7)
+.SH NAME
+cpbm \- CPROVER benchmarking framework
+.SH SYNOPSIS
+.B cpbm
+.RI sub-command 
+.RI [ options ] " ...
+.SH DESCRIPTION
+This manual page documents briefly the
+.B cpbm
+command.
+.PP
+.\" TeX users may be more comfortable with the \fB<whatever>\fP and
+.\" \fI<whatever>\fP escape sequences to invode bold face and italics,
+.\" respectively.
+\fBcpbm\fP provides access to a collection of scripts and tools to benchmark
+software analysis tools.
+.SH SUB-COMMANDS
+The following sub-commands are available; each of them has its own set of
+options that are shown by \fBcpbm command \-\-help\fP.
+.TP
+.B help | \-\-help
+Display the cpbm help text.
+.TP
+.B \-\-version
+Display the current version.
+.TP
+.B home
+Print the path where cpbm scripts reside.
+.TP
+.B unpack
+Unpack a CPROVER benchmark package.
+.TP
+.B update
+Update a CPROVER benchmark package.
+.TP
+.B init
+Create a CPROVER benchmark package.
+.TP
+.B run
+Run a verification tool on a given benchmark and obtain logs.
+.TP
+.B cillify
+Run C sources through Cil.
+.TP
+.B list-claims
+List all claims in a benchmark.
+.TP
+.B csv
+Produce a CSV table from benchmark runs.
+.TP
+.B table
+Produce a LaTeX table from CSV.
+.TP
+.B graph
+Produce GNUplot scripts for box and scatter plots.
+.TP
+.B web
+Generate HTML table and collect log files for web publication
+.SH SEE ALSO
+The programs are documented fully by
+.IR /usr/share/doc/cpbm/README.gz
+.SH AUTHOR
+cpbm was written by Michael Tautschnig <michael.tautschnig@comlab.ox.ac.uk>.
+.PP
+This manual page was written by Michael Tautschnig <mt@debian.org>,
+for the Debian project (and may be used by others).

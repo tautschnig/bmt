@@ -1,0 +1,111 @@
+#!/usr/bin/make -f
+
+# trap ... ERR isn't supported by dash, which is used on some systems
+SHELL = /bin/bash
+
+# add benchmark files without suffix here
+CHAR_DRIVERS = genrtc applicom \
+						 	 watchdog/i8xx_tco watchdog/ib700wdt watchdog/machzwd watchdog/mixcomwd \
+						 	 watchdog/pcwd watchdog/sbc60xxwdt watchdog/sc1200wdt watchdog/sc520_wdt \
+						 	 watchdog/smsc37b787_wdt watchdog/w83877f_wdt watchdog/w83977f_wdt \
+						 	 watchdog/wdt watchdog/wdt977 watchdog/wdt_pci
+
+BLOCK_DRIVERS = cpqarray floppy 
+## DAC960 and cciss don't work with cil
+## BLOCK_DRIVERS += cciss DAC960
+
+BENCHMARKS = $(addprefix drivers/char/, $(CHAR_DRIVERS)) $(addprefix drivers/block/, $(BLOCK_DRIVERS))
+
+# select a default configuration, timeout and memory limit
+CONFIG = satabs.dfl
+# CONFIG = cbmc.u5-nua
+# CONFIG = wolverine.u5
+# CONFIG = cpachecker.explicit
+
+# leave timeout and/or memory limit undefined to not use any limit
+TIMEOUT = 1200
+# MAXMEM = 3500
+
+# example configuration - CPROVER tools
+cprover/verified.cbmc.u5-nua: TOOL_OPTS := --32 --unwind 5 --no-unwinding-assertions
+cprover/verified.satabs.dfl: TOOL_OPTS := --32 --iterations 20
+cprover/verified.satabs.bc.dz.pc: TOOL_OPTS := --32 --iterations 20 --bounds-check --div-by-zero-check --pointer-check
+cprover/verified.wolverine.u5: TOOL_OPTS := --32 --unwind 5
+
+# CPAchecker example configuration
+CPACHECKER_HOME = /home/scratch/mictau/cpachecker/trunk
+cprover/verified.cpachecker.%: TOOL := $(CPACHECKER_HOME)/scripts/cpa.sh
+cprover/verified.cpachecker.%: TOOL_OPTS += -setprop output.disable=true -spec $(CPACHECKER_HOME)/test/config/automata/ErrorLocationAutomaton.txt
+cprover/verified.cpachecker.explicit: TOOL_OPTS += -config $(CPACHECKER_HOME)/test/config/explicitAnalysisInf.properties
+cprover/verified.cpachecker.symbpredabsCPA: TOOL_OPTS += -config $(CPACHECKER_HOME)/test/config/symbpredabsCPA.properties
+
+# BLAST configuration
+cprover/verified.blast.%: TOOL := pblast.opt
+cprover/verified.blast.dfl: TOOL_OPTS += 
+
+DDV_CHECKS = --check-spinlock \
+						 --check-semaphore --check-mutex --check-io --check-wait-queue \
+						 --check-tasklet --check-work-queue --check-timer --check-context
+
+cprover/verified.llvm.rr-aa: TOOL = $(realpath ../)/llvm-2.8/Release/bin/opt
+cprover/verified.llvm.rr-aa: TOOL_OPTS := -loop-unroll -rr-aa -instcount -stats -o=/dev/null
+
+cprover/results.llvm.%.csv: PARSER := rr-aa
+
+# building the source code
+COMPILER = goto-cc
+SUFFIX = bin
+# COMPILER=cpp
+# SUFFIX=dir/
+
+ifeq ($(filter-out cpachecker.%,$(CONFIG)),)
+  COMPILER = cil
+  SUFFIX = i
+endif
+
+ifeq ($(filter-out blast.%,$(CONFIG)),)
+  COMPILER = cil-blast
+  SUFFIX = i
+endif
+
+ifeq ($(filter-out llvm.%,$(CONFIG)),)
+  COMPILER = clang
+  SUFFIX = s
+endif
+
+
+# sequential version:
+cprover/binaries.cbmc.%: DEFINES += -D MODEL_TYPE_SEQUENTIAL1
+cprover/binaries.wolverine.%: DEFINES += -D MODEL_TYPE_SEQUENTIAL1
+cprover/binaries.cpachecker.%: DEFINES += -D MODEL_TYPE_SEQUENTIAL1 -D __CPROVER_assert=__assert_fail
+cprover/binaries.blast.%: DEFINES += -D MODEL_TYPE_SEQUENTIAL1
+
+build/drivers/char/genrtc.$(SUFFIX): DEFINES += -D CONFIG_GEN_RTC_X -D CONFIG_PROC_FS
+build/drivers/char/watchdog/wdt.$(SUFFIX): DEFINES += -D CONFIG_WDT_501
+build/drivers/char/watchdog/wdt_pci.$(SUFFIX): DEFINES += -D CONFIG_WDT_501_PCI
+build/drivers/block/cciss.$(SUFFIX): DEFINES += -D CONFIG_PROC_FS -D CONFIG_X86
+build/drivers/block/cpqarray.$(SUFFIX): DEFINES += -D CONFIG_PROC_FS
+
+# execute default rules using the variables defined above
+export
+# any of these rules may be overridden by defining rules below
+%:
+	$(MAKE) -f $(shell cpbm home)/rules.cpbm.generic $@
+
+build:
+	test -d cprover
+	ln -snf asm-i386 include/asm
+	$(MAKE) -f cprover/rules cprover/binaries.$(CONFIG)
+	rm include/asm
+
+cprover/binaries.$(CONFIG): $(addsuffix .$(SUFFIX), $(addprefix build/, $(BENCHMARKS)))
+	$(RM) $@
+	set -e ; trap '$(RM) $@' ERR ; \
+	for f in $^ ; do \
+	  echo $$f >> $@ ; \
+	done
+
+build/%.$(SUFFIX): %.c
+	mkdir -p $(dir $@)
+	cprover/ddverify/ddverify.sh --$(COMPILER) $(DDV_CHECKS) $(DEFINES) $^ -o $@
+

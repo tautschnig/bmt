@@ -1,0 +1,94 @@
+2012-10-19  Michael Tautschnig  <mt@debian.org>
+
+	* make_graph.pl, make_piechart.pl: Added option -X to format graphs in xkcd
+		style
+
+2012-07-30  Michael Tautschnig  <michael.tautschnig@cs.ox.ac.uk>
+
+	* parse-{llbmc,esbmc,mmchecker,poirot,threader,blender,astree}.pl: New result
+		parsers for LLBMC/ESBMC/MMchecker/Poirot/Threader/Blender/Astree
+	* parse-{checkfence,bfc,satabs2}.pl: New result parsers for
+		CheckFence/BFC/CImpact
+	* parse-cbmc.pl: Support statistics for concurrent programs
+	* parse-satabs.pl: Additional statistics for symmetry-aware verification
+	* make_piechart.pl: New subcommand snd-graph to build soundness graphs
+	* cpbm: Document new subcommands, new graph styles
+	* verify.sh: Fixed claim and timeout handling, more version checks supported
+	* make_web.pl: New options -z, -h, -n
+	* make_csv.pl: More flexibility in log file name parsing, minor fixes, sort
+		columns
+	* make_graph.pl: Rewrite to use LaTeX/TikZ instead of GNUplot for graph
+		output, added cactus plot support
+	* make_jtl.pl: Generate JMeter XML output from CSV, new subcommand jtl
+	* VERSION: Release 0.5
+
+2011-04-07  Michael Tautschnig  <michael.tautschnig@comlab.ox.ac.uk>
+
+	* README: Clarification of description and formatting
+
+2011-03-31  Michael Tautschnig  <michael.tautschnig@comlab.ox.ac.uk>
+
+	* verify.sh: Proper check for executable
+	* verify.sh, make_csv.pl: Support for Mac OS X, mingw32 and cygwin
+	* README: Updated (future) home URL
+	* parse-ai.pl: New results parser for CPROVER ai tool
+	* unpack.sh, update.sh: Exit with proper error message if source archive
+		contains extra files
+	* parse-*.pl: Set default result to ERROR
+	* VERSION: Release 0.4
+
+2011-03-28  Michael Tautschnig  <michael.tautschnig@comlab.ox.ac.uk>
+
+	* parse-rr-aa.pl: Collect instruction counts
+	* cil_wrapper.sh: Added option --no-simplify
+	* VERSION: Release 0.3
+
+2011-03-23  Michael Tautschnig  <michael.tautschnig@comlab.ox.ac.uk>
+
+	* cil_wrapper.sh: Properly handle single source file case
+	* rules.cpbm.generic: Force SHELL to /bin/bash to support trap ERR
+
+2011-03-21  Michael Tautschnig  <michael.tautschnig@comlab.ox.ac.uk>
+
+	* README: Document new web target
+	* parse-rr-aa.pl: Include time of "repair iterations" in output
+
+2011-03-19  Michael Tautschnig  <michael.tautschnig@comlab.ox.ac.uk>
+
+	* make_web.pl, cpbm, rules.cpbm.generic: Added command to generate an HTML
+	table and collect the log files for web publication
+	* VERSION: Release 0.2
+
+2011-03-18  Michael Tautschnig  <michael.tautschnig@comlab.ox.ac.uk>
+
+	* parse-{cbmc,satabs,loopfrog,wolverine,scratch}.pl: Move previous
+	parse-cprover.pl to one parser per tool, currently all sharing the same code;
+	removed executable flag from all parse-*.pl scriptlets
+	* rules.template, rules.cpbm.generic: Moved all generally useful rules to
+	rules.cpbm.generic that is called from default rules file; all targets may be
+	overridden; added more comments
+	* make_csv.pl: Print benchmark result lines sorted by file name; benchmark
+	name is without file suffix and claim name is omitted if ALL_CLAIMS; default
+	Result value to ERROR
+	* make_table.pl: Escape _ in LaTeX output of values, print floating point
+	numbers with rounding to three digits, make columns suitable and fixed width,
+	beautify headers using multicolumn
+
+2011-03-17  Michael Tautschnig  <michael.tautschnig@comlab.ox.ac.uk>
+
+	* verify.sh: Ignore errors from $TOOL --version; check for executability
+	* make_csv.pl: Use cprover/ as primary search path for log parser snippet;
+	support all [a-z]+ filename suffixes; print the file name being processed to
+	stderr
+	* unpack.sh, update.sh: Support plain tar archives
+	* README: Documented parser lookup in make_csv.pl
+	* cil_wrapper.sh: Use hardly documented CILLY_DONT_LINK_AFTER_MERGE to stop
+	cilly from running the linker
+	* parse-rr-aa.pl: Added parser for experiments using LLVM and an
+	implementation of Rugina and Rinard's pointer analysis
+	* cpbm: Added --help, --version, home options
+
+2011-03-14  Michael Tautschnig  <michael.tautschnig@comlab.ox.ac.uk>
+
+	* Initial release.
+

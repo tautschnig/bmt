@@ -1,0 +1,106 @@
+file __main.c: Parsing
+file /home/thomas/studium/master_thesis/ddverify/src/ddverify/ddverify.c: Parsing
+file /home/thomas/studium/master_thesis/ddverify/src/ddverify/cdev.c: Parsing
+file /home/thomas/studium/master_thesis/ddverify/src/ddverify/genhd.c: Parsing
+file /home/thomas/studium/master_thesis/ddverify/src/ddverify/interrupt.c: Parsing
+file /home/thomas/studium/master_thesis/ddverify/src/ddverify/ioctl.c: Parsing
+file /home/thomas/studium/master_thesis/ddverify/src/ddverify/pci.c: Parsing
+file /home/thomas/studium/master_thesis/ddverify/src/ddverify/tasklet.c: Parsing
+file /home/thomas/studium/master_thesis/ddverify/src/ddverify/timer.c: Parsing
+file /home/thomas/studium/master_thesis/ddverify/src/linux/pci.c: Parsing
+file /home/thomas/studium/master_thesis/ddverify/src/linux/arch/i386/lib/usercopy.c: Parsing
+file /home/thomas/studium/master_thesis/ddverify/src/linux/block/genhd.c: Parsing
+file /home/thomas/studium/master_thesis/ddverify/src/linux/block/ll_rw_blk.c: Parsing
+file /home/thomas/studium/master_thesis/ddverify/src/linux/drivers/char/misc.c: Parsing
+file /home/thomas/studium/master_thesis/ddverify/src/linux/drivers/char/tty_io.c: Parsing
+file /home/thomas/studium/master_thesis/ddverify/src/linux/fs/char_dev.c: Parsing
+file /home/thomas/studium/master_thesis/ddverify/src/linux/kernel/mutex.c: Parsing
+file /home/thomas/studium/master_thesis/ddverify/src/linux/kernel/resource.c: Parsing
+file /home/thomas/studium/master_thesis/ddverify/src/linux/kernel/sched.c: Parsing
+file /home/thomas/studium/master_thesis/ddverify/src/linux/kernel/semaphore.c: Parsing
+file /home/thomas/studium/master_thesis/ddverify/src/linux/kernel/softirq.c: Parsing
+file /home/thomas/studium/master_thesis/ddverify/src/linux/kernel/spinlock.c: Parsing
+file /home/thomas/studium/master_thesis/ddverify/src/linux/kernel/timer.c: Parsing
+file /home/thomas/studium/master_thesis/ddverify/src/linux/kernel/wait.c: Parsing
+file /home/thomas/studium/master_thesis/ddverify/src/linux/kernel/workqueue.c: Parsing
+file /home/thomas/studium/master_thesis/ddverify/src/linux/kernel/irq/manage.c: Parsing
+file /home/thomas/studium/master_thesis/ddverify/src/linux/mm/page_alloc.c: Parsing
+file /home/thomas/studium/master_thesis/ddverify/src/linux/mm/slab.c: Parsing
+file /home/thomas/studium/master_thesis/ddverify/src/linux/mm/vmalloc.c: Parsing
+Converting
+Checking cdev
+Checking ddverify
+Checking genhd
+Checking interrupt
+Checking ioctl
+Checking pci
+Checking tasklet
+Checking timer
+Checking usercopy
+Checking genhd
+Checking ll_rw_blk
+Checking misc
+Checking tty_io
+Checking char_dev
+Checking manage
+Checking mutex
+Checking resource
+Checking sched
+Checking semaphore
+Checking softirq
+Checking spinlock
+Checking timer
+Checking wait
+Checking workqueue
+Checking page_alloc
+Checking slab
+Checking vmalloc
+Checking pci
+Checking __main
+file applicom.c line 126: warning: conversion from `const struct file_operations *' to `struct file_operations *': disregarding const
+file applicom.c line 382 function ac_write: warning: conversion from `const signed char *' to `void *': disregarding const
+file applicom.c line 385 function ac_write: warning: conversion from `const signed char *' to `void *': disregarding const
+Generating GOTO Program
+Removing Function Pointers and Inlining
+Function Pointer Removal
+file /home/thomas/studium/master_thesis/ddverify/src/ddverify/cdev.c line 92 function call_cdev_functions: no target candidate for function call `*cdev_registered[cdev_no].cdevp->ops->open' 
+file /home/thomas/studium/master_thesis/ddverify/src/ddverify/cdev.c line 106 function call_cdev_functions: no target candidate for function call `*cdev_registered[cdev_no].cdevp->ops->release' 
+file /home/thomas/studium/master_thesis/ddverify/src/ddverify/genhd.c line 71 function call_genhd_functions: no target candidate for function call `*genhd_registered[(unsigned int)genhd_no].gd->fops->open' 
+file /home/thomas/studium/master_thesis/ddverify/src/ddverify/genhd.c line 78 function call_genhd_functions: no target candidate for function call `*genhd_registered[(unsigned int)genhd_no].gd->fops->release' 
+file /home/thomas/studium/master_thesis/ddverify/src/ddverify/genhd.c line 87 function call_genhd_functions: no target candidate for function call `*genhd_registered[(unsigned int)genhd_no].gd->fops->ioctl' 
+file /home/thomas/studium/master_thesis/ddverify/src/ddverify/genhd.c line 96 function call_genhd_functions: no target candidate for function call `*genhd_registered[(unsigned int)genhd_no].gd->fops->media_changed' 
+file /home/thomas/studium/master_thesis/ddverify/src/ddverify/genhd.c line 102 function call_genhd_functions: no target candidate for function call `*genhd_registered[(unsigned int)genhd_no].gd->fops->revalidate_disk' 
+file /home/thomas/studium/master_thesis/ddverify/src/ddverify/genhd.c line 113 function call_genhd_functions: no target candidate for function call `*genhd_registered[(unsigned int)genhd_no].gd->fops->getgeo' 
+file /home/thomas/studium/master_thesis/ddverify/src/ddverify/genhd.c line 31 function call_rq_function: no target candidate for function call `*genhd_registered[genhd_no].gd->queue->request_fn' 
+file /home/thomas/studium/master_thesis/ddverify/src/linux/kernel/workqueue.c line 36 function call_shared_workqueue_functions: no target candidate for function call `*shared_workqueue[(unsigned int)i]->func' 
+file /home/thomas/studium/master_thesis/ddverify/src/ddverify/tasklet.c line 11 function call_tasklet_functions: no target candidate for function call `*tasklet_registered[i].tasklet->func' 
+file /home/thomas/studium/master_thesis/ddverify/src/ddverify/timer.c line 11 function call_timer_functions: no target candidate for function call `*timer_registered[(unsigned int)i].timer->function' 
+file /home/thomas/studium/master_thesis/ddverify/src/ddverify/pci.c line 21 function pci_probe_device: no target candidate for function call `*registered_pci_driver.pci_driver->probe' 
+file /home/thomas/studium/master_thesis/ddverify/src/ddverify/pci.c line 33 function pci_remove_device: no target candidate for function call `*registered_pci_driver.pci_driver->remove' 
+file applicom.c line 194 function applicom_init: no body for function `c::printk'
+file applicom.c line 209 function applicom_init: no body for function `c::ioremap'
+file applicom.c line 215 function applicom_init: no body for function `c::pci_disable_device'
+file applicom.c line 136 function ac_register_board: no body for function `c::readb'
+file applicom.c line 228 function applicom_init: no body for function `c::iounmap'
+file applicom.c line 243 function applicom_init: no body for function `c::writeb'
+file applicom.c line 117: no body for function `c::no_llseek'
+file applicom.c line 556 function ac_read: no body for function `c::set_current_state'
+file applicom.c line 557 function ac_read: no body for function `c::add_wait_queue'
+file applicom.c line 575 function ac_read: no body for function `c::remove_wait_queue'
+file applicom.c line 609 function ac_read: no body for function `c::get_current'
+file applicom.c line 609 function ac_read: no body for function `c::signal_pending'
+file applicom.c line 715 function ac_ioctl: no body for function `c::kfree'
+file applicom.c line 833 function ac_ioctl: no body for function `c::waitqueue_active'
+file applicom.c line 173 function applicom_exit: no body for function `c::misc_deregister'
+Pointer Analysis
+Adding Pointer Checks
+Invariant Propagation
+*** Starting CEGAR Loop ***
+Calculating initial set of predicates
+*** CEGAR Loop Iteration 1
+Computing Predicate Abstraction for Program
+Running Cadence SMV: smv -sift
+VERIFICATION SUCCESSFUL
+Time: 27.666 total, 1.651 abstractor, 25.811 model checker, 0 simulator, 0 refiner
+Iterations: 1
+Predicates: 1

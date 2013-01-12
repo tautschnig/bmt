@@ -1,0 +1,1804 @@
+diff -urN -xcprover cproverbm.C2FvLn/bind/b1/bind-b1-1-fixed.test_desc llcorpora-2007-11-06/bind/b1/bind-b1-1-fixed.test_desc
+--- cproverbm.C2FvLn/bind/b1/bind-b1-1-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/bind/b1/bind-b1-1-fixed.test_desc	2011-02-06 00:40:25.000000000 +0000
+@@ -0,0 +1,7 @@
++nxt-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_0
++ -I .
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/bind/b1/bind-b1-1.test_desc llcorpora-2007-11-06/bind/b1/bind-b1-1.test_desc
+--- cproverbm.C2FvLn/bind/b1/bind-b1-1.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/bind/b1/bind-b1-1.test_desc	2011-02-06 00:40:25.000000000 +0000
+@@ -0,0 +1,7 @@
++nxt-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_1
++ -I .
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/bind/b2/bind-b2-1-fixed.test_desc llcorpora-2007-11-06/bind/b2/bind-b2-1-fixed.test_desc
+--- cproverbm.C2FvLn/bind/b2/bind-b2-1-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/bind/b2/bind-b2-1-fixed.test_desc	2011-02-06 00:40:25.000000000 +0000
+@@ -0,0 +1,7 @@
++sig-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_0
++ -I .
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/bind/b2/bind-b2-1.test_desc llcorpora-2007-11-06/bind/b2/bind-b2-1.test_desc
+--- cproverbm.C2FvLn/bind/b2/bind-b2-1.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/bind/b2/bind-b2-1.test_desc	2011-02-06 00:40:25.000000000 +0000
+@@ -0,0 +1,7 @@
++sig-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_0
++ -I .
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/bind/b3/bind-b3-1-fixed.test_desc llcorpora-2007-11-06/bind/b3/bind-b3-1-fixed.test_desc
+--- cproverbm.C2FvLn/bind/b3/bind-b3-1-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/bind/b3/bind-b3-1-fixed.test_desc	2011-02-06 00:40:25.000000000 +0000
+@@ -0,0 +1,7 @@
++iquery-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_0
++
++PASS: 1 FAIL: 0
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/bind/b3/bind-b3-1.test_desc llcorpora-2007-11-06/bind/b3/bind-b3-1.test_desc
+--- cproverbm.C2FvLn/bind/b3/bind-b3-1.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/bind/b3/bind-b3-1.test_desc	2011-02-06 00:40:25.000000000 +0000
+@@ -0,0 +1,7 @@
++iquery-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_0
++
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/bind/b4/bind-b4-1-fixed.test_desc llcorpora-2007-11-06/bind/b4/bind-b4-1-fixed.test_desc
+--- cproverbm.C2FvLn/bind/b4/bind-b4-1-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/bind/b4/bind-b4-1-fixed.test_desc	2011-02-06 00:40:25.000000000 +0000
+@@ -0,0 +1,7 @@
++ns-lookup-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_0
++-I .
++PASS: 1 FAIL: 0
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/bind/b4/bind-b4-1.test_desc llcorpora-2007-11-06/bind/b4/bind-b4-1.test_desc
+--- cproverbm.C2FvLn/bind/b4/bind-b4-1.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/bind/b4/bind-b4-1.test_desc	2011-02-06 00:40:25.000000000 +0000
+@@ -0,0 +1,7 @@
++ns-lookup-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_0
++-I .
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-10-fixed.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-10-fixed.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-10-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-10-fixed.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_10
++
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-10.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-10.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-10.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-10.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_10
++
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-11-fixed.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-11-fixed.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-11-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-11-fixed.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_11
++
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-11.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-11.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-11.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-11.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_11
++
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-12-fixed.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-12-fixed.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-12-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-12-fixed.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_12
++
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-12.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-12.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-12.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-12.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_12
++
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-13-fixed.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-13-fixed.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-13-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-13-fixed.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_13
++
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-13.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-13.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-13.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-13.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_13
++
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-14-fixed.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-14-fixed.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-14-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-14-fixed.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_14
++
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-14.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-14.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-14.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-14.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_14
++
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-15-fixed.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-15-fixed.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-15-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-15-fixed.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_15
++
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-15.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-15.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-15.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-15.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_15
++
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-16-fixed.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-16-fixed.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-16-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-16-fixed.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_16
++
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-16.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-16.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-16.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-16.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_16
++
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-17-fixed.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-17-fixed.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-17-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-17-fixed.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_17
++
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-17.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-17.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-17.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-17.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_17
++
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-18-fixed.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-18-fixed.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-18-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-18-fixed.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_18
++
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-18.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-18.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-18.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-18.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_18
++
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-19-fixed.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-19-fixed.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-19-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-19-fixed.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_19
++
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-19.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-19.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-19.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-19.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_19
++
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-1-fixed.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-1-fixed.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-1-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-1-fixed.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_1
++
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-1.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-1.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-1.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-1.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_1
++
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-20-fixed.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-20-fixed.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-20-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-20-fixed.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_20
++
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-20.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-20.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-20.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-20.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_20
++
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-21-fixed.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-21-fixed.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-21-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-21-fixed.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_21
++ 
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-21.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-21.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-21.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-21.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_21
++
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-22-fixed.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-22-fixed.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-22-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-22-fixed.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_22
++
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-22.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-22.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-22.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-22.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_22
++
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-23-fixed.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-23-fixed.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-23-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-23-fixed.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_23
++
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-23.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-23.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-23.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-23.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_23
++
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-24-fixed.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-24-fixed.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-24-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-24-fixed.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_24
++
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-24.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-24.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-24.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-24.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_24
++
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-25-fixed.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-25-fixed.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-25-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-25-fixed.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_25
++
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-25.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-25.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-25.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-25.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_25
++
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-26-fixed.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-26-fixed.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-26-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-26-fixed.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_26
++
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-26.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-26.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-26.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-26.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_26
++
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-27-fixed.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-27-fixed.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-27-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-27-fixed.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_27
++
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-27.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-27.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-27.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-27.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_27
++
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-28-fixed.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-28-fixed.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-28-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-28-fixed.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_28
++
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-28.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-28.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-28.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-28.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_28
++
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-2-fixed.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-2-fixed.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-2-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-2-fixed.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_2
++
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-2.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-2.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-2.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-2.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_2
++
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-3-fixed.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-3-fixed.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-3-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-3-fixed.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_3
++
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-3.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-3.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-3.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-3.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_3
++
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-4-fixed.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-4-fixed.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-4-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-4-fixed.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_4
++
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-4.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-4.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-4.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-4.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_4
++
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-5-fixed.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-5-fixed.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-5-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-5-fixed.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_5
++
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-5.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-5.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-5.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-5.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_5
++
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-6-fixed.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-6-fixed.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-6-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-6-fixed.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_6
++
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-6.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-6.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-6.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-6.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_6
++
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-7-fixed.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-7-fixed.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-7-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-7-fixed.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_7
++
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-7.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-7.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-7.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-7.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_7
++
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-8-fixed.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-8-fixed.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-8-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-8-fixed.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_8
++
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-8.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-8.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-8.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-8.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_8
++
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-9-fixed.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-9-fixed.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-9-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-9-fixed.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_9
++
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s1/sendmail-s1-9.test_desc llcorpora-2007-11-06/sendmail/s1/sendmail-s1-9.test_desc
+--- cproverbm.C2FvLn/sendmail/s1/sendmail-s1-9.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s1/sendmail-s1-9.test_desc	2011-02-06 03:13:07.000000000 +0000
+@@ -0,0 +1,7 @@
++crackaddr-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_9
++
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s2/sendmail-s2-1-fixed.test_desc llcorpora-2007-11-06/sendmail/s2/sendmail-s2-1-fixed.test_desc
+--- cproverbm.C2FvLn/sendmail/s2/sendmail-s2-1-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s2/sendmail-s2-1-fixed.test_desc	2011-02-06 00:40:25.000000000 +0000
+@@ -0,0 +1,7 @@
++main-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_1
++recipient-ok.c util-ok.c -I .
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s2/sendmail-s2-1.test_desc llcorpora-2007-11-06/sendmail/s2/sendmail-s2-1.test_desc
+--- cproverbm.C2FvLn/sendmail/s2/sendmail-s2-1.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s2/sendmail-s2-1.test_desc	2011-02-06 00:40:25.000000000 +0000
+@@ -0,0 +1,7 @@
++main-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_1
++recipient-bad.c util-bad.c -I .
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s2/sendmail-s2-2-fixed.test_desc llcorpora-2007-11-06/sendmail/s2/sendmail-s2-2-fixed.test_desc
+--- cproverbm.C2FvLn/sendmail/s2/sendmail-s2-2-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s2/sendmail-s2-2-fixed.test_desc	2011-02-06 00:40:25.000000000 +0000
+@@ -0,0 +1,7 @@
++main-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_2
++recipient-ok.c util-ok.c -I .
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s2/sendmail-s2-2.test_desc llcorpora-2007-11-06/sendmail/s2/sendmail-s2-2.test_desc
+--- cproverbm.C2FvLn/sendmail/s2/sendmail-s2-2.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s2/sendmail-s2-2.test_desc	2011-02-06 00:40:26.000000000 +0000
+@@ -0,0 +1,7 @@
++main-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_2
++recipient-bad.c util-bad.c -I .
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s3/sendmail-s3-1-fixed.test_desc llcorpora-2007-11-06/sendmail/s3/sendmail-s3-1-fixed.test_desc
+--- cproverbm.C2FvLn/sendmail/s3/sendmail-s3-1-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s3/sendmail-s3-1-fixed.test_desc	2011-02-06 02:47:25.000000000 +0000
+@@ -0,0 +1,7 @@
++main.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_1
++mime1-ok.c -I .
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s3/sendmail-s3-1.test_desc llcorpora-2007-11-06/sendmail/s3/sendmail-s3-1.test_desc
+--- cproverbm.C2FvLn/sendmail/s3/sendmail-s3-1.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s3/sendmail-s3-1.test_desc	2011-02-06 02:47:25.000000000 +0000
+@@ -0,0 +1,7 @@
++main.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_1
++mime1-bad.c -I .
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s3/sendmail-s3-2-fixed.test_desc llcorpora-2007-11-06/sendmail/s3/sendmail-s3-2-fixed.test_desc
+--- cproverbm.C2FvLn/sendmail/s3/sendmail-s3-2-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s3/sendmail-s3-2-fixed.test_desc	2011-02-06 02:47:25.000000000 +0000
+@@ -0,0 +1,7 @@
++main.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_2
++mime1-ok.c -I .
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s3/sendmail-s3-2.test_desc llcorpora-2007-11-06/sendmail/s3/sendmail-s3-2.test_desc
+--- cproverbm.C2FvLn/sendmail/s3/sendmail-s3-2.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s3/sendmail-s3-2.test_desc	2011-02-06 02:47:25.000000000 +0000
+@@ -0,0 +1,7 @@
++main.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_2
++mime1-bad.c -I .
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s3/sendmail-s3-3-fixed.test_desc llcorpora-2007-11-06/sendmail/s3/sendmail-s3-3-fixed.test_desc
+--- cproverbm.C2FvLn/sendmail/s3/sendmail-s3-3-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s3/sendmail-s3-3-fixed.test_desc	2011-02-06 02:47:25.000000000 +0000
+@@ -0,0 +1,7 @@
++main.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_3
++mime1-ok.c -I .
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s3/sendmail-s3-3.test_desc llcorpora-2007-11-06/sendmail/s3/sendmail-s3-3.test_desc
+--- cproverbm.C2FvLn/sendmail/s3/sendmail-s3-3.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s3/sendmail-s3-3.test_desc	2011-02-06 02:47:25.000000000 +0000
+@@ -0,0 +1,7 @@
++main.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_3
++mime1-bad.c -I .
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s4/sendmail-s4-1-fixed.test_desc llcorpora-2007-11-06/sendmail/s4/sendmail-s4-1-fixed.test_desc
+--- cproverbm.C2FvLn/sendmail/s4/sendmail-s4-1-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s4/sendmail-s4-1-fixed.test_desc	2011-02-06 02:37:48.000000000 +0000
+@@ -0,0 +1,7 @@
++mime2-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_1
++-I .
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s4/sendmail-s4-1.test_desc llcorpora-2007-11-06/sendmail/s4/sendmail-s4-1.test_desc
+--- cproverbm.C2FvLn/sendmail/s4/sendmail-s4-1.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s4/sendmail-s4-1.test_desc	2011-02-06 02:37:48.000000000 +0000
+@@ -0,0 +1,7 @@
++mime2-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_1
++-I .
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s4/sendmail-s4-2-fixed.test_desc llcorpora-2007-11-06/sendmail/s4/sendmail-s4-2-fixed.test_desc
+--- cproverbm.C2FvLn/sendmail/s4/sendmail-s4-2-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s4/sendmail-s4-2-fixed.test_desc	2011-02-06 02:37:48.000000000 +0000
+@@ -0,0 +1,7 @@
++mime2-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_2
++-I .
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s4/sendmail-s4-2.test_desc llcorpora-2007-11-06/sendmail/s4/sendmail-s4-2.test_desc
+--- cproverbm.C2FvLn/sendmail/s4/sendmail-s4-2.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s4/sendmail-s4-2.test_desc	2011-02-06 02:37:48.000000000 +0000
+@@ -0,0 +1,7 @@
++mime2-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_2
++-I .
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s4/sendmail-s4-3-fixed.test_desc llcorpora-2007-11-06/sendmail/s4/sendmail-s4-3-fixed.test_desc
+--- cproverbm.C2FvLn/sendmail/s4/sendmail-s4-3-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s4/sendmail-s4-3-fixed.test_desc	2011-02-06 02:37:48.000000000 +0000
+@@ -0,0 +1,7 @@
++mime2-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_3
++-I .
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s4/sendmail-s4-3.test_desc llcorpora-2007-11-06/sendmail/s4/sendmail-s4-3.test_desc
+--- cproverbm.C2FvLn/sendmail/s4/sendmail-s4-3.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s4/sendmail-s4-3.test_desc	2011-02-06 02:37:48.000000000 +0000
+@@ -0,0 +1,7 @@
++mime2-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_3
++-I .
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s4/sendmail-s4-4-fixed.test_desc llcorpora-2007-11-06/sendmail/s4/sendmail-s4-4-fixed.test_desc
+--- cproverbm.C2FvLn/sendmail/s4/sendmail-s4-4-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s4/sendmail-s4-4-fixed.test_desc	2011-02-06 02:37:48.000000000 +0000
+@@ -0,0 +1,7 @@
++mime2-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_4
++-I .
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s4/sendmail-s4-4.test_desc llcorpora-2007-11-06/sendmail/s4/sendmail-s4-4.test_desc
+--- cproverbm.C2FvLn/sendmail/s4/sendmail-s4-4.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s4/sendmail-s4-4.test_desc	2011-02-06 02:37:48.000000000 +0000
+@@ -0,0 +1,7 @@
++mime2-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_4
++-I .
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s4/sendmail-s4-5-fixed.test_desc llcorpora-2007-11-06/sendmail/s4/sendmail-s4-5-fixed.test_desc
+--- cproverbm.C2FvLn/sendmail/s4/sendmail-s4-5-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s4/sendmail-s4-5-fixed.test_desc	2011-02-06 02:37:48.000000000 +0000
+@@ -0,0 +1,7 @@
++mime2-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_5
++-I .
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s4/sendmail-s4-5.test_desc llcorpora-2007-11-06/sendmail/s4/sendmail-s4-5.test_desc
+--- cproverbm.C2FvLn/sendmail/s4/sendmail-s4-5.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s4/sendmail-s4-5.test_desc	2011-02-06 02:37:48.000000000 +0000
+@@ -0,0 +1,7 @@
++mime2-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_5
++-I .
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s4/sendmail-s4-6-fixed.test_desc llcorpora-2007-11-06/sendmail/s4/sendmail-s4-6-fixed.test_desc
+--- cproverbm.C2FvLn/sendmail/s4/sendmail-s4-6-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s4/sendmail-s4-6-fixed.test_desc	2011-02-06 02:37:48.000000000 +0000
+@@ -0,0 +1,7 @@
++mime2-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_6
++-I .
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s4/sendmail-s4-6.test_desc llcorpora-2007-11-06/sendmail/s4/sendmail-s4-6.test_desc
+--- cproverbm.C2FvLn/sendmail/s4/sendmail-s4-6.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s4/sendmail-s4-6.test_desc	2011-02-06 02:37:48.000000000 +0000
+@@ -0,0 +1,7 @@
++mime2-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_6
++-I .
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s4/sendmail-s4-7-fixed.test_desc llcorpora-2007-11-06/sendmail/s4/sendmail-s4-7-fixed.test_desc
+--- cproverbm.C2FvLn/sendmail/s4/sendmail-s4-7-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s4/sendmail-s4-7-fixed.test_desc	2011-02-06 02:37:48.000000000 +0000
+@@ -0,0 +1,7 @@
++mime2-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_7
++-I .
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s4/sendmail-s4-7.test_desc llcorpora-2007-11-06/sendmail/s4/sendmail-s4-7.test_desc
+--- cproverbm.C2FvLn/sendmail/s4/sendmail-s4-7.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s4/sendmail-s4-7.test_desc	2011-02-06 02:37:48.000000000 +0000
+@@ -0,0 +1,7 @@
++mime2-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_7
++-I .
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s5/sendmail-s5-1-fixed.test_desc llcorpora-2007-11-06/sendmail/s5/sendmail-s5-1-fixed.test_desc
+--- cproverbm.C2FvLn/sendmail/s5/sendmail-s5-1-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s5/sendmail-s5-1-fixed.test_desc	2011-02-06 00:40:26.000000000 +0000
+@@ -0,0 +1,7 @@
++prescan-overflow-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_1
++
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s5/sendmail-s5-1.test_desc llcorpora-2007-11-06/sendmail/s5/sendmail-s5-1.test_desc
+--- cproverbm.C2FvLn/sendmail/s5/sendmail-s5-1.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s5/sendmail-s5-1.test_desc	2011-02-06 00:40:26.000000000 +0000
+@@ -0,0 +1,7 @@
++prescan-overflow-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_1
++
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s5/sendmail-s5-2-fixed.test_desc llcorpora-2007-11-06/sendmail/s5/sendmail-s5-2-fixed.test_desc
+--- cproverbm.C2FvLn/sendmail/s5/sendmail-s5-2-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s5/sendmail-s5-2-fixed.test_desc	2011-02-06 02:14:04.000000000 +0000
+@@ -0,0 +1,7 @@
++prescan-overflow-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_2
++
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s5/sendmail-s5-2.test_desc llcorpora-2007-11-06/sendmail/s5/sendmail-s5-2.test_desc
+--- cproverbm.C2FvLn/sendmail/s5/sendmail-s5-2.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s5/sendmail-s5-2.test_desc	2011-02-06 02:14:09.000000000 +0000
+@@ -0,0 +1,7 @@
++prescan-overflow-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_2
++
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s5/sendmail-s5-3-fixed.test_desc llcorpora-2007-11-06/sendmail/s5/sendmail-s5-3-fixed.test_desc
+--- cproverbm.C2FvLn/sendmail/s5/sendmail-s5-3-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s5/sendmail-s5-3-fixed.test_desc	2011-02-06 02:14:13.000000000 +0000
+@@ -0,0 +1,7 @@
++prescan-overflow-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_3
++
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s5/sendmail-s5-3.test_desc llcorpora-2007-11-06/sendmail/s5/sendmail-s5-3.test_desc
+--- cproverbm.C2FvLn/sendmail/s5/sendmail-s5-3.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s5/sendmail-s5-3.test_desc	2011-02-06 02:14:25.000000000 +0000
+@@ -0,0 +1,7 @@
++prescan-overflow-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_3
++
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s6/sendmail-s6-1-fixed.test_desc llcorpora-2007-11-06/sendmail/s6/sendmail-s6-1-fixed.test_desc
+--- cproverbm.C2FvLn/sendmail/s6/sendmail-s6-1-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s6/sendmail-s6-1-fixed.test_desc	2011-02-06 00:40:26.000000000 +0000
+@@ -0,0 +1,7 @@
++my-main.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_0
++tTflag-ok.c -I .
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s6/sendmail-s6-1.test_desc llcorpora-2007-11-06/sendmail/s6/sendmail-s6-1.test_desc
+--- cproverbm.C2FvLn/sendmail/s6/sendmail-s6-1.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s6/sendmail-s6-1.test_desc	2011-02-06 00:40:26.000000000 +0000
+@@ -0,0 +1,7 @@
++my-main.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_0
++tTflag-bad.c -I .
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s7/sendmail-s7-1-fixed.test_desc llcorpora-2007-11-06/sendmail/s7/sendmail-s7-1-fixed.test_desc
+--- cproverbm.C2FvLn/sendmail/s7/sendmail-s7-1-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s7/sendmail-s7-1-fixed.test_desc	2011-02-06 02:12:06.000000000 +0000
+@@ -0,0 +1,7 @@
++my-util.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_1
++txt-dns-file-ok.c -I .
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s7/sendmail-s7-1.test_desc llcorpora-2007-11-06/sendmail/s7/sendmail-s7-1.test_desc
+--- cproverbm.C2FvLn/sendmail/s7/sendmail-s7-1.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s7/sendmail-s7-1.test_desc	2011-02-06 00:40:26.000000000 +0000
+@@ -0,0 +1,7 @@
++my-util.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_1
++txt-dns-file-bad.c -I .
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s7/sendmail-s7-2-fixed.test_desc llcorpora-2007-11-06/sendmail/s7/sendmail-s7-2-fixed.test_desc
+--- cproverbm.C2FvLn/sendmail/s7/sendmail-s7-2-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s7/sendmail-s7-2-fixed.test_desc	2011-02-06 02:12:12.000000000 +0000
+@@ -0,0 +1,7 @@
++my-util.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_2
++txt-dns-file-ok.c -I .
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/sendmail/s7/sendmail-s7-2.test_desc llcorpora-2007-11-06/sendmail/s7/sendmail-s7-2.test_desc
+--- cproverbm.C2FvLn/sendmail/s7/sendmail-s7-2.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/sendmail/s7/sendmail-s7-2.test_desc	2011-02-06 02:12:16.000000000 +0000
+@@ -0,0 +1,7 @@
++my-util.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_2
++txt-dns-file-bad.c -I .
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f1/wu-ftpd-f1-1-fixed.test_desc llcorpora-2007-11-06/wu-ftpd/f1/wu-ftpd-f1-1-fixed.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f1/wu-ftpd-f1-1-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f1/wu-ftpd-f1-1-fixed.test_desc	2011-02-06 00:40:26.000000000 +0000
+@@ -0,0 +1,7 @@
++mapped-path-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_1
++
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f1/wu-ftpd-f1-1.test_desc llcorpora-2007-11-06/wu-ftpd/f1/wu-ftpd-f1-1.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f1/wu-ftpd-f1-1.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f1/wu-ftpd-f1-1.test_desc	2011-02-06 00:40:26.000000000 +0000
+@@ -0,0 +1,7 @@
++mapped-path-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_1
++
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f1/wu-ftpd-f1-2-fixed.test_desc llcorpora-2007-11-06/wu-ftpd/f1/wu-ftpd-f1-2-fixed.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f1/wu-ftpd-f1-2-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f1/wu-ftpd-f1-2-fixed.test_desc	2011-02-06 00:40:26.000000000 +0000
+@@ -0,0 +1,7 @@
++mapped-path-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_2
++
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f1/wu-ftpd-f1-2.test_desc llcorpora-2007-11-06/wu-ftpd/f1/wu-ftpd-f1-2.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f1/wu-ftpd-f1-2.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f1/wu-ftpd-f1-2.test_desc	2011-02-06 00:40:26.000000000 +0000
+@@ -0,0 +1,7 @@
++mapped-path-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_2
++
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f1/wu-ftpd-f1-3-fixed.test_desc llcorpora-2007-11-06/wu-ftpd/f1/wu-ftpd-f1-3-fixed.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f1/wu-ftpd-f1-3-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f1/wu-ftpd-f1-3-fixed.test_desc	2011-02-06 00:40:26.000000000 +0000
+@@ -0,0 +1,7 @@
++mapped-path-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_3
++
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f1/wu-ftpd-f1-3.test_desc llcorpora-2007-11-06/wu-ftpd/f1/wu-ftpd-f1-3.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f1/wu-ftpd-f1-3.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f1/wu-ftpd-f1-3.test_desc	2011-02-06 01:19:29.000000000 +0000
+@@ -0,0 +1,7 @@
++mapped-path-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_3
++
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f1/wu-ftpd-f1-4-fixed.test_desc llcorpora-2007-11-06/wu-ftpd/f1/wu-ftpd-f1-4-fixed.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f1/wu-ftpd-f1-4-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f1/wu-ftpd-f1-4-fixed.test_desc	2011-02-06 01:19:36.000000000 +0000
+@@ -0,0 +1,7 @@
++mapped-path-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_4
++
++PASS: 1 FAIL: 0 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f1/wu-ftpd-f1-4.test_desc llcorpora-2007-11-06/wu-ftpd/f1/wu-ftpd-f1-4.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f1/wu-ftpd-f1-4.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f1/wu-ftpd-f1-4.test_desc	2011-02-06 01:19:46.000000000 +0000
+@@ -0,0 +1,7 @@
++mapped-path-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_4
++
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f2/wu-ftpd-f2-1-fixed.test_desc llcorpora-2007-11-06/wu-ftpd/f2/wu-ftpd-f2-1-fixed.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f2/wu-ftpd-f2-1-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f2/wu-ftpd-f2-1-fixed.test_desc	2011-02-06 00:40:26.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_2
++call_fb_realpath.c -I .
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f2/wu-ftpd-f2-1.test_desc llcorpora-2007-11-06/wu-ftpd/f2/wu-ftpd-f2-1.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f2/wu-ftpd-f2-1.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f2/wu-ftpd-f2-1.test_desc	2011-02-06 00:40:26.000000000 +0000
+@@ -0,0 +1,6 @@
++realpath-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_2
++call_fb_realpath.c -I .
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-10-fixed.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-10-fixed.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-10-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-10-fixed.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_10
++call-realpath-ok.c
++PASS: 1 FAIL: 0
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-10.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-10.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-10.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-10.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_10
++call-realpath-bad.c
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Erro
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-11-fixed.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-11-fixed.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-11-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-11-fixed.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_11
++call-realpath-ok.c
++PASS: 1 FAIL: 0
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-11.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-11.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-11.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-11.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_11
++call-realpath-bad.c
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Erro
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-12-fixed.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-12-fixed.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-12-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-12-fixed.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_12
++call-realpath-ok.c
++PASS: 1 FAIL: 0
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-12.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-12.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-12.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-12.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_12
++call-realpath-bad.c
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Erro
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-13-fixed.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-13-fixed.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-13-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-13-fixed.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_13
++call-realpath-ok.c
++PASS: 1 FAIL: 0
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-13.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-13.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-13.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-13.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_13
++call-realpath-bad.c
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Erro
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-14-fixed.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-14-fixed.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-14-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-14-fixed.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_14
++call-realpath-ok.c
++PASS: 1 FAIL: 0
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-14.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-14.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-14.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-14.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_14
++call-realpath-bad.c
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Erro
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-15-fixed.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-15-fixed.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-15-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-15-fixed.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_15
++call-realpath-ok.c
++PASS: 1 FAIL: 0
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-15.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-15.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-15.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-15.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_15
++call-realpath-bad.c
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Erro
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-16-fixed.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-16-fixed.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-16-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-16-fixed.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_16
++call-realpath-ok.c
++PASS: 1 FAIL: 0
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-16.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-16.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-16.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-16.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_16
++call-realpath-bad.c
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Erro
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-17-fixed.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-17-fixed.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-17-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-17-fixed.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_17
++call-realpath-ok.c
++PASS: 1 FAIL: 0
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-17.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-17.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-17.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-17.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_17
++call-realpath-bad.c
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Erro
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-18-fixed.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-18-fixed.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-18-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-18-fixed.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_18
++call-realpath-ok.c
++PASS: 1 FAIL: 0
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-18.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-18.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-18.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-18.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_18
++call-realpath-bad.c
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Erro
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-19-fixed.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-19-fixed.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-19-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-19-fixed.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_19
++call-realpath-ok.c
++PASS: 1 FAIL: 0
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-19.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-19.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-19.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-19.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_19
++call-realpath-bad.c
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Erro
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-1-fixed.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-1-fixed.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-1-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-1-fixed.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_1
++call-realpath-ok.c
++PASS: 1 FAIL: 0
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-1.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-1.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-1.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-1.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_1
++call-realpath-bad.c
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-20-fixed.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-20-fixed.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-20-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-20-fixed.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_20
++call-realpath-ok.c
++PASS: 1 FAIL: 0
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-20.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-20.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-20.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-20.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_20
++call-realpath-bad.c
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Erro
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-21-fixed.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-21-fixed.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-21-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-21-fixed.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_21
++call-realpath-ok.c
++PASS: 1 FAIL: 0
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-21.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-21.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-21.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-21.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_21
++call-realpath-bad.c
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Erro
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-22-fixed.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-22-fixed.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-22-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-22-fixed.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_22
++call-realpath-ok.c
++PASS: 1 FAIL: 0
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-22.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-22.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-22.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-22.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_22
++call-realpath-bad.c
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Erro
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-23-fixed.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-23-fixed.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-23-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-23-fixed.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_23
++call-realpath-ok.c
++PASS: 1 FAIL: 0
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-23.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-23.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-23.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-23.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_23
++call-realpath-bad.c
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Erro
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-24-fixed.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-24-fixed.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-24-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-24-fixed.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_24
++call-realpath-ok.c
++PASS: 1 FAIL: 0
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-24.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-24.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-24.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-24.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_24
++call-realpath-bad.c
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Erro
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-25-fixed.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-25-fixed.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-25-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-25-fixed.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_25
++call-realpath-ok.c
++PASS: 1 FAIL: 0
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-25.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-25.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-25.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-25.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_25
++call-realpath-bad.c
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Erro
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-26-fixed.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-26-fixed.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-26-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-26-fixed.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_26
++call-realpath-ok.c
++PASS: 1 FAIL: 0
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-26.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-26.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-26.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-26.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_26
++call-realpath-bad.c
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Erro
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-27-fixed.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-27-fixed.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-27-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-27-fixed.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_27
++call-realpath-ok.c
++PASS: 1 FAIL: 0
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-27.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-27.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-27.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-27.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_27
++call-realpath-bad.c
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Erro
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-2-fixed.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-2-fixed.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-2-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-2-fixed.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_2
++call-realpath-ok.c
++PASS: 1 FAIL: 0
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-2.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-2.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-2.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-2.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_2
++call-realpath-bad.c
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Erro
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-3-fixed.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-3-fixed.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-3-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-3-fixed.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_3
++call-realpath-ok.c
++PASS: 1 FAIL: 0
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-3.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-3.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-3.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-3.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_3
++call-realpath-bad.c
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Erro
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-4-fixed.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-4-fixed.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-4-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-4-fixed.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_4
++call-realpath-ok.c
++PASS: 1 FAIL: 0
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-4.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-4.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-4.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-4.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_4
++call-realpath-bad.c
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Erro
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-5-fixed.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-5-fixed.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-5-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-5-fixed.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_5
++call-realpath-ok.c
++PASS: 1 FAIL: 0
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-5.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-5.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-5.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-5.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_5
++call-realpath-bad.c
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Erro
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-6-fixed.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-6-fixed.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-6-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-6-fixed.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_6
++call-realpath-ok.c
++PASS: 1 FAIL: 0
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-6.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-6.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-6.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-6.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_6
++call-realpath-bad.c
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Erro
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-7-fixed.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-7-fixed.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-7-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-7-fixed.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_7
++call-realpath-ok.c
++PASS: 1 FAIL: 0
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-7.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-7.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-7.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-7.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_7
++call-realpath-bad.c
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Erro
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-8-fixed.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-8-fixed.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-8-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-8-fixed.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_8
++call-realpath-ok.c
++PASS: 1 FAIL: 0
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-8.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-8.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-8.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-8.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_8
++call-realpath-bad.c
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Erro
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-9-fixed.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-9-fixed.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-9-fixed.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-9-fixed.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-ok.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_9
++call-realpath-ok.c
++PASS: 1 FAIL: 0
++--
++is not a goto-binary$
++^Error opening file
+diff -urN -xcprover cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-9.test_desc llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-9.test_desc
+--- cproverbm.C2FvLn/wu-ftpd/f3/wu-ftpd-f3-9.test_desc	1970-01-01 01:00:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/wu-ftpd-f3-9.test_desc	2011-02-06 02:08:32.000000000 +0000
+@@ -0,0 +1,7 @@
++realpath-2.4.2-bad.c
++--no-progress --bounds-check --testclaim __TESTCLAIM_9
++call-realpath-bad.c
++PASS: 0 FAIL: 1 
++--
++is not a goto-binary$
++^Erro
+

@@ -1,0 +1,224 @@
+********************************
+* CPROVER Benchmarking Toolkit *
+********************************
+
+The benchmarking toolkit consists of three main components:
+
+- Patch set management tools
+- Benchmark execution helpers
+- Result evaluation
+
+All steps are performed by subcommands of the main `cpbm' command. Type `cpbm
+help' to get the list of all subcommands.
+
+
+Please report problems, bugs, questions, suggestions to Michael Tautschnig
+<michael.tautschnig@comlab.ox.ac.uk>.
+
+Benchmark Execution Example
+===========================
+
+Download the benchmark package
+$ wget http://www.cprover.org/software/benchmarks/linux-2.6.19-ddverify.cprover-bm.tar.gz
+
+Unpack the kernel sources and the patch set
+$ cpbm unpack \
+  http://www.kernel.org/pub/linux/kernel/v2.6/linux-2.6.19.tar.bz2 \
+  linux-2.6.19-ddverify.cprover-bm.tar.gz
+
+Enter the new directory
+$ cd linux-2.6.19-ddverify
+
+Run the default benchmark configuration and produce a LaTeX table
+$ cprover/rules -j4 table
+
+Produce an additional GNUplot script and display the graph
+$ cprover/rules graph | gnuplot
+
+Build a web page providing an overview table and all log files in
+cprover/results.satabs.dfl.web/:
+$ cprover/rules web
+
+Patch Set Management
+====================
+
+Benchmarks consist of two files:
+(1) an original source archive as obtained from its original authors, without
+modification and 
+(2) a corresponding patch set <NAME>.cprover-bm.tar.gz that contains all
+modifications, execution scripts, and other helpers.
+This design is inspired by Debian v3 source packages and may thus sound familiar
+to people who are used to working with Debian packages.
+
+(1) The original source archive must be a .zip, .tar.gz, .tgz, .tar.bz2, or .tar
+    archive. If the authors of the software to be benchmarked do not offer such
+    an archive, it should be built manually from whatever the authors provide as
+    source.
+
+(2) The patch set <NAME>.cprover-bm.tar.gz is created and managed by cpbm update as
+    described below. The archive ships a cprover/ directory that may contain
+    arbitrary files, but at least a Makefile cprover/rules must be provided. The
+    patch set management scripts will populate a cprover/patches directory that
+    precisely describes all modification to original sources.
+
+The basic design of this archive solution is completely independent of the
+software to be benchmarked. Its main purpose is the precise description of
+changes to the original source that were made in order to benchmark some tool.
+
+Patch set management commands
+-----------------------------
+
+- cpbm unpack: Takes an archive of original source (or a URL to download the
+  archive from) and the corresponding patch set <NAME>.cprover-bm.tar.gz.
+  cpbm unpack then builds the directory <NAME> from the contents of the original
+  source archive, unpacks the cprover directory in <NAME>, and applies patches
+  from cprover/patches, if any.
+  
+- cpbm init and cpbm update: Create and maintain a <NAME>.cprover-bm.tar.gz
+  file. This file is initially created in the parent directory by running cpbm
+  init <SOURCE ARCHIVE> from within directory <NAME> resulting from manually
+  unpacking <SOURCE ARCHIVE>. This step creates the cprover/ directory and
+  populates it with a template cprover/rules file.
+  Once the <NAME>.cprover-bm.tar.gz file has been created for the first time, it
+  will only be updated by cpbm update. To this end, cpbm update <SOURCE ARCHIVE>
+  unpacks the source archive into a temporary directory, applies patches
+  previously recorded in cprover/patches, and computes the diff between the
+  current working directory and the contents of the patched source.
+  If new changes are found, these are recorded as new patches in
+  cprover/patches. The sequence of patches to be applied is stored in
+  cprover/patches series. It is recommended that automatically created patches
+  are renamed to more descriptive names.  Consequently such renamings must be
+  reflected in cprover/patches/series.
+
+Usage Example
+-------------
+
+Creating a new benchmark suite, e.g., for the Linux kernel:
+
+Download the original sources from kernel.org:
+$ wget http://www.kernel.org/pub/linux/kernel/v2.6/linux-2.6.19.tar.bz2
+
+Manually unpack them:
+$ tar xjf linux-2.6.19.tar.bz2
+
+We rename the directory to get proper benchmark name "linux-2.6.19-foo"
+$ mv linux-2.6.19 linux-2.6.19-foo
+$ cd linux-2.6.19-foo
+
+Create the basic patch set linux-2.6.19-foo.cprover-bm.tar.gz
+$ cpbm init ../linux-2.6.19.tar.bz2
+
+Edit some source files ... and record patches
+$ cpbm update ../linux-2.6.19.tar.bz2
+
+To make the benchmark source and all patches available for others to use
+publish linux-2.6.19-foo.cprover-bm.tar.gz and the original source archive or
+its URL.
+
+Using the benchmark suite:
+
+$ cpbm unpack \
+  http://www.kernel.org/pub/linux/kernel/v2.6/linux-2.6.19.tar.bz2 \
+  linux-2.6.19-foo.cprover-bm.tar.gz
+$ cd linux-2.6.19-foo
+
+
+Benchmark Execution
+===================
+ 
+cpbm init, as described above, creates as template the cprover/rules file (a
+Makefile). For most basic use cases filling in the names of the benchmarks to be
+run (e.g., all C files without the .c suffix) in the BENCHMARKS = XXX line and
+choosing a suitable default configuration in CONFIG = XXX (see examples in there)
+will suffice to produce a working benchmark package.
+The file may, however, be fully customized as deemed necessary. The only
+assumption made by cpbm is that `cprover/rules clean` performs a cleanup.
+Remember to run cpbm update before distributing the .cprover-bm.tar.gz file.
+
+The actual benchmark execution is then triggered by
+
+$ cprover/rules -j4 verify
+
+to perform verification of all benchmark instances in 4 parallel threads of
+execution with the default configuration. This step first induces a build of
+each benchmark from source, if necessary.
+
+To choose a different configuration for the verification run, override the
+CONFIG variable. For instance, to perform verification using CPAchecker's
+explicit analysis use
+
+$ cprover/rules -j4 verify CONFIG=cpachecker.explicit
+
+Benchmark Execution Helpers
+---------------------------
+
+Benchmark execution makes use of a number of helpers:
+
+- cpbm cillify: transform C sources using the C Intermediate Language tool to a
+  format suitable, e.g., for CPAchecker or BLAST (requires Cil installation).
+
+- cpbm list-claims: the CPROVER tools are able to selectively verify a chosen
+  claim in a program under scrutiny. This tool lists the possible claims as
+  pairs <CLAIM>:<STATUS>, where <CLAIM> is the identifier used by the
+  verification tool and <STATUS> is either UNKNOWN, or TRUE in case a claim is
+  trivially satisfied.
+  If the verification CONFIG does not support specific claims (as is the case
+  for all non-CPROVER tools), ALL_CLAIMS:UNKNOWN is return as pseudo claim
+  identifier and verification status.
+
+- cpbm run: actually executes the verification tool with the configured options
+  and produces a log file. This log file contains the output of the verification
+  tool plus environment information and statistics. All further benchmark
+  evaluation is based on such log files.
+
+
+Result Evaluation
+=================
+
+The names of all log files produced by cpbm run will be listed in
+cprover/verified.$CONFIG. Performing
+
+$ cprover/rules csv
+
+yields a CSV (comma-separated value) formatted summary of all results in
+cprover/results.$CONFIG.csv. This file may be read using most spreadsheet
+programs for further manual inspection and evaluation. With cpbm, however, also
+LaTeX tables, GNUplot graphs, or web pages may be produced:
+
+$ cprover/rules table
+
+yields a LaTeX summary of execution times and memory usage of all benchmark
+instances. With
+
+$ cprover/rules graph
+
+furthermore a GNUplot script is produced which may be copied or piped into
+the gnuplot command.
+
+$ cprover/rules web
+
+collects all log files in a new directory cprover/results.$CONFIG.web plus an
+index.html file that contains an HTML formatted version of the CSV table. Each
+benchmark links to the respective log file.
+
+These steps permits a number of customizations:
+
+- The CSV data is produced by cpbm csv, which uses a specific parser of the
+  output for each verification tool. These parsers are perl scriptlets found in
+  the parse-*.pl file of the CPROVER benchmarking toolkit distribution.
+  To produce additional columns in the CSV file, add further patterns to these
+  parsers or copy and adapt one of the existing parsers. New parsers are
+  preferably added to the distribution, but can also be put in the cprover/
+  directory. If a parser exists both in cprover/ and in the distribution, the
+  former will be used.
+
+- The LaTeX table is generated using cpbm table, which takes as arguments a CSV
+  file and one or more column names that shall be included (in the specified
+  order) in the LaTeX output. Consequently, adding further columns to CSV output
+  as described above also permits printing this output to LaTeX.
+
+- The GNUplot scripts may either be box plots of CPU time and memory usage or
+  scatter plots (using cpbm graph -s) for comparison of two tools. For box plots
+  an arbitrary number of CSV files may be specified, whereas scatter plots
+  require exactly two CSV files.
+

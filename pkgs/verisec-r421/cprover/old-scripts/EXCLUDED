@@ -1,0 +1,16 @@
+bind-ca-1999-14-1 // not a bug
+bind-ca-1999-14-1-fixed // not a bug
+bind-ca-1999-14-4 // not a bug
+bind-ca-1999-14-4-fixed // not a bug
+bind-ca-1999-14-5 // not a bug
+bind-ca-1999-14-5-fixed // not a bug
+bind-ca-1999-14-6 // not a bug
+bind-ca-1999-14-6-fixed // not a bug
+bind-ca-1999-14-7 // not a bug
+bind-ca-1999-14-7-fixed // not a bug
+netbsd-libc-cve-2006-6652-10-1 // not a bug
+netbsd-libc-cve-2006-6652-10-1-fixed // not a bug
+netbsd-libc-cve-2006-6652-10-2 // not a bug
+netbsd-libc-cve-2006-6652-10-2-fixed // not a bug
+sendmail-cve-2003-0681-3 // no buffers in test case
+sendmail-cve-2003-0681-3-1 // no buffers in test case

@@ -1,0 +1,11 @@
+
+This test suite is from
+http://www.cs.toronto.edu/~kelvin/benchmark/
+
+It is described in
+Ku K., Hart T.E., Chechik M., Lie D.: A buffer overflow benchmark for software
+model checkers. ASE 2007: 389-392
+
+The file EXCLUDED contains a list of test cases that were excluded.
+test.pl runs loopfrog for every test case,
+test-noinv.pl runs loopfrog without invariant domains.

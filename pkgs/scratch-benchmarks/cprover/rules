@@ -1,0 +1,133 @@
+#!/usr/bin/make -f
+
+# add benchmark files without suffix here
+BENCHMARK_SOURCES = 1_buf 1_buf_IO 2_buf 2_buf_barrier 2_buf_fence 2_buf_IO 3_buf \
+										3_buf_fence 3_buf_IO 3_buf_IO_barrier 3_buf_IO_fence checksum \
+										cpaudio Euler_complex Julia_2 normalize \
+										race_check_1 race_check_2 simple_dma sync_atomic_op sync_mutex
+# Euler_simple doesn't work because of missing libspe2.h
+BENCHMARKS = $(addsuffix .buggy, $(BENCHMARK_SOURCES)) $(addsuffix .fixed, $(BENCHMARK_SOURCES))
+
+# select a default configuration, timeout and memory limit
+CONFIG = scratch.dfl
+# CONFIG = cbmc.u5-nua
+
+# leave timeout and/or memory limit undefined to not use any limit
+TIMEOUT = 60
+# MAXMEM = 3500
+
+# example configuration - CPROVER tools
+TOOL_OPTS = --function spu_main
+cprover/verified.cbmc.u5-nua: TOOL_OPTS += --unwind 5 --no-unwinding-assertions
+cprover/verified.satabs: TOOL_OPTS += --iterations 20
+cprover/verified.wolverine.u5: TOOL_OPTS += --unwind 5
+
+results.scratch.dfl/%.buggy.vr: TOOL_OPTS += --bug-finding --depth $(DEPTH)
+results.scratch.dfl/1_buf.buggy.vr: DEPTH := 100
+results.scratch.dfl/1_buf_IO.buggy.vr: DEPTH := 109
+results.scratch.dfl/2_buf.buggy.vr: DEPTH := 87
+results.scratch.dfl/2_buf_barrier.buggy.vr: DEPTH := 130
+results.scratch.dfl/2_buf_fence.buggy.vr: DEPTH := 130
+results.scratch.dfl/2_buf_IO.buggy.vr: DEPTH := 137
+results.scratch.dfl/3_buf.buggy.vr: DEPTH := 160
+results.scratch.dfl/3_buf_fence.buggy.vr: DEPTH := 184
+results.scratch.dfl/3_buf_IO.buggy.vr: DEPTH := 160
+results.scratch.dfl/3_buf_IO_barrier.buggy.vr: DEPTH := 133
+results.scratch.dfl/3_buf_IO_fence.buggy.vr: DEPTH := 159
+results.scratch.dfl/checksum.buggy.vr: DEPTH := 53
+results.scratch.dfl/cpaudio.buggy.vr: DEPTH := 57
+results.scratch.dfl/Euler_complex.buggy.vr: DEPTH := 273
+results.scratch.dfl/Euler_simple.buggy.vr: DEPTH := 167
+results.scratch.dfl/Julia_2.buggy.vr: DEPTH := 1955
+results.scratch.dfl/normalize.buggy.vr: DEPTH := 549
+results.scratch.dfl/race_check_1.buggy.vr: DEPTH := 34
+results.scratch.dfl/race_check_2.buggy.vr: DEPTH := 65
+results.scratch.dfl/simple_dma.buggy.vr: DEPTH := 80
+results.scratch.dfl/sync_atomic_op.buggy.vr: DEPTH := 64
+results.scratch.dfl/sync_mutex.buggy.vr: DEPTH := 74
+
+# execute default rules using the variables defined above
+export
+# any of these rules may be overridden by defining rules below
+%:
+	$(MAKE) -f $(shell cpbm home)/rules.cpbm.generic $@
+
+# building the source code
+SUFFIX = bin
+TDMAS = 1
+DEFINES =
+
+build/1_buf_IO.buggy.$(SUFFIX): TDMAS := 2
+
+build/2_buf.buggy.$(SUFFIX): TDMAS := 2
+build/2_buf.fixed.$(SUFFIX): TDMAS := 3
+
+build/2_buf_barrier.buggy.$(SUFFIX): TDMAS := 2
+build/2_buf_barrier.fixed.$(SUFFIX): TDMAS := 4
+
+build/2_buf_fence.buggy.$(SUFFIX): TDMAS := 2
+build/2_buf_fence.fixed.$(SUFFIX): TDMAS := 4
+
+build/2_buf_IO.buggy.$(SUFFIX): TDMAS := 3
+build/2_buf_IO.fixed.$(SUFFIX): TDMAS := 4
+
+build/3_buf.buggy.$(SUFFIX): TDMAS := 3
+build/3_buf.fixed.$(SUFFIX): TDMAS := 3
+
+build/3_buf_fence.buggy.$(SUFFIX): TDMAS := 3
+build/3_buf_fence.fixed.$(SUFFIX): TDMAS := 5
+
+build/3_buf_IO.buggy.$(SUFFIX): TDMAS := 3
+build/3_buf_IO.fixed.$(SUFFIX): TDMAS := 2
+
+build/3_buf_IO_barrier.buggy.$(SUFFIX): TDMAS := 2
+build/3_buf_IO_barrier.fixed.$(SUFFIX): TDMAS := 4
+
+build/3_buf_IO_fence.buggy.$(SUFFIX): TDMAS := 3
+build/3_buf_IO_fence.fixed.$(SUFFIX): TDMAS := 4
+
+build/checksum.buggy.$(SUFFIX): TDMAS := 4
+build/checksum.fixed.$(SUFFIX): TDMAS := 4
+
+build/cpaudio.fixed.$(SUFFIX): TDMAS := 4
+
+build/Euler_complex.buggy.$(SUFFIX): TDMAS := 8
+build/Euler_complex.fixed.$(SUFFIX): TDMAS := 10
+
+build/Euler_simple.buggy.$(SUFFIX): TDMAS := 3
+build/Euler_simple.fixed.$(SUFFIX): TDMAS := 5
+
+build/Julia_2.buggy.$(SUFFIX): DEFINES += -DFIXED_NUM_COLUMNS=2
+build/Julia_2.buggy.$(SUFFIX): TDMAS := 32
+build/Julia_2.fixed.$(SUFFIX): DEFINES += -DFIXED_NUM_COLUMNS=2
+build/Julia_2.fixed.$(SUFFIX): TDMAS := 3
+
+build/normalize.buggy.$(SUFFIX): TDMAS := 12
+build/normalize.fixed.$(SUFFIX): TDMAS := 8
+
+build/race_check_1.fixed.$(SUFFIX): TDMAS := 2
+
+build/race_check_2.buggy.$(SUFFIX): TDMAS := 3
+build/race_check_2.fixed.$(SUFFIX): TDMAS := 4
+
+build/%.fixed.$(SUFFIX): DEFINES += -DCORRECT
+
+
+# trap ... ERR isn't supported by dash, which is used on some systems
+SHELL = /bin/bash
+
+build:
+	test -d cprover
+	$(MAKE) -f cprover/rules cprover/binaries.$(CONFIG)
+
+cprover/binaries.$(CONFIG): $(addsuffix .$(SUFFIX), $(addprefix build/, $(BENCHMARKS)))
+	$(RM) $@
+	set -e ; trap '$(RM) $@' ERR ; \
+	for f in $^ ; do \
+	  echo $$f >> $@ ; \
+	done
+
+build/%.$(SUFFIX): $(shell find $(basename $(basename $(subst build/,,$@))) -name "*.c")
+	mkdir -p $(dir $@)
+	scratch $(DEFINES) -I . spu_mfcio.c --function spu_main $(basename $(basename $(subst build/,,$@)))/*.c --tracked-dmas $(TDMAS) --write-binary $@
+

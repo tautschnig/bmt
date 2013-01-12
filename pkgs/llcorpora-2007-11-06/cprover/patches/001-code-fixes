@@ -1,0 +1,281 @@
+diff -urN -xcprover cproverbm.pOi6eu/bind/b1/nxt-bad.c llcorpora-2007-11-06/bind/b1/nxt-bad.c
+--- cproverbm.pOi6eu/bind/b1/nxt-bad.c	2004-07-28 21:09:18.000000000 +0100
++++ llcorpora-2007-11-06/bind/b1/nxt-bad.c	2011-02-06 03:27:13.000000000 +0000
+@@ -549,8 +549,10 @@
+   
+   int msglen, ret;
+   u_char *dp;
+-  u_char *name = (u_char *) malloc(100*sizeof(u_char));
+-  u_char *msg = (u_char *) malloc(1000 * sizeof(u_char));
++  //u_char *name = (u_char *) malloc(100*sizeof(u_char));
++  u_char name[100];
++  //u_char *msg = (u_char *) malloc(1000 * sizeof(u_char));
++  u_char msg[1000];
+ 
+   printf("Calling create_msg:\n");
+   msglen = create_msg(msg);
+diff -urN -xcprover cproverbm.pOi6eu/sendmail/s1/crackaddr-bad.c llcorpora-2007-11-06/sendmail/s1/crackaddr-bad.c
+--- cproverbm.pOi6eu/sendmail/s1/crackaddr-bad.c	2004-01-05 17:27:48.000000000 +0000
++++ llcorpora-2007-11-06/sendmail/s1/crackaddr-bad.c	2011-02-06 02:56:01.000000000 +0000
+@@ -221,12 +221,12 @@
+ 		if (c == '"' && cmtlev <= 0)
+ 		{
+ 		  printf("quoted string...\n");
+-			qmode = !qmode;
+-			if (copylev > 0 && !skipping)
+-				realqmode = !realqmode;
++		  qmode = (unsigned)!(unsigned)qmode;
++			if (copylev > 0 && !(unsigned)skipping)
++			  realqmode = (unsigned)!(unsigned)realqmode;
+ 			continue;
+ 		}
+-		if (qmode)
++		if ((unsigned)qmode)
+ 			goto putg;
+ 
+ 		/* check for comments */
+@@ -236,7 +236,7 @@
+ 			cmtlev++;
+ 
+ 			/* allow space for closing paren */
+-			if (!skipping)
++			if (!(unsigned)skipping)
+ 			{
+ 				buflim--;
+ 				realcmtlev++;
+@@ -259,7 +259,7 @@
+ 			{
+ 				cmtlev--;
+ 				copylev--;
+-				if (!skipping)
++				if (!(unsigned)skipping)
+ 				{
+ 					realcmtlev--;
+ 					buflim++;
+@@ -270,7 +270,7 @@
+ 		else if (c == ')')
+ 		{
+ 			/* syntax error: unmatched ) */
+-			if (copylev > 0 && !skipping)
++			if (copylev > 0 && !((unsigned)skipping))
+ 				bp--;
+ 		}
+ 
+@@ -282,7 +282,7 @@
+ 
+ 		/* check for group: list; syntax */
+ 		if (c == ':' && anglelev <= 0 && bracklev <= 0 &&
+-		    !gotcolon && !ColonOkInAddr)
++		    !((unsigned)gotcolon) && !((unsigned)ColonOkInAddr))
+ 		{		        
+ 			register char *q;
+ 
+@@ -385,7 +385,7 @@
+ 			**  now (but don't actually do the quoting).
+ 			*/
+ 
+-			if (cmtlev <= 0 && !qmode)
++			if (cmtlev <= 0 && !(unsigned)qmode)
+ 				quoteit = true;
+ 		}
+ 
+@@ -454,13 +454,13 @@
+ 			if (anglelev > 0)
+ 			{
+ 				anglelev--;
+-				if (!skipping)
++				if (!(unsigned)skipping)
+ 				{
+ 					realanglelev--;
+ 					buflim++;
+ 				}
+ 			}
+-			else if (!skipping)
++			else if (!(unsigned)skipping)
+ 			{
+ 				/* syntax error: unmatched > */
+ 				if (copylev > 0)
+diff -urN -xcprover cproverbm.pOi6eu/sendmail/s1/crackaddr-ok.c llcorpora-2007-11-06/sendmail/s1/crackaddr-ok.c
+--- cproverbm.pOi6eu/sendmail/s1/crackaddr-ok.c	2004-01-05 17:27:48.000000000 +0000
++++ llcorpora-2007-11-06/sendmail/s1/crackaddr-ok.c	2011-02-06 03:14:16.000000000 +0000
+@@ -231,18 +231,18 @@
+ 		/* check for quoted strings */
+ 		if (c == '"' && cmtlev <= 0)
+ 		  {
+-			qmode = !qmode;
++			qmode = (unsigned)!(unsigned)qmode;
+ 			if (copylev > 0 && SM_HAVE_ROOM)
+ 			  {
+-			    if (realqmode)
++			    if ((unsigned)realqmode)
+ 			      buflim--;
+ 			    else
+ 				  buflim++;
+-			    realqmode = !realqmode;
++			    realqmode = (unsigned)!(unsigned)realqmode;
+ 			  }
+ 			continue;
+ 		}
+-		if (qmode)
++		if ((unsigned)qmode)
+ 			goto putg;
+ 
+ 		/* check for comments */
+@@ -296,7 +296,7 @@
+ 
+ 		/* check for group: list; syntax */
+ 		if (c == ':' && anglelev <= 0 && bracklev <= 0 &&
+-		    !gotcolon && !ColonOkInAddr)
++		    !(unsigned)gotcolon && !(unsigned)ColonOkInAddr)
+ 		{		        
+ 			register char *q;
+ 
+@@ -395,7 +395,7 @@
+ 			**  now (but don't actually do the quoting).
+ 			*/
+ 
+-			if (cmtlev <= 0 && !qmode)
++			if (cmtlev <= 0 && !(unsigned)qmode)
+ 				quoteit = true;
+ 		}
+ 
+@@ -405,7 +405,7 @@
+ 			register char *q;
+ 
+ 			/* assume first of two angles is bogus */
+-			if (gotangle)
++			if ((unsigned)gotangle)
+ 				quoteit = true;
+ 			gotangle = true;
+ 
+@@ -471,7 +471,7 @@
+ 				anglelev--;
+ 				if (SM_HAVE_ROOM)
+ 				{
+-				  if (addangle)
++				  if ((unsigned)addangle)
+ 				    buflim++;
+ 				  addangle = false;	
+ 				  
+diff -urN -xcprover cproverbm.pOi6eu/sendmail/s2/recipient-bad.c llcorpora-2007-11-06/sendmail/s2/recipient-bad.c
+--- cproverbm.pOi6eu/sendmail/s2/recipient-bad.c	2004-01-05 17:27:42.000000000 +0000
++++ llcorpora-2007-11-06/sendmail/s2/recipient-bad.c	2011-02-06 03:27:13.000000000 +0000
+@@ -140,7 +140,7 @@
+     buf = buf0;
+   (void) strcpy(buf, a->q_user);
+ 	
+-  for (p = buf; *p != '\0' && !quoted; p++)
++  for (p = buf; *p != '\0' && !(unsigned)quoted; p++)
+     {
+       if (*p == '\\')
+ 	quoted = TRUE;
+@@ -270,7 +270,7 @@
+   pw=getpwnam(name);
+   
+ 
+-  if (tryagain && pw != NULL)
++  if ((unsigned)tryagain && pw != NULL)
+     {	
+       *fuzzyp = TRUE;
+       return pw;
+@@ -278,7 +278,7 @@
+ 
+ #if MATCHGECOS
+   /* see if fuzzy matching allowed */
+-  if (!MatchGecos)
++  if (!(unsigned)MatchGecos)
+     {
+       return NULL;
+     }
+diff -urN -xcprover cproverbm.pOi6eu/sendmail/s2/recipient-ok.c llcorpora-2007-11-06/sendmail/s2/recipient-ok.c
+--- cproverbm.pOi6eu/sendmail/s2/recipient-ok.c	2004-01-05 17:27:42.000000000 +0000
++++ llcorpora-2007-11-06/sendmail/s2/recipient-ok.c	2011-02-06 03:27:13.000000000 +0000
+@@ -139,7 +139,7 @@
+     buf = buf0;
+   (void) strcpy(buf, a->q_user);
+ 	
+-  for (p = buf; *p != '\0' && !quoted; p++)
++  for (p = buf; *p != '\0' && !(unsigned)quoted; p++)
+     {
+       if (*p == '\\')
+ 	quoted = TRUE;
+@@ -269,7 +269,7 @@
+ 
+   pw = getpwnam(name);
+   
+-  if (tryagain && pw!= NULL)
++  if ((unsigned)tryagain && pw!= NULL)
+     {	
+       *fuzzyp = TRUE;
+       return pw;
+@@ -277,7 +277,7 @@
+ 
+ #if MATCHGECOS
+   /* see if fuzzy matching allowed */
+-  if (!MatchGecos)
++  if (!(unsigned)MatchGecos)
+     {
+       return NULL;
+     }
+diff -urN -xcprover cproverbm.pOi6eu/wu-ftpd/f2/call_fb_realpath.c llcorpora-2007-11-06/wu-ftpd/f2/call_fb_realpath.c
+--- cproverbm.pOi6eu/wu-ftpd/f2/call_fb_realpath.c	2004-07-29 19:47:57.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f2/call_fb_realpath.c	2011-02-06 03:27:13.000000000 +0000
+@@ -95,7 +95,7 @@
+ 
+   printf("Input path = %s, strlen(path) = %d\n", path, strlen(path));
+   printf("MAXPATHLEN = %d\n", MAXPATHLEN); 
+-  fb_realpath(path, resolved_path);
++  fb_realpath(&path[0], &resolved_path[0]);
+   
+   return 0;
+ }
+diff -urN -xcprover cproverbm.pOi6eu/wu-ftpd/f3/call-realpath-bad.c llcorpora-2007-11-06/wu-ftpd/f3/call-realpath-bad.c
+--- cproverbm.pOi6eu/wu-ftpd/f3/call-realpath-bad.c	2004-07-29 16:32:00.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/call-realpath-bad.c	2011-02-06 03:27:13.000000000 +0000
+@@ -96,7 +96,7 @@
+   printf("Before my-realpath(): uid = %d, gid = %d\n", uid, gid);
+ 
+   printf ("strlen(name) =%d\n", strlen(name));
+-  my_realpath(name, path, chroot_path);
++  my_realpath(&name[0], &path[0], &chroot_path[0]);
+   printf("Resolved path = %s\n", path);
+   printf("After my-realpath(): uid = %d, gid = %d\n", uid, gid);
+ }
+diff -urN -xcprover cproverbm.pOi6eu/wu-ftpd/f3/call-realpath-ok.c llcorpora-2007-11-06/wu-ftpd/f3/call-realpath-ok.c
+--- cproverbm.pOi6eu/wu-ftpd/f3/call-realpath-ok.c	2004-07-29 16:37:21.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/call-realpath-ok.c	2011-02-06 03:27:13.000000000 +0000
+@@ -94,7 +94,7 @@
+   
+   printf("Before my-realpath(): uid = %d, gid = %d\n", uid, gid);
+ 
+-  if (((my_realpath(name, path, chroot_path)) != NULL)) {
++  if (my_realpath(&name[0], &path[0], &chroot_path[0]) != NULL) {
+     printf("Resolved path = %s\n", path);
+   }
+ 
+diff -urN -xcprover cproverbm.pOi6eu/wu-ftpd/f3/realpath-2.4.2-bad.c llcorpora-2007-11-06/wu-ftpd/f3/realpath-2.4.2-bad.c
+--- cproverbm.pOi6eu/wu-ftpd/f3/realpath-2.4.2-bad.c	2004-07-29 16:27:58.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/realpath-2.4.2-bad.c	2011-02-06 02:29:17.000000000 +0000
+@@ -95,6 +95,9 @@
+ #define lstat stat
+ #endif
+ 
++#ifdef S_IFLNK
++#define HAVE_SYMLINK 
++#endif
+ 
+ /* These two lines are needed for PolySpace */ 
+ /*
+diff -urN -xcprover cproverbm.pOi6eu/wu-ftpd/f3/realpath-2.4.2-ok.c llcorpora-2007-11-06/wu-ftpd/f3/realpath-2.4.2-ok.c
+--- cproverbm.pOi6eu/wu-ftpd/f3/realpath-2.4.2-ok.c	2004-07-29 16:36:32.000000000 +0100
++++ llcorpora-2007-11-06/wu-ftpd/f3/realpath-2.4.2-ok.c	2011-02-06 02:33:03.000000000 +0000
+@@ -100,6 +100,9 @@
+ #define lstat stat
+ #endif
+ 
++#ifdef S_IFLNK
++#define HAVE_SYMLINK 
++#endif
+ 
+ /* These two lines are needed for PolySpace */ 
+ /*

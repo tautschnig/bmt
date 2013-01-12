@@ -1,0 +1,12 @@
+diff -urN -xCVS -x.svn -xcprover cproverbm.ijYQmn/indexer/indexer.c predict-example/indexer/indexer.c
+--- cproverbm.ijYQmn/indexer/indexer.c	2009-05-04 20:20:59.000000000 +0100
++++ predict-example/indexer/indexer.c	2011-03-17 03:22:41.000000000 +0000
+@@ -12,7 +12,7 @@
+ 
+ pthread_t  tids[NUM_THREADS];
+ 
+-void assert(int c);
++//void assert(int c);
+ 
+ int cas(int * tab, int h, int val, int new_val)
+ {
