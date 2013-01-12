@@ -13,7 +13,7 @@ help' to get the list of all subcommands.
 
 
 Please report problems, bugs, questions, suggestions to Michael Tautschnig
-<michael.tautschnig@comlab.ox.ac.uk>.
+<michael.tautschnig@gmail.com>.
 
 Benchmark Execution Example
 ===========================
@@ -32,8 +32,8 @@ $ cd linux-2.6.19-ddverify
 Run the default benchmark configuration and produce a LaTeX table
 $ cprover/rules -j4 table
 
-Produce an additional GNUplot script and display the graph
-$ cprover/rules graph | gnuplot
+Produce a TikZ graph as TeX, PDF and PNG
+$ cprover/rules graph
 
 Build a web page providing an overview table and all log files in
 cprover/results.satabs.dfl.web/:
@@ -183,7 +183,7 @@ $ cprover/rules csv
 yields a CSV (comma-separated value) formatted summary of all results in
 cprover/results.$CONFIG.csv. This file may be read using most spreadsheet
 programs for further manual inspection and evaluation. With cpbm, however, also
-LaTeX tables, GNUplot graphs, or web pages may be produced:
+LaTeX tables, TikZ graphs, or web pages may be produced:
 
 $ cprover/rules table
 
@@ -192,8 +192,7 @@ instances. With
 
 $ cprover/rules graph
 
-furthermore a GNUplot script is produced which may be copied or piped into
-the gnuplot command.
+furthermore a graph is produced using TikZ and LaTeX.
 
 $ cprover/rules web
 
@@ -217,8 +216,9 @@ These steps permits a number of customizations:
   order) in the LaTeX output. Consequently, adding further columns to CSV output
   as described above also permits printing this output to LaTeX.
 
-- The GNUplot scripts may either be box plots of CPU time and memory usage or
-  scatter plots (using cpbm graph -s) for comparison of two tools. For box plots
-  an arbitrary number of CSV files may be specified, whereas scatter plots
-  require exactly two CSV files.
+- The presently supported graphs include bar charts, scatter plots and cactus plots,
+  as well some others. These are built using TikZ and LaTeX and display CPU time and
+  memory usage (in box plots) or scatter plots (using cpbm graph -s) for comparison 
+  of two tools. For box plots an arbitrary number of CSV files may be specified, whereas
+  scatter plots require exactly two CSV files.
 
