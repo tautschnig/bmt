@@ -7,8 +7,8 @@ The benchmarking toolkit consists of three main components:
 - Benchmark execution helpers
 - Result evaluation
 
-All steps are performed by subcommands of the main `cpbm' command. Type `cpbm
-help' to get the list of all subcommands.
+All steps are performed by subcommands of the main `cpbm` command. Type `cpbm
+help` to get the list of all subcommands.
 
 
 Please report problems, bugs, questions, suggestions to Michael Tautschnig
@@ -18,25 +18,25 @@ Benchmark Execution Example
 ===========================
 
 Download the benchmark package
-$ wget http://www.cprover.org/software/benchmarks/linux-2.6.19-ddverify.cprover-bm.tar.gz
+`$ wget http://www.cprover.org/software/benchmarks/linux-2.6.19-ddverify.cprover-bm.tar.gz`
 
 Unpack the kernel sources and the patch set
-$ cpbm unpack \
-  http://www.kernel.org/pub/linux/kernel/v2.6/linux-2.6.19.tar.bz2 \
-  linux-2.6.19-ddverify.cprover-bm.tar.gz
+`$ cpbm unpack
+  http://www.kernel.org/pub/linux/kernel/v2.6/linux-2.6.19.tar.bz2
+  linux-2.6.19-ddverify.cprover-bm.tar.gz`
 
 Enter the new directory
-$ cd linux-2.6.19-ddverify
+`$ cd linux-2.6.19-ddverify`
 
 Run the default benchmark configuration and produce a LaTeX table
-$ cprover/rules -j4 table
+`$ cprover/rules -j4 table`
 
 Produce a TikZ graph as TeX, PDF and PNG
-$ cprover/rules graph
+`$ cprover/rules graph`
 
 Build a web page providing an overview table and all log files in
 cprover/results.satabs.dfl.web/:
-$ cprover/rules web
+`$ cprover/rules web`
 
 Patch Set Management
 ====================
@@ -95,20 +95,20 @@ Usage Example
 Creating a new benchmark suite, e.g., for the Linux kernel:
 
 Download the original sources from kernel.org:
-$ wget http://www.kernel.org/pub/linux/kernel/v2.6/linux-2.6.19.tar.bz2
+`$ wget http://www.kernel.org/pub/linux/kernel/v2.6/linux-2.6.19.tar.bz2`
 
 Manually unpack them:
-$ tar xjf linux-2.6.19.tar.bz2
+`$ tar xjf linux-2.6.19.tar.bz2`
 
 We rename the directory to get proper benchmark name "linux-2.6.19-foo"
-$ mv linux-2.6.19 linux-2.6.19-foo
-$ cd linux-2.6.19-foo
+`$ mv linux-2.6.19 linux-2.6.19-foo`
+`$ cd linux-2.6.19-foo`
 
 Create the basic patch set linux-2.6.19-foo.cprover-bm.tar.gz
-$ cpbm init ../linux-2.6.19.tar.bz2
+`$ cpbm init ../linux-2.6.19.tar.bz2`
 
 Edit some source files ... and record patches
-$ cpbm update ../linux-2.6.19.tar.bz2
+`$ cpbm update ../linux-2.6.19.tar.bz2`
 
 To make the benchmark source and all patches available for others to use
 publish linux-2.6.19-foo.cprover-bm.tar.gz and the original source archive or
@@ -116,10 +116,10 @@ its URL.
 
 Using the benchmark suite:
 
-$ cpbm unpack \
-  http://www.kernel.org/pub/linux/kernel/v2.6/linux-2.6.19.tar.bz2 \
-  linux-2.6.19-foo.cprover-bm.tar.gz
-$ cd linux-2.6.19-foo
+`$ cpbm unpack
+  http://www.kernel.org/pub/linux/kernel/v2.6/linux-2.6.19.tar.bz2
+  linux-2.6.19-foo.cprover-bm.tar.gz`
+`$ cd linux-2.6.19-foo`
 
 
 Benchmark Execution
@@ -136,7 +136,7 @@ Remember to run cpbm update before distributing the .cprover-bm.tar.gz file.
 
 The actual benchmark execution is then triggered by
 
-$ cprover/rules -j4 verify
+`$ cprover/rules -j4 verify`
 
 to perform verification of all benchmark instances in 4 parallel threads of
 execution with the default configuration. This step first induces a build of
@@ -146,7 +146,7 @@ To choose a different configuration for the verification run, override the
 CONFIG variable. For instance, to perform verification using CPAchecker's
 explicit analysis use
 
-$ cprover/rules -j4 verify CONFIG=cpachecker.explicit
+`$ cprover/rules -j4 verify CONFIG=cpachecker.explicit`
 
 Benchmark Execution Helpers
 ---------------------------
@@ -177,23 +177,23 @@ Result Evaluation
 The names of all log files produced by cpbm run will be listed in
 cprover/verified.$CONFIG. Performing
 
-$ cprover/rules csv
+`$ cprover/rules csv`
 
 yields a CSV (comma-separated value) formatted summary of all results in
 cprover/results.$CONFIG.csv. This file may be read using most spreadsheet
 programs for further manual inspection and evaluation. With cpbm, however, also
 LaTeX tables, TikZ graphs, or web pages may be produced:
 
-$ cprover/rules table
+`$ cprover/rules table`
 
 yields a LaTeX summary of execution times and memory usage of all benchmark
 instances. With
 
-$ cprover/rules graph
+`$ cprover/rules graph`
 
 furthermore a graph is produced using TikZ and LaTeX.
 
-$ cprover/rules web
+`$ cprover/rules web`
 
 collects all log files in a new directory cprover/results.$CONFIG.web plus an
 index.html file that contains an HTML formatted version of the CSV table. Each
