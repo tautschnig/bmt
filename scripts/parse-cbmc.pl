@@ -48,15 +48,12 @@ sub parse_log {
   my ($LOG, $hash) = @_;
   
   $hash->{Result} = "ERROR";
-  my $find_max = 0;
 
   while (<$LOG>) {
     chomp;
     return 1 if (/^###############################################################################$/);
 
-    if (/^Too many iterations, giving up/) {
-      $hash->{Result} = "TOO_MANY_ITERATIONS";
-    } elsif (/^Timeout: aborting command/) {
+    if (/^Timeout: aborting command/) {
       $hash->{Result} = "TIMEOUT";
     } elsif (/^VERIFICATION\s+(\S+)$/) {
       $hash->{Result} = "$1";
@@ -64,34 +61,22 @@ sub parse_log {
       $hash->{mt_max_per_address} = $1;
     } elsif (/^num-unique-addresses:\s+(\d+)$/) {
       $hash->{mt_num_unique_addresses} = $1;
-    } elsif (/^total-shared-events:\s+(\d+)$/) {
-      $hash->{mt_total_shared_events} = $1;
+    } elsif (/^tot-subevent-count:\s+(\d+)$/) {
+      $hash->{mt_tot_subevent_count} = $1;
+    } elsif (/^(po|rf|rfi|ws|fr|ab):\s+(\d+)$/) {
+      $hash->{mt_$1} = $2;
+    } elsif (/^(atomic-block|rf-at-least-one|thread-spawn|uniproc|thin-air|ws-preceding):\s+(\d+)$/) {
+      $hash->{mt_$1} = $2;
     }
+  }
 
-    $find_max = 1 if (/^Added partial-order constraints:/);
-    $find_max = 0 if (/^Running propositional reduction/);
+  my $max = 0;
+  $hash->{mt_max_constr} = "po (0)";
+  for my $r (qw/po rf ws fr ab/) {
+    my $val = defined($hash->{mt_$r}) ? $hash->{mt_$r} : 0;
+    $val += defined($hash->{mt_rfi}) ? $hash->{mt_rfi} : 0 if($r eq "rf");
 
-    if ($find_max = 1 && /^(\S.*): (\d+)$/) {
-      my $str = $1;
-      my $val = $2;
-      if($str ne "max-per-address" &&
-        $str ne "num-unique-addresses" &&
-        $str ne "total-shared-events") {
-        defined($hash->{mt_max_constr}) or
-          $hash->{mt_max_constr} = "$str ($val)";
-        if(defined($hash->{mt_all_constr})) {
-          $hash->{mt_all_constr} += $val;
-        }
-        else {
-          $hash->{mt_all_constr} = $val;
-        }
-
-        ($hash->{mt_max_constr} =~ /^(.*) \((\d+)\)$/) or
-          die "Invalid format\n";
-
-        $hash->{mt_max_constr} = "$str ($val)" if($2 < $val);
-      }
-    }
+    $hash->{mt_max_constr} = "$r ($val)" if($val > $max);
   }
 }
 

@@ -220,11 +220,13 @@ $title =~ s/, $//;
 $title =~ s/, ([^,]+)$/ and $1/;
 $legend =~ s/, $//;
 my $decoration = "";
-$opt_X and $decoration = "decoration={random steps,segment length=1mm,amplitude=0.2pt}";
+$opt_X and $decoration = "\n    decoration={random steps,segment length=1mm,amplitude=0.2pt}";
 my $axis_decoration = "";
-$opt_X and $axis_decoration = "xticklabel style={/pgf/number format/assume math mode},\n".
+$opt_X and $axis_decoration = "\n  xticklabel style={/pgf/number format/assume math mode},\n".
   "  yticklabel style={/pgf/number format/assume math mode},\n".
   "  decorate";
+my $font = "";
+$opt_X and $font = "\\usepackage{fontspec}\n\\setmainfont[ExternalLocation]{Humor-Sans.ttf}\n";
 
 my $lb = $opt_l ? 0.01 : 0.0;
 
@@ -247,8 +249,7 @@ $width = "\\pgfplotsset{width=${width}cm}\n";
 open TEX, ">$fn.tex";
 print TEX << "EOF";
 \\documentclass{article}
-\\usepackage{fontspec}
-\\setmainfont{Humor-Sans.ttf}
+$font
 \\usepackage{pgfplots}
 \\usetikzlibrary{backgrounds}
 \\tikzset{
@@ -259,8 +260,7 @@ print TEX << "EOF";
             draw=none
         }
     },
-    extra padding/.default=0.5cm,
-    $decoration
+    extra padding/.default=0.5cm,$decoration
 }
 $width
 \\pgfrealjobname{$fn-nn}
@@ -313,8 +313,7 @@ print TEX << "EOF";
   xmin=$rlb,
   ymin=$rlb,
   xmax=$f1_to,
-  ymax=$f2_to,
-  $axis_decoration
+  ymax=$f2_to,$axis_decoration
 ]
 \\addplot+[only marks]
   coordinates {
@@ -367,8 +366,7 @@ EOF
   legend style={at={(0.5,-2.2cm)}, 
   anchor=north,legend columns=-1},
   nodes near coords,
-  point meta=explicit symbolic,
-  $axis_decoration
+  point meta=explicit symbolic,$axis_decoration
 ]
 EOF
   print TEX "\\addplot+ coordinates { $coordstrings{$_} };\n"
@@ -434,8 +432,7 @@ EOF
   symbolic x coords={$labels},
   xtick=data, 
   x tick label style={rotate=60,anchor=east}, 
-  x label style={at={(0.5,${labelloc}cm)}},
-  $axis_decoration
+  x label style={at={(0.5,${labelloc}cm)}},$axis_decoration
 ]
 EOF
   print TEX "\\addplot coordinates { $coordstrings{$_} };\n"

@@ -192,7 +192,7 @@ for my $tn (keys %by_category) {
     print TEX << "EOF";
 \\documentclass{article}
 \\usepackage{fontspec}
-\\setmainfont{Humor-Sans.ttf}
+\\setmainfont[ExternalLocation]{Humor-Sans.ttf}
 \\usepackage{pgf-pie}
 \\pgfrealjobname{$fn-nn}
 \\begin{document}

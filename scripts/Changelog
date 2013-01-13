@@ -1,3 +1,9 @@
+2013-01-12  Michael Tautschnig  <mt@debian.org>
+
+	* make_graph.pl, make_piechart.pl: Fixed bugs in non-xkcd output, improved
+		portability of xkcd output
+	* parse-cbmc.pl: Improved and updated concurrency statistics parsing
+
 2012-10-19  Michael Tautschnig  <mt@debian.org>
 
 	* make_graph.pl, make_piechart.pl: Added option -X to format graphs in xkcd
