@@ -1,3 +1,8 @@
+2013-01-13  Michael Tautschnig  <mt@debian.org>
+
+	* parse-cbmc.pl: Improved concurrency statistics parsing
+	* parse-cseq.pl: Added script to parse CSeq's output
+
 2013-01-12  Michael Tautschnig  <mt@debian.org>
 
 	* make_graph.pl, make_piechart.pl: Fixed bugs in non-xkcd output, improved

@@ -39,7 +39,7 @@
 # THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-# parse the CPROVER tool specific part of a benchmark log file
+# parse the CSeq tool specific part of a benchmark log file
 
 use strict;
 use warnings FATAL => qw(uninitialized);
@@ -55,30 +55,9 @@ sub parse_log {
 
     if (/^Timeout: aborting command/) {
       $hash->{Result} = "TIMEOUT";
-    } elsif (/^VERIFICATION\s+(\S+)$/) {
-      $hash->{Result} = "$1";
-    } elsif (/^size of program expression:\s+(\d+)/) {
-      $hash->{"ssa-size"} = $1;
-    } elsif (/^max-per-address:\s+(\d+)$/) {
-      $hash->{mt_max_per_address} = $1;
-    } elsif (/^num-unique-addresses:\s+(\d+)$/) {
-      $hash->{mt_num_unique_addresses} = $1;
-    } elsif (/^tot-subevent-count:\s+(\d+)$/) {
-      $hash->{mt_tot_subevent_count} = $1;
-    } elsif (/^(po|rf|rfi|ws|fr|ab):\s+(\d+)$/) {
-      $hash->{"mt_$1"} = $2;
-    } elsif (/^(atomic-block|rf-at-least-one|thread-spawn|uniproc|thin-air|ws-preceding):\s+(\d+)$/) {
-      $hash->{"mt_$1"} = $2;
+    } elsif (/^.....(FALSE|TRUE)....$/) { # ignore UNKNOWN -> ERROR
+      $hash->{Result} = ($1 eq "FALSE") ? "FAILED" : "SUCCESSFUL";
     }
-  }
-
-  my $max = 0;
-  $hash->{mt_max_constr} = "po (0)";
-  for my $r (qw/po rf ws fr ab/) {
-    my $val = defined($hash->{"mt_$r"}) ? $hash->{"mt_$r"} : 0;
-    $val += defined($hash->{mt_rfi}) ? $hash->{mt_rfi} : 0 if($r eq "rf");
-
-    $hash->{mt_max_constr} = "$r ($val)" if($val > $max);
   }
 }
 
