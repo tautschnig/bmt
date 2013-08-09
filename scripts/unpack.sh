@@ -52,7 +52,7 @@ die() {
 checked_patch() {
   patch=$1
   [ -f $patch ] || die "Patch file $patch not found" 
-  lc=`patch -f -p1 --dry-run < $patch 2>&1 | egrep -v "^patching file" | wc -l`
+  lc=`patch -f -p1 --dry-run < $patch 2>&1 | egrep -v "^(patching|checking) file" | wc -l`
   if [ $lc -ne 0 ] ; then
     patch -f -p1 --dry-run < $patch || true
     die "Failed to apply patch `basename $patch`"
