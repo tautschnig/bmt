@@ -196,7 +196,7 @@ cprover/verified.cbmc.dfl: TOOL_OPTS := --bounds-check --div-by-zero-check --poi
 cprover/verified.cbmc.boolector: TOOL_OPTS := --bounds-check --div-by-zero-check --pointer-check --signed-overflow-check --unsigned-overflow-check
 cprover/verified.cbmc.boolector: TOOL_OPTS += --boolector
 cprover/verified.cbmc.profiling: TOOL_OPTS := --bounds-check --div-by-zero-check --pointer-check --signed-overflow-check --unsigned-overflow-check
-cprover/verified.cbmc.profiling: POST_RUN := cd $$tdir ; gprof `/usr/bin/which $$tool` $$tbasename.gmon.out.* > $$tbasename.profile
+cprover/verified.cbmc.profiling: POST_RUN := cd $$tdir ; rm -f `ls -rt $$tbasename.gmon.out.* | head -n-1` ; gprof `/usr/bin/which $$tool` $$tbasename.gmon.out.* > $$tbasename.profile
 include cprover/cbmc_opts
 
 cprover/verified.esbmc.dfl: TOOL_OPTS := -I $(BASEDIR)/include/esbmc --overflow-check
@@ -271,7 +271,8 @@ else
 endif
 endif
 
-build: cprover/clang/clang
+#cprover/clang/clang
+build:
 	test -d cprover
 	$(MAKE) -f cprover/rules cprover/binaries.$(CONFIG)
 
