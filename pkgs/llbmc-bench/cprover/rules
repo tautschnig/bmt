@@ -306,9 +306,12 @@ results.$(CONFIG)/%vr: build/%$(SUFFIX)
 	tool="$(TOOL)" ; if [ "x$$tool" = "x" ] ; then tool="$(basename $(CONFIG))" ; fi ; \
 	timeout="$(TIMEOUT)" ; if [ "x$$timeout" != "x" ] ; then timeout="--timeout $(TIMEOUT)" ; fi ; \
 	maxmem="$(MAXMEM)" ; if [ "x$$maxmem" != "x" ] ; then maxmem="--maxmem $(MAXMEM)" ; fi ; \
+	bm="`echo $@ | sed 's#^results.$(CONFIG)/##' | sed 's/.vr$$//'`" ; \
+	st="`grep "^$$bm:" cprover/expected_results | cut -f2 -d:`" ; \
+	if [ "x$$st" = "x" ] ; then st="unknown" ; fi ; \
 	cd $(dir $@) ; \
 	export GMON_OUT_PREFIX=$(basename $(notdir $@)).gmon.out ; \
-	cpbm run $$timeout $$maxmem --cmd $$tool $(realpath $<) -- $(TOOL_OPTS) | tee $(abspath $@) ; \
+	cpbm run $$timeout $$maxmem --$$st --cmd $$tool $(realpath $<) -- $(TOOL_OPTS) | tee $(abspath $@) ; \
 	exit $${PIPESTATUS[0]}
 	tool="$(TOOL)" ; if [ "x$$tool" = "x" ] ; then tool="$(basename $(CONFIG))" ; fi ; \
 	tdir=$(dir $@) ; tbasename=$(basename $(notdir $@)) ; $(POST_RUN)
