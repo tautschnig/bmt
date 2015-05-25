@@ -1,11 +1,14 @@
-Benchmarking Toolkit
-====================
+Software Analysis Benchmarking Toolkit
+======================================
 
 The benchmarking toolkit consists of three main components:
 
-- Patch set management tools
-- Benchmark execution helpers
-- Result evaluation
+- Patch set management tools to track changes over the original source of a set
+  of benchmarks;
+- Benchmark execution helpers to prepare benchmarks for various tools, run
+  benchmarks in parallel, and limit execution;
+- Result evaluation and presentation, generating LaTeX tables, HTML output, and
+  LaTeX/TikZ plots.
 
 All steps are performed by subcommands of the main `cpbm` command. Type `cpbm
 help` to get the list of all subcommands.

@@ -11,7 +11,12 @@ Architecture: all
 Depends: ${perl:Depends}, ${misc:Depends}, gcc, make, libtext-csv-perl
 Recommends: wget
 Suggests: ocaml-cil, runlim, pgf
-Description: CPROVER benchmarking framework
- The CPROVER benchmarking framework is a collection of scripts that manage,
- execute, and evaluate benchmarks for software analysis tools. The management
- part is similar to Debian packages with explicit tracking of patches.
+Description: software analysis benchmarking toolkit
+ The benchmarking toolkit consists of three main components:
+ .
+ - Patch set management tools to track changes over the original source of a
+   set of benchmarks;
+ - Benchmark execution helpers to prepare benchmarks for various tools, run
+   benchmarks in parallel, and limit execution;
+ - Result evaluation and presentation, generating LaTeX tables, HTML output,
+   and LaTeX/TikZ plots.
