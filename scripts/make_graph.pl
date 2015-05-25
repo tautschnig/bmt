@@ -115,9 +115,24 @@ foreach my $f (keys %files_filters) {
   while (my $row = $csv->getline_hr($CSV)) {
     ++$dbg_lno;
     foreach (qw(command timeout uname cpuinfo meminfo memlimit)) {
-      defined($row->{$_}) or die "No $_ data in $f, line $dbg_lno\n";
+      my $val="";
+      if(!defined($row->{$_}))
+      {
+        if($_ eq "command")
+        {
+          die "No $_ data in $f, line $dbg_lno\n";
+        }
+        else
+        {
+          warn "No $_ data in $f, line $dbg_lno\n";
+        }
+      }
+      else
+      {
+        $val=$row->{$_};
+      }
       if ($_ eq "command" && defined($globals{$_}) &&
-          !defined($globals{$_}{$row->{$_}})) {
+          !defined($globals{$_}{$val})) {
         my $cmd = "";
         for (keys %{ $globals{command} }) {
           ($cmd eq "") or die "Only single preceding command expected\n";
@@ -131,13 +146,17 @@ foreach my $f (keys %files_filters) {
         $globals{command}{"$cmd (multiple options)"} = 1;
       } else {
         defined($globals{$_}) or $globals{$_} = ();
-        $globals{$_}{$row->{$_}} = 1;
+        $globals{$_}{$val} = 1;
       }
     }
-    
+
     (defined($row->{$_}) && ! ($row->{$_} =~ /^\s*$/))
       or die "No $_ data in $f, line $dbg_lno\n"
-      foreach (qw(Benchmark Result usertime maxmem));
+      foreach (qw(Benchmark usertime));
+
+    (defined($row->{$_}) && ! ($row->{$_} =~ /^\s*$/))
+      or warn "No $_ data in $f, line $dbg_lno\n"
+      foreach (qw(Result maxmem));
 
     my $col = $files_filters{$f}{column};
     my $flt = $files_filters{$f}{filter};
@@ -223,8 +242,7 @@ my $decoration = "";
 $opt_X and $decoration = "\n    decoration={random steps,segment length=1mm,amplitude=0.2pt}";
 my $axis_decoration = "";
 $opt_X and $axis_decoration = "\n  xticklabel style={/pgf/number format/assume math mode},\n".
-  "  yticklabel style={/pgf/number format/assume math mode},\n".
-  "  decorate";
+  "  yticklabel style={/pgf/number format/assume math mode}";
 my $font = "";
 $opt_X and $font = "\\usepackage{fontspec}\n\\setmainfont[ExternalLocation]{Humor-Sans.ttf}\n";
 
