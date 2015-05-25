@@ -1,3 +1,13 @@
+2015-05-25  Michael Tautschnig  <mt@debian.org>
+
+	* make_graph.pl: Reduce restrictions on data input
+	* VERSION: Release 0.6
+
+2013-08-09  Michael Tautschnig  <mt@debian.org>
+
+	* unpack.sh: Fix for newer versions of patch
+	* parse-cseq.pl: Added script to parse CSeq's output
+
 2013-01-13  Michael Tautschnig  <mt@debian.org>
 
 	* parse-cbmc.pl: Improved concurrency statistics parsing
