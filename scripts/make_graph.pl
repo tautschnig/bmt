@@ -468,6 +468,7 @@ print TEX << "EOF";
 EOF
 
 system("TEXMFHOME=base:pgfplots ".($opt_X ? "xelatex" : "pdflatex")." --jobname=$fn $fn");
+# This is dangerous in Windows as convert changes the file system...
 system("convert -density 96 -units PixelsPerInch $fn.pdf $fn.png");
 
 system("rm -r pgfplots") if($pgfplotsdl);
