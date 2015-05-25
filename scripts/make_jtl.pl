@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 #
-# Copyright (c) 2012 Michael Tautschnig <michael.tautschnig@cs.ox.ac.uk>
-# Department of Computer Science, Oxford University
+# Copyright (c) 2011 Michael Tautschnig <michael.tautschnig@comlab.ox.ac.uk>
+#               2015 Michael Tautschnig <michael.tautschnig@qmul.ac.uk>
 # 
 # All rights reserved. Redistribution and use in source and binary forms, with
 # or without modification, are permitted provided that the following
@@ -17,9 +17,8 @@
 #   3. All advertising materials mentioning features or use of this software
 #      must display the following acknowledgement:
 # 
-#      This product includes software developed by Daniel Kroening,
-#      Edmund Clarke, Computer Systems Institute, ETH Zurich
-#      Computer Science Department, Carnegie Mellon University
+#      This product includes software developed by Michael Tautschnig,
+#      Queen Mary University of London
 # 
 #   4. Neither the name of the University nor the names of its contributors
 #      may be used to endorse or promote products derived from this software

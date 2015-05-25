@@ -1,12 +1,12 @@
-Source: cpbm
+Source: bmt
 Section: science
 Priority: extra
 Maintainer: Michael Tautschnig <mt@debian.org>
 Build-Depends: debhelper (>= 7.0.50~)
 Standards-Version: 3.9.1
-Homepage: http://www.cprover.org/software/benchmarks
+Homepage: https://github.com/tautschnig/bmt
 
-Package: cpbm
+Package: bmt
 Architecture: all
 Depends: ${perl:Depends}, ${misc:Depends}, gcc, make, libtext-csv-perl
 Recommends: wget
