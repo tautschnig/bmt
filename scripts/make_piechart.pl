@@ -143,7 +143,7 @@ foreach my $f (@files) {
 
 my $pgfbasedl = 0;
 my $pgfplotsdl = 0;
-system("wget http://antiyawn.com/uploads/Humor-Sans.ttf")
+system("wget --no-check-certificate https://github.com/shreyankg/xkcd-desktop/raw/master/Humor-Sans.ttf")
   if($opt_X && ! -f "Humor-Sans.ttf");
 if(! -f "pgf-pie.sty") {
   system("wget http://pgf-pie.googlecode.com/files/pgf-pie-0.2.zip");

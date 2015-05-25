@@ -208,7 +208,7 @@ foreach my $f (keys %files_filters) {
   }
 }
 
-system("wget http://antiyawn.com/uploads/Humor-Sans.ttf")
+system("wget --no-check-certificate https://github.com/shreyankg/xkcd-desktop/raw/master/Humor-Sans.ttf")
   if($opt_X && ! -f "Humor-Sans.ttf");
 my $pgfbasedl = 0;
 if(! -d "base") {
