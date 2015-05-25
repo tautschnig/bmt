@@ -3,7 +3,7 @@ Section: science
 Priority: extra
 Maintainer: Michael Tautschnig <mt@debian.org>
 Build-Depends: debhelper (>= 7.0.50~)
-Standards-Version: 3.9.1
+Standards-Version: 3.9.6
 Homepage: https://github.com/tautschnig/bmt
 
 Package: bmt
@@ -14,9 +14,9 @@ Suggests: ocaml-cil, runlim, pgf
 Description: software analysis benchmarking toolkit
  The benchmarking toolkit consists of three main components:
  .
- - Patch set management tools to track changes over the original source of a
-   set of benchmarks;
- - Benchmark execution helpers to prepare benchmarks for various tools, run
-   benchmarks in parallel, and limit execution;
- - Result evaluation and presentation, generating LaTeX tables, HTML output,
-   and LaTeX/TikZ plots.
+  - Patch set management tools to track changes over the original source of a
+    set of benchmarks;
+  - Benchmark execution helpers to prepare benchmarks for various tools, run
+    benchmarks in parallel, and limit execution;
+  - Result evaluation and presentation, generating LaTeX tables, HTML output,
+    and LaTeX/TikZ plots.

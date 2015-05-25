@@ -1,0 +1,3 @@
+bmt binary: script-not-executable usr/share/bmt/parse-*.pl
+bmt binary: script-not-executable usr/share/bmt/rules.cpbm.generic
+bmt binary: script-not-executable usr/share/bmt/rules.template
