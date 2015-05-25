@@ -10,15 +10,3 @@ version=3
 # <Webpage URL> <string match>
 opts=filenamemangle=s/.+\/v?(\d\S*)\.tar\.gz/bmt-$1\.tar\.gz/ \
   https://github.com/tautschnig/bmt/tags .*/v?(\d\S*)\.tar\.gz
-
-# Uncomment to examine a Webserver directory
-#http://www.example.com/pub/cpbm-(.*)\.tar\.gz
-
-# Uncommment to examine a FTP server
-#ftp://ftp.example.com/pub/cpbm-(.*)\.tar\.gz debian uupdate
-
-# Uncomment to find new files on sourceforge, for devscripts >= 2.9
-# http://sf.net/cpbm/cpbm-(.*)\.tar\.gz
-
-# Uncomment to find new files on GooglePages
-# http://example.googlepages.com/foo.html cpbm-(.*)\.tar\.gz

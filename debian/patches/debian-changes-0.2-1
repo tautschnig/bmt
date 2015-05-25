@@ -30,7 +30,7 @@ Last-Update: <YYYY-MM-DD>
  
  SELF=$0
 -SCRIPT_HOME=`dirname $0`
-+SCRIPT_HOME=/usr/share/cpbm
++SCRIPT_HOME=/usr/share/bmt
  CMD=$1
  
  if [ $# -lt 1 ] ; then
