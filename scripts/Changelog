@@ -1,3 +1,7 @@
+2015-05-27  Michael Tautschnig  <mt@debian.org>
+
+	* parse-klee.pl: Added script to parse KLEE's output
+
 2015-05-25  Michael Tautschnig  <mt@debian.org>
 
 	* make_graph.pl: Reduce restrictions on data input
