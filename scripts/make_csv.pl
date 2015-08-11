@@ -91,13 +91,13 @@ sub parse_description {
       $hash->{$mode} = "$1 $3";
     } elsif ($mode eq "cpuinfo") {
       defined($hash->{$mode}) or $hash->{$mode} = "0x XXX \@\@YYYMHz";
-      /^(processor\s*:\s*(\d+))|(model name\s*:\s*(.*))|(cpu MHz\s*:\s*(.*))$/ or next;
+      /^(processor\s*:\s*(\d+))|(model name\s*:\s*(.*?))|(cpu MHz\s*:\s*(.*?))\s*$/ or next;
       if (defined($2)) {
         ($hash->{$mode} =~ /^(\d+)(x .*)$/) or die "Invalid cpu def\n";
         $hash->{$mode} = ($1 + 1) . $2;
       } elsif (defined($4)) {
         my $model = $4;
-        ($hash->{$mode} =~ /^(\d+)x (.*) @@(.*)MHz$/) or die "Invalid cpu def\n";
+        ($hash->{$mode} =~ /^(\d+)x (.*?)\s+@@(.*)MHz$/) or die "Invalid cpu def\n";
         ($2 eq "XXX") or ($2 eq $model) or die "NUMA system with both $model and $2 not supported\n";
         $hash->{$mode} = "$1x $model \@\@$3MHz";
       } elsif (defined($6)) {
